@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1684
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GbrSchedulero", "GbrSchedulero\GbrSchedulero.csproj", "{F8FA8A9E-CC6D-46C0-8F0E-500830F0EA46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GbrSchedulero", "GbrSchedulero\GbrSchedulero.csproj", "{F8FA8A9E-CC6D-46C0-8F0E-500830F0EA46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GbrUnitTests", "UnitTestProject1\GbrUnitTests.csproj", "{26F18A8B-4068-4DB2-81BC-DB510D7B1FCC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GbrUnitTests", "GbrUnitTests\GbrUnitTests.csproj", "{DAECED5F-4C76-4C2D-8FB0-712E6BE7FF7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{F8FA8A9E-CC6D-46C0-8F0E-500830F0EA46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8FA8A9E-CC6D-46C0-8F0E-500830F0EA46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8FA8A9E-CC6D-46C0-8F0E-500830F0EA46}.Release|Any CPU.Build.0 = Release|Any CPU
-		{26F18A8B-4068-4DB2-81BC-DB510D7B1FCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{26F18A8B-4068-4DB2-81BC-DB510D7B1FCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{26F18A8B-4068-4DB2-81BC-DB510D7B1FCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{26F18A8B-4068-4DB2-81BC-DB510D7B1FCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAECED5F-4C76-4C2D-8FB0-712E6BE7FF7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAECED5F-4C76-4C2D-8FB0-712E6BE7FF7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAECED5F-4C76-4C2D-8FB0-712E6BE7FF7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAECED5F-4C76-4C2D-8FB0-712E6BE7FF7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
