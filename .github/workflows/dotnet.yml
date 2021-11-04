@@ -21,6 +21,6 @@ jobs:
       run: dotnet restore
       working-directory: ./GbrSchedulero
     - name: Build
-      run: dotnet build --no-restore GbrSchedulero/GbrSchedulero.csproj
+      run: dotnet build --no-restore 
     - name: Test
-      run: dotnet test --no-build --verbosity normal UnitTestProject1/GbrUnitTests.csproj
+      run: dotnet test --no-build --verbosity normal
