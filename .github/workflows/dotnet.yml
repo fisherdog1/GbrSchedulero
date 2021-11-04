@@ -18,12 +18,11 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
+      working-directory: ./GbrSchedulero
       run: dotnet restore
     - name: Build
-      run: pwd
-    - name: this is the worst syntax I have ever put up with
-      run: ls -lrt
-    - name: wtf
-      run: dotnet build --no-restore ./GbrSchedulero
+      working-directory: ./GbrSchedulero
+      run: dotnet build --no-restore 
     - name: Test
-      run: dotnet test --no-build --verbosity normal ./GbrSchedulero
+      working-directory: ./GbrSchedulero
+      run: dotnet test --no-build --verbosity normal
