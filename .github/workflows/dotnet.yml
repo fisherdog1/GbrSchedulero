@@ -26,5 +26,5 @@ jobs:
     - name: Test
       working-directory: ./GbrSchedulero
       env: 
-        DB_SECRET: ${{secrets.DATABASEPASSWORD}}
+        DB_CS_TEST: ${{secrets.DB_CS_TEST}}
       run: dotnet test --no-build --verbosity normal
