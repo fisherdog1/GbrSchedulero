@@ -2,6 +2,7 @@ using GbrSchedulero;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Extensions.Configuration;
 using System.Configuration;
+using System;
 
 namespace GbrUnitTests
 {
@@ -9,6 +10,7 @@ namespace GbrUnitTests
     public class UnitTest1
     {
         public IConfigurationRoot? Configuration;
+        public string connectionString;
 
         [TestInitialize]
         public void TestInit()
@@ -17,6 +19,17 @@ namespace GbrUnitTests
                 .AddUserSecrets<UnitTest1>();
 
             this.Configuration = config.Build();
+
+            //Use user secret database password
+            this.connectionString = Configuration["DB_CS_TEST"];
+
+            if (string.IsNullOrEmpty(this.connectionString))
+            {
+                //Use environment variable secret, passed by Github Action
+                this.connectionString = System.Environment.GetEnvironmentVariable("DB_CS_TEST");
+                if (string.IsNullOrEmpty(this.connectionString))
+                    Console.WriteLine("DB_CS_TEST not found. If testing locally, you must set the DB_CS_TEST user secret for this project.");
+            }
         }
 
         [TestMethod]
@@ -28,18 +41,9 @@ namespace GbrUnitTests
         [TestMethod]
         public void DatabaseConnTest()
         {
-            string user = System.Environment.GetEnvironmentVariable("DB_SECRET");
-
-            if (string.IsNullOrEmpty(user))
-            {
-                user = Configuration["DB_SECRET"];
-
-                if (string.IsNullOrEmpty(user))
-                    throw new System.Exception("DB_SECRET not found!");
-            }
-
-            int result = Program.DatabaseConnTest(user);
-            Assert.AreEqual(result, 1);
+            Console.WriteLine("Connection String: " + this.connectionString);
+            int result = Program.DatabaseConnTest(this.connectionString);
+            Assert.AreEqual(1, result);
         }
     }
 }

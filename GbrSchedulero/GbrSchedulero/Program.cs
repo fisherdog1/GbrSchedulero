@@ -7,19 +7,15 @@ namespace GbrSchedulero
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Provided DB Password: " + args[0]);
-            DatabaseConnTest(args[0]);
         }
 
-        public static int DatabaseConnTest(String dbPassword)
+        public static int DatabaseConnTest(String connectionString)
         {
-            String connString = "server=gbrschedulero.c5vcx9th6rqh.us-east-2.rds.amazonaws.com;uid=admin;pwd={0};database=schedulero";
-
             MySqlConnection conn;
 
             try
             {
-                conn = new MySqlConnection(String.Format(connString,dbPassword));
+                conn = new MySqlConnection(connectionString);
                 conn.Open();
             } catch (MySqlException e)
             {
