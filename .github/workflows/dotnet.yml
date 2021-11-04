@@ -25,4 +25,6 @@ jobs:
       run: dotnet build --no-restore 
     - name: Test
       working-directory: ./GbrSchedulero
-      run: dotnet test --no-build --verbosity normal
+      env: 
+        DB_SECRET: ${{secrets.DATABASEPASSWORD}}
+      run: dotnet test --no-build --verbosity normal "$DB_SECRET"
