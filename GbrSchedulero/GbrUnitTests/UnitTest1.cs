@@ -11,5 +11,13 @@ namespace GbrUnitTests
         {
             Assert.AreEqual(Program.TrivialTestMethod(), 1);
         }
+
+        [TestMethod]
+        public void DatabaseConnTest()
+        {
+            string user = System.Environment.GetEnvironmentVariable("DB_SECRET");
+            int result = Program.DatabaseConnTest(user);
+            Assert.AreEqual(result, 1);
+        }
     }
 }
