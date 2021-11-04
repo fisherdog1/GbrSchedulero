@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1684
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GbrSchedulero", "GbrSchedulero\GbrSchedulero.csproj", "{F8FA8A9E-CC6D-46C0-8F0E-500830F0EA46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GbrUnitTests", "UnitTestProject1\GbrUnitTests.csproj", "{26F18A8B-4068-4DB2-81BC-DB510D7B1FCC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F8FA8A9E-CC6D-46C0-8F0E-500830F0EA46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8FA8A9E-CC6D-46C0-8F0E-500830F0EA46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8FA8A9E-CC6D-46C0-8F0E-500830F0EA46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8FA8A9E-CC6D-46C0-8F0E-500830F0EA46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26F18A8B-4068-4DB2-81BC-DB510D7B1FCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26F18A8B-4068-4DB2-81BC-DB510D7B1FCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26F18A8B-4068-4DB2-81BC-DB510D7B1FCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26F18A8B-4068-4DB2-81BC-DB510D7B1FCC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DDA81835-FF54-4861-B561-68FF5DBEE342}
+	EndGlobalSection
+EndGlobal
