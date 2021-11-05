@@ -41,7 +41,6 @@ namespace GbrUnitTests
         [TestMethod]
         public void DatabaseConnTest()
         {
-            Console.WriteLine("Connection String: " + this.connectionString);
             int result = Program.DatabaseConnTest(this.connectionString);
             Assert.AreEqual(1, result);
         }
