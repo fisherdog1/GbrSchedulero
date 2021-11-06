@@ -1,0 +1,3 @@
+- Visual studio and user secret setup.
+- Verify initial unit tests work on everyone's machine
+- Check that everyone has access to repo and can make commits
