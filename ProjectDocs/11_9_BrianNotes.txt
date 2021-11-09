@@ -1,0 +1,19 @@
+11/9 meeting notes:
+
+Brian:
+- Create UML diagram
+- Get idea of what needs to be on an ER diagram for the database setup
+
+Aaron:
+- Test data generators
+- Design interfaces for required classes
+
+Mohammed:
+- We are developing by testing
+- Test cases can be written now for certain expected behavior
+
+Nhien:
+- Draft UI/UX design documentation
+
+
+What we have set for issues this week should keep us on track for completing the project in time.
