@@ -9,7 +9,7 @@ namespace GbrSchedulero
     /// <summary>
     /// Represents a flight plan, from which Flights are created, and may be recurring
     /// </summary>
-    abstract class FlightPlan
+    public abstract class FlightPlan
     {
         public abstract string GetFlightNumber();
         public abstract object GetNextDeparture();

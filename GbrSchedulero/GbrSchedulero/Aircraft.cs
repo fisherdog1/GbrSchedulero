@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GbrSchedulero
 {
-    abstract class Aircraft
+    public abstract class Aircraft
     {
         private AircraftType type;
 

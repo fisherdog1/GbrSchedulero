@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GbrSchedulero
 {
-    abstract class Airport
+    public abstract class Airport
     {
         public abstract string GetName();
 

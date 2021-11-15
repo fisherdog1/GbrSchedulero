@@ -44,5 +44,11 @@ namespace GbrUnitTests
             int result = Program.DatabaseConnTest(this.connectionString);
             Assert.AreEqual(1, result);
         }
+
+        [TestMethod]
+        public void TestCrewNames()
+        {
+            TestCrewBuilder tcb = new TestCrewBuilder();
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GbrSchedulero
 {
-    abstract class Crewmember
+    public abstract class Crewmember
     {
         public abstract string GetFirstName();
         public abstract string GetLastName();

@@ -16,7 +16,7 @@ namespace GbrSchedulero
     /// Provisionally abstract for outlining purposes. Will most likely become concrete later
     /// Return types and parameters with type Object indicate undecided types.
     /// </summary>
-    abstract class AircraftType
+    public abstract class AircraftType
     {
         public abstract int GetPassengerSeats();
         public abstract string GetTypeName();

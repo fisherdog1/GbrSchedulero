@@ -9,7 +9,7 @@ namespace GbrSchedulero
     /// <summary>
     /// Represents a single instance of a Flight, i.e. Not a recurring schedule
     /// </summary>
-    abstract class Flight
+    public abstract class Flight
     {
         /// <summary>
         /// True if this flight has landed at any destination, potentially not the planned destination
