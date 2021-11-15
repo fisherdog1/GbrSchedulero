@@ -16,16 +16,63 @@ namespace GbrSchedulero
     /// Provisionally abstract for outlining purposes. Will most likely become concrete later
     /// Return types and parameters with type Object indicate undecided types.
     /// </summary>
-    public abstract class AircraftType
+    public class AircraftType
     {
-        public abstract int GetPassengerSeats();
-        public abstract string GetTypeName();
+        public string TypeName { get; private set; }
+        public int MaxPassengers { get; private set; }
+        private List<CrewStation> stations;
+
+        public AircraftType(string typeName, int maxPassengers)
+        {
+            this.TypeName = typeName;
+            this.MaxPassengers = maxPassengers;
+            this.stations = new List<CrewStation>();
+        }
+
+        public void AddStation(CrewStation station)
+        {
+            this.stations.Add(station);
+        }
+
+        public static AircraftType GBR10()
+        {
+            AircraftType gbr10 = new AircraftType("GBR-10", 45);
+
+            gbr10.AddStation(new CrewStation(StationType.Captain));
+            gbr10.AddStation(new CrewStation(StationType.Officer));
+            gbr10.AddStation(new CrewStation(StationType.Attendant));
+
+            return gbr10;
+        }
+
+        public static AircraftType NU150()
+        {
+            AircraftType nu150 = new AircraftType("NU-150", 75);
+
+            nu150.AddStation(new CrewStation(StationType.Captain));
+            nu150.AddStation(new CrewStation(StationType.Officer));
+            nu150.AddStation(new CrewStation(StationType.Attendant));
+            nu150.AddStation(new CrewStation(StationType.Attendant));
+
+            return nu150;
+        }
+
+        //public abstract int GetPassengerSeats();
+        //public abstract string GetTypeName();
         
         /// <summary>
         /// Get the possible crew stations. In our case this will always be a captain and first officer station, plus one or more attendant stations.
         /// Crew qualifications are based on both the AircraftType and the station (implementation tbd).
         /// </summary>
         /// <returns></returns>
-        public abstract object GetCrewStations();
+        public object GetCrewStations()
+        {
+            return stations;
+        }
+
+        public override string ToString()
+        {
+            return TypeName;
+        }
     }
 }

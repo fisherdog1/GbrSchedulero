@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Extensions.Configuration;
 using System.Configuration;
 using System;
+using System.Collections.Generic;
 
 namespace GbrUnitTests
 {
@@ -45,10 +46,16 @@ namespace GbrUnitTests
             Assert.AreEqual(1, result);
         }
 
+        /// <summary>
+        /// Does nothing yet, but allows one to see how test crews are generated.
+        /// </summary>
         [TestMethod]
         public void TestCrewNames()
         {
             TestCrewBuilder tcb = new TestCrewBuilder();
+            List<Crewmember> exampleCrew = tcb.GenerateCrews();
+
+            Assert.IsTrue(true);
         }
     }
 }
