@@ -38,7 +38,7 @@ namespace GbrSchedulero
                 }
                 catch (MySqlException e)
                 {
-                    throw new Exception("NOT CONNECTED TO DATABASE", e);
+                    Console.WriteLine("Db not connected" + e.Message);
                 }
 
                 MySqlCommand cmd = new MySqlCommand("Select * from Flight;", conn);
@@ -95,7 +95,7 @@ namespace GbrSchedulero
                 }
                 catch (MySqlException e)
                 {
-                    throw new Exception("NOT CONNECTED TO DATABASE", e);
+                    Console.WriteLine("Db not connected" + e.Message);
                 }
 
                 MySqlCommand cmd = new MySqlCommand("Select * from Airport;", conn);
@@ -127,9 +127,6 @@ namespace GbrSchedulero
         //Need a way to identify different crews
         //public string GetCrews() { }
 
-
-
-
         // Returns an aircraft given its registration number
         public Aircraft GetAircraft(string registrationNumber)
         {
@@ -146,7 +143,7 @@ namespace GbrSchedulero
                 }
                 catch (MySqlException e)
                 {
-                    throw new Exception("NOT CONNECTED TO DATABASE", e);
+                    Console.WriteLine("Db not connected" + e.Message);
                 }
 
                 MySqlCommand cmd = new MySqlCommand("Select * from Aircraft where registrationNumber = @registrationNumber;", conn);
@@ -183,7 +180,7 @@ namespace GbrSchedulero
                 }
                 catch (MySqlException e)
                 {
-                    throw new Exception("NOT CONNECTED TO DATABASE", e);
+                    Console.WriteLine("Db not connected" + e.Message);
                 }
 
                 MySqlCommand cmd = new MySqlCommand("Select * from Flight where flightNumber = @flightNumber;", conn);
@@ -222,7 +219,7 @@ namespace GbrSchedulero
         }
 
 
-        // Returns an airport given its name
+        // Returns an airport given its ?
 
     }
 }
