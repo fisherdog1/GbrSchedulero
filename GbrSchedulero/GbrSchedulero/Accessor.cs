@@ -38,7 +38,7 @@ namespace GbrSchedulero
                 }
                 catch (MySqlException e)
                 {
-                    Console.WriteLine("Db not connected" + e.Message);
+                    throw new Exception("DATABASE NOT CONNECTED", e);
                 }
 
                 MySqlCommand cmd = new MySqlCommand("Select * from Flight;", conn);
@@ -95,7 +95,7 @@ namespace GbrSchedulero
                 }
                 catch (MySqlException e)
                 {
-                    Console.WriteLine("Db not connected" + e.Message);
+                    throw new Exception("DATABASE NOT CONNECTED", e);
                 }
 
                 MySqlCommand cmd = new MySqlCommand("Select * from Airport;", conn);
@@ -128,95 +128,95 @@ namespace GbrSchedulero
         //public string GetCrews() { }
 
         // Returns an aircraft given its registration number
-        public Aircraft GetAircraft(string registrationNumber)
-        {
-            Aircraft aircraft = new Aircraft();
+        //TODO: Figure out how to create an aircraft, change it within the using statement, and return it
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                MySqlConnection conn;
-                try
-                {
-                    conn = new MySqlConnection(connectionString);
-                    conn.Open();
+        //public Aircraft GetAircraft(string registrationNumber)
+        //{
+        //    Aircraft aircraft = new Aircraft();
+        //    using (MySqlConnection connection = new MySqlConnection(connectionString))
+        //    {
+        //        MySqlConnection conn;
+        //        try
+        //        {
+        //            conn = new MySqlConnection(connectionString);
+        //            conn.Open();
 
-                }
-                catch (MySqlException e)
-                {
-                    Console.WriteLine("Db not connected" + e.Message);
-                }
+        //        }
+        //        catch (MySqlException e)
+        //        {
+        //            throw new Exception("DATABASE NOT CONNECTED", e);
+        //        }
 
-                MySqlCommand cmd = new MySqlCommand("Select * from Aircraft where registrationNumber = @registrationNumber;", conn);
+        //        MySqlCommand cmd = new MySqlCommand("Select * from Aircraft where registrationNumber = @registrationNumber;", conn);
 
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
+        //        using (var reader = cmd.ExecuteReader())
+        //        {
+        //            while (reader.Read())
+        //            {
                        
-                        //AircraftType type
-                        //Aircraft aircraft = new Aircraft(type, registrationNumber);
-                    }
-                }
+        //                //AircraftType type
+        //                //Aircraft aircraft = new Aircraft(type, registrationNumber);
+        //            }
+        //        }
 
-                conn.Close();
-            }
+        //        conn.Close();
+        //    }
 
-            return aircraft;
-        }
+        //    return aircraft;
+        //}
 
         // Returns a flight given its flight number
-        public Flight GetFlight(string flightNumber)
-        {
-            Flight flight = new Flight();
+        //public Flight GetFlight(string flightNumber)
+        //{
+        //    Flight flight = new Flight();
+        //    using (MySqlConnection connection = new MySqlConnection(connectionString))
+        //    {
+        //        MySqlConnection conn;
+        //        try
+        //        {
+        //            conn = new MySqlConnection(connectionString);
+        //            conn.Open();
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                MySqlConnection conn;
-                try
-                {
-                    conn = new MySqlConnection(connectionString);
-                    conn.Open();
+        //        }
+        //        catch (MySqlException e)
+        //        {
+        //            throw new Exception("DATABASE NOT CONNECTED", e);
+        //        }
 
-                }
-                catch (MySqlException e)
-                {
-                    Console.WriteLine("Db not connected" + e.Message);
-                }
+        //        MySqlCommand cmd = new MySqlCommand("Select * from Flight where flightNumber = @flightNumber;", conn);
 
-                MySqlCommand cmd = new MySqlCommand("Select * from Flight where flightNumber = @flightNumber;", conn);
+        //        using (var reader = cmd.ExecuteReader())
+        //        {
+        //            while (reader.Read())
+        //            {
+        //                //grab all parameters of Crew, aircraftType, Aircraft, and Flight
+        //                //make a Crew, AircraftType, and Aircraft and to construct a Flight
+        //                //add to flight list
 
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        //grab all parameters of Crew, aircraftType, Aircraft, and Flight
-                        //make a Crew, AircraftType, and Aircraft and to construct a Flight
-                        //add to flight list
+        //                //AircraftType type
+        //                //Crewmember crew
 
-                        //AircraftType type
-                        //Crewmember crew
+        //                //string registrationNumber
+        //                //Aircraft aircraft = new Aircraft(type, registrationNumber, crew);
 
-                        //string registrationNumber
-                        //Aircraft aircraft = new Aircraft(type, registrationNumber, crew);
+        //                //string flightNumber
+        //                //string origin
+        //                //string destination
+        //                //string scheduledTakeoff
+        //                //string estimatedTakeoff
+        //                //string actualTakeoff
+        //                //string scheduledTouchdown
+        //                //string estimatedTouchdown
+        //                //string actualTouchdown
+        //                //Flight flight = new Flight(flightNumber, aircraft, origin, destination, scheduledTakeoff, estimatedTakeoff, actualTakeoff, scheduledTouchdown, estimatedTouchdown, actualTouchdown);
 
-                        //string flightNumber
-                        //string origin
-                        //string destination
-                        //string scheduledTakeoff
-                        //string estimatedTakeoff
-                        //string actualTakeoff
-                        //string scheduledTouchdown
-                        //string estimatedTouchdown
-                        //string actualTouchdown
-                        //Flight flight = new Flight(flightNumber, aircraft, origin, destination, scheduledTakeoff, estimatedTakeoff, actualTakeoff, scheduledTouchdown, estimatedTouchdown, actualTouchdown);
+        //            }
+        //        }
 
-                    }
-                }
-
-                conn.Close();
-            }
-            return flight;
-        }
+        //        conn.Close();
+        //    }
+        //    return flight;
+        //}
 
 
         // Returns an airport given its ?
