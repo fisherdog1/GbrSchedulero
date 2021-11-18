@@ -65,7 +65,7 @@ namespace GbrSchedulero
         /// Crew qualifications are based on both the AircraftType and the station (implementation tbd).
         /// </summary>
         /// <returns></returns>
-        public object GetCrewStations()
+        public List<CrewStation> GetCrewStations()
         {
             return stations;
         }

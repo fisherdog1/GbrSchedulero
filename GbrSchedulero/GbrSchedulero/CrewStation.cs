@@ -42,14 +42,14 @@ namespace GbrSchedulero
         /// Checks if (this) crew station can be satisfied by the provided qualification
         /// Note that captains can fulfil either Captain or Officer stations
         /// </summary>
-        /// <param name="qualification"></param>
+        /// <param name="station"></param>
         /// <returns></returns>
-        public bool Qualified(CrewStation qualification)
+        public bool Qualified(CrewStation station)
         {
-            if (qualification.CrewStationType == StationType.Captain)
+            if (station.CrewStationType == StationType.Captain)
                 return this.CrewStationType == StationType.Captain || this.CrewStationType == StationType.Officer;
 
-            else if (qualification.CrewStationType == StationType.Officer)
+            else if (station.CrewStationType == StationType.Officer)
                 return this.CrewStationType == StationType.Officer;
 
             else

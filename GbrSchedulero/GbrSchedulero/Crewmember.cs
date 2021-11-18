@@ -10,7 +10,6 @@ namespace GbrSchedulero
     {
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
-
         private List<CrewQualification> qualifications;
 
         public Crewmember(string firstName, string lastName)
@@ -27,10 +26,21 @@ namespace GbrSchedulero
         }
 
         /// <summary>
-        /// Get the type of Crewmember, such as Captain, FO, or Attendant
+        /// Returns which (if any) crew stations this Crewmember can be assigned on the given aircraft type
         /// </summary>
-        /// <returns>Some representation of the type, possibly Enum or an object</returns>
-        //public abstract object GetCrewmemberType();
+        /// <returns></returns>
+        public List<CrewStation> PossibleAssignments(AircraftType acType)
+        {
+            List<CrewStation> stations = new List<CrewStation>();
+
+            foreach (CrewQualification qual in qualifications)
+                if (qual.AcType == acType)
+                    foreach (CrewStation station in acType.GetCrewStations())
+                        if (station.Qualified(qual.Station))
+                            stations.Add(station);
+
+            return stations;
+        }
 
         /// <summary>
         /// Returns true if the Crewmember is accumulating rest hours (Landed with no upcoming flights)
