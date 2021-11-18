@@ -2,27 +2,23 @@
 @model Crew.Pages.loginModel
 @{
 }
-
+<font color="#2BA8B9" size="5">
+    <marquee><b><i>THANKS FOR VISITING</i></b></marquee>
+</font>
 <header>
     <div class="main">
         <div class="logo">
             <img src="~/images/airlineicondownload.png" />
         </div>
-        <br />
-        <br />
-        <br />
-        
         <div class="title">
             <h1>CORNHUSKER AIRWAY-CHA</h1>
         </div>
-        <br />
- 
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Crew schedule</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Contact Us</a></li>
-            <li class="active"><a href="#">Login</a></li>
+            <li><a href="/Home">Home</a></li>
+            <li><a href="/CrewSchedule">Crew schedule</a></li>
+            <li><a href="/AboutUs">About Us</a></li>
+            <li><a href="/ContactUs">Contact Us</a></li>
+            <li class="active"><a href="/login">Login</a></li>
 
         </ul>
     </div>
@@ -30,12 +26,9 @@
 <br />
 <br />
 <br />
-
-
-
 <div class="text-center">
     <div class="general-container">
-        <img src="/images/download_login_icon.png" style="width: 128px; height: 128px;" />
+        <img src="/images/download_login_icon.png" style="width: 100px; height: 100px;" />
         <h1 class="display-4">
             Log In
         </h1>
@@ -58,12 +51,11 @@
             </div>
             <br />
             <div>
-                <a href="/CreateAccount">Create an Account</a>
+                <a href="/signup">Create an Account</a>
             </div>
         </form>
     </div>
 </div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
