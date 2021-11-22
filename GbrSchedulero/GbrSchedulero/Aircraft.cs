@@ -8,9 +8,13 @@ namespace GbrSchedulero
 {
     public abstract class Aircraft
     {
-        private AircraftType type;
+        public string Registration { get; private set; }
+        public AircraftType AcType { get; private set; }
 
-        public abstract AircraftType GetAircraftType();
-        public abstract string GetRegistration();
+        public Aircraft(string registration, AircraftType acType)
+        {
+            this.Registration = registration;
+            this.AcType = acType;
+        }
     }
 }
