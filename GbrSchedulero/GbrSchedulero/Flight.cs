@@ -11,7 +11,7 @@ namespace GbrSchedulero
     /// </summary>
     public abstract class Flight
     {
-        public string FlightNumber { get; private set; }
+        public string FlightNumber { get { return Plan.FlightNumber; } }
         public FlightPlan Plan { get; private set; }
 
         /// <summary>

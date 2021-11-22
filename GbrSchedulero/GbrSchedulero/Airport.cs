@@ -15,7 +15,7 @@ namespace GbrSchedulero
         /// </summary>
         /// <param name="otherAirport"></param>
         /// <returns></returns>
-        public abstract object GetDistance(Airport otherAirport);
+        public abstract double GetDistance(Airport otherAirport);
 
     }
 }
