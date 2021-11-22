@@ -10,6 +10,11 @@ namespace GbrSchedulero
     {
         public abstract string GetName();
 
+        /// <summary>
+        /// Return the distance to a neighboring airport in miles
+        /// </summary>
+        /// <param name="otherAirport"></param>
+        /// <returns></returns>
         public abstract object GetDistance(Airport otherAirport);
 
     }

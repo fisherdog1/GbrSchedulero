@@ -11,6 +11,9 @@ namespace GbrSchedulero
     /// </summary>
     public abstract class Flight
     {
+        public string FlightNumber { get; private set; }
+        public FlightPlan Plan { get; private set; }
+
         /// <summary>
         /// True if this flight has landed at any destination, potentially not the planned destination
         /// </summary>
@@ -34,12 +37,6 @@ namespace GbrSchedulero
         /// </summary>
         /// <returns></returns>
         public abstract bool IsUpcoming();
-
-        /// <summary>
-        /// Return the associated flight plan, which specifies the route, scheduled departure and arrival times, etc.
-        /// </summary>
-        /// <returns></returns>
-        public abstract object GetPlan();
 
         /// <summary>
         /// Returns the time the flight actually departed

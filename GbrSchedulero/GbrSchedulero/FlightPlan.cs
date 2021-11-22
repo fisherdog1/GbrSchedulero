@@ -11,16 +11,20 @@ namespace GbrSchedulero
     /// </summary>
     public abstract class FlightPlan
     {
+        public Airport Destination { get; private set; }
+        public Airport Origin { get; private set; }
+
+
+
         public abstract string GetFlightNumber();
         public abstract object GetNextDeparture();
         public abstract object GetNextArrival();
         public abstract object GetScheduledDepartureTime();
         public abstract object GetScheduledArrivalTime();
-        public abstract Airport GetOrigin();
-        public abstract Airport GetDestination();
 
         /// <summary>
         /// Total scheduled time enroute
+        /// Divides plan distance by 500mph
         /// </summary>
         /// <returns></returns>
         public abstract object GetTotalTimeEnroute();
