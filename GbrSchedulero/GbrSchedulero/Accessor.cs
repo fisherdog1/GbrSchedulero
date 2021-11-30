@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MySqlConnector;
+
 
 namespace GbrSchedulero
 {
@@ -20,6 +18,7 @@ namespace GbrSchedulero
          *  - Crew Stations
          */
         //TODO: Figure out if connection is correct
+        //TODO: Look at using statements and use connection instead of conn
 
         // Returns a list of all flights
         public static List<Flight> GetFlights()
@@ -29,11 +28,10 @@ namespace GbrSchedulero
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                MySqlConnection conn;
+                // TODO: dont need conn, use connection
                 try
                 {
-                    conn = new MySqlConnection(connectionString);
-                    conn.Open();
+                    connection.Open();
 
                 }
                 catch (MySqlException e)
@@ -41,7 +39,7 @@ namespace GbrSchedulero
                     throw new Exception("DATABASE NOT CONNECTED", e);
                 }
 
-                MySqlCommand cmd = new MySqlCommand("Select * from Flight;", conn);
+                MySqlCommand cmd = new MySqlCommand("Select * from Flight;", connection);
 
                 using (var reader = cmd.ExecuteReader())
                 {
@@ -72,7 +70,7 @@ namespace GbrSchedulero
                     }
                 }
 
-                conn.Close();
+                connection.Close();
             }
 
             return Flights;
@@ -86,11 +84,10 @@ namespace GbrSchedulero
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                MySqlConnection conn;
+
                 try
                 {
-                    conn = new MySqlConnection(connectionString);
-                    conn.Open();
+                    connection.Open();
 
                 }
                 catch (MySqlException e)
@@ -98,7 +95,7 @@ namespace GbrSchedulero
                     throw new Exception("DATABASE NOT CONNECTED", e);
                 }
 
-                MySqlCommand cmd = new MySqlCommand("Select * from Airport;", conn);
+                MySqlCommand cmd = new MySqlCommand("Select * from Airport;", connection);
 
                 using (var reader = cmd.ExecuteReader())
                 {
@@ -117,7 +114,7 @@ namespace GbrSchedulero
                     }
                 }
 
-                conn.Close();
+                connection.Close();
             }
 
             return Airports;
@@ -264,7 +261,7 @@ namespace GbrSchedulero
         //                    Crewmember Attendant2 =
         //                    CrewStation crew = new CrewStation(StationType.Captain, StationType.Officer, StationType.Attendant, StationType.Attendant2, aircraftType);
         //                }
-                        
+
         //            }
         //        }
 
@@ -273,5 +270,32 @@ namespace GbrSchedulero
         //    return crew;
         //}
 
+        public void TestDataPull()
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                // TODO: dont need conn, use connection
+                try
+                {
+                    connection.Open();
+
+                }
+                catch (MySqlException e)
+                {
+                    throw new Exception("DATABASE NOT CONNECTED", e);
+                }
+
+                MySqlCommand cmd = new MySqlCommand("Select * from Test2;", connection);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Console.WriteLine(reader[0] + ", ");
+                        Console.Write(reader[1]);
+                    }
+                }
+            }
+        }
     }
 }
