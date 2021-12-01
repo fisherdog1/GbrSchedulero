@@ -57,5 +57,14 @@ namespace GbrUnitTests
 
             Assert.IsTrue(true);
         }
+
+        [TestMethod]
+        public void TestAircraftGen()
+        {
+            TestAircraftBuilder tab = new TestAircraftBuilder();
+            List<Aircraft> acs = tab.GenerateAircraft();
+
+            Assert.IsTrue(true);
+        }
     }
 }
