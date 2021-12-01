@@ -58,8 +58,6 @@ namespace GbrUnitTests
             Assert.IsTrue(true);
         }
 
-<<<<<<< HEAD
-=======
         [TestMethod]
         public void TestAircraftGen()
         {
@@ -68,6 +66,5 @@ namespace GbrUnitTests
 
             Assert.IsTrue(true);
         }
->>>>>>> ddb6377b4bbde499f0100b6c9c29883ec448c463
     }
 }
