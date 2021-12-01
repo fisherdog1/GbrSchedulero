@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GbrSchedulero
 {
-    public abstract class Aircraft
+    public class Aircraft : IEquatable<Aircraft>
     {
         public string Registration { get; private set; }
         public AircraftType AcType { get; private set; }
@@ -15,6 +15,11 @@ namespace GbrSchedulero
         {
             this.Registration = registration;
             this.AcType = acType;
+        }
+
+        public bool Equals(Aircraft other)
+        {
+            return this.Registration == other.Registration;
         }
     }
 }
