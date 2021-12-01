@@ -221,54 +221,56 @@ namespace GbrSchedulero
         // Returns a crew given a captain's name
         // Need to be able to make several crews given the amount of attendants
 
-        //public Flight GetCrew(string FirstName)
-        //{
-        //    CrewStation crew = new CrewStation();
-        //    using (MySqlConnection connection = new MySqlConnection(connectionString))
-        //    {
-        //        MySqlConnection conn;
-        //        try
-        //        {
-        //            conn = new MySqlConnection(connectionString);
-        //            conn.Open();
+        public Flight GetCrew(string FirstName)
+        {
+            CrewStation crew = new CrewStation();
 
-        //        }
-        //        catch (MySqlException e)
-        //        {
-        //            throw new Exception("DATABASE NOT CONNECTED", e);
-        //        }
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                MySqlConnection conn;
+                try
+                {
+                    conn = new MySqlConnection(connectionString);
+                    conn.Open();
 
-        //        MySqlCommand cmd = new MySqlCommand("Select * from Crew where captain = @FirstName;", conn);
+                }
+                catch (MySqlException e)
+                {
+                    throw new Exception("DATABASE NOT CONNECTED", e);
+                }
 
-        //        using (var reader = cmd.ExecuteReader())
-        //        {
-        //            while (reader.Read())
-        //            {
-        //                //need to get captain, first officer, attendants, type, qualifications, and aircraft type
+                MySqlCommand cmd = new MySqlCommand("Select * from Crew where captain = @FirstName;", conn);
 
-        //                AircraftType aircraftType =
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        //need to get captain, first officer, attendants, type, qualifications, and aircraft type
 
-        //                Crewmember Captain =
-        //                Crewmember Officer = 
+                        AircraftType aircraftType =
 
-        //                if(aircraftType = "GBR-10")
-        //                {
-        //                    Crewmember Attendant1 =
-        //                    CrewStation crew = new CrewStation(StationType.Captain, StationType.Officer, StationType.Attendant, aircraftType);
-        //                } else if(aircraftType = "NU-150")
-        //                {
-        //                    Crewmember Attendant1 =
-        //                    Crewmember Attendant2 =
-        //                    CrewStation crew = new CrewStation(StationType.Captain, StationType.Officer, StationType.Attendant, StationType.Attendant2, aircraftType);
-        //                }
+                        Crewmember Captain =
+                        Crewmember Officer =
 
-        //            }
-        //        }
+                        if (aircraftType = "GBR-10")
+                        {
+                            Crewmember Attendant1 =
+                            CrewStation crew = new CrewStation(StationType.Captain, StationType.Officer, StationType.Attendant, aircraftType);
+                        }
+                        else if (aircraftType = "NU-150")
+                        {
+                            Crewmember Attendant1 =
+                            Crewmember Attendant2 =
+                            CrewStation crew = new CrewStation(StationType.Captain, StationType.Officer, StationType.Attendant, StationType.Attendant2, aircraftType);
+                        }
 
-        //        conn.Close();
-        //    }
-        //    return crew;
-        //}
+                    }
+                }
+
+                conn.Close();
+            }
+            return crew;
+        }
 
         public void TestDataPull()
         {
