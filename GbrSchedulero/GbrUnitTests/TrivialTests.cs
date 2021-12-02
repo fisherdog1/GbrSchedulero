@@ -66,5 +66,14 @@ namespace GbrUnitTests
 
             Assert.IsTrue(true);
         }
+
+        [TestMethod]
+        public void TestFlightPlanGen()
+        {
+            TestFlightPlanBuilder tab = new TestFlightPlanBuilder();
+            List<FlightPlan> acs = tab.GeneratePlans();
+
+            Assert.IsTrue(true);
+        }
     }
 }

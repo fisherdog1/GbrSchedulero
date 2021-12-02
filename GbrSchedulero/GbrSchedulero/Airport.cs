@@ -9,37 +9,47 @@ namespace GbrSchedulero
     /// <summary>
     /// Represents  Airport.
     /// </summary>
-    public class Airport
+    public class Airport : IEquatable<Airport>
     {
 
-        private string airportName { get;}
+        public string AirportName { get; private set; }
         public AirportName selectedAirport { get; private set; }
         public Airport(AirportName airportName)
         {
             this.selectedAirport = airportName;
-            if (selectedAirport == AirportName.LincolnNebraska)
+            if (selectedAirport == GbrSchedulero.AirportName.LincolnNebraska)
             {
-                this.airportName = "Lincoln Airport";
-
+                this.AirportName = "Lincoln Airport";
             }
-            else if (selectedAirport == AirportName.IowaCityIowa)
+            else if (selectedAirport == GbrSchedulero.AirportName.IowaCityIowa)
             {
-                this.airportName = "Easteren Iowa Airport";
+                this.AirportName = "Easteren Iowa Airport";
             }
-            else if (selectedAirport == AirportName.EvanstonIllinois)
+            else if (selectedAirport == GbrSchedulero.AirportName.EvanstonIllinois)
             {
-                this.airportName = "O'Hare International Airport";
+                this.AirportName = "O'Hare International Airport";
             }
-            else if (selectedAirport == AirportName.WestLafayetteIndiana)
+            else if (selectedAirport == GbrSchedulero.AirportName.WestLafayetteIndiana)
             {
-                this.airportName = "Purdue University Airport";
+                this.AirportName = "Purdue University Airport";
             }
 
         }
+
+        public static Airport[] AllAirports()
+        {
+            return new Airport[] { 
+                new Airport(GbrSchedulero.AirportName.LincolnNebraska),
+                new Airport(GbrSchedulero.AirportName.EvanstonIllinois),
+                new Airport(GbrSchedulero.AirportName.IowaCityIowa),
+                new Airport(GbrSchedulero.AirportName.WestLafayetteIndiana)};
+
+        }
+
         /// <summary>
         /// a lookup table for distances between airports
         /// </summary>
-        int[,] Airportdistance = new int[4, 4] { { 0, 272, 468, 608 },
+        private static int[,] Airportdistance = new int[4, 4] { { 0, 272, 468, 608 },
                                            { 272, 0, 193, 270 },
                                            { 468, 193, 0, 119 },
                                            { 608, 270, 119, 0 } };
@@ -48,10 +58,10 @@ namespace GbrSchedulero
         /// </summary>
         /// <returns>airportName</returns>
         public string GetName(){
-            return airportName;
+            return AirportName;
         }
         /// <summary>
-        /// get the distance in(miles) between the currtent airport  and other airpot 
+        /// get the distance in(miles) between the current airport and other airport 
         /// using a lookup table Airportdistance
         /// </summary>
         /// <returns>Airportdistance in miles</returns>
@@ -61,6 +71,20 @@ namespace GbrSchedulero
             return Airportdistance[i,j];
         }
 
+        /// <summary>
+        /// Compares airports based on their name.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(Airport other)
+        {
+            return this.AirportName == other.AirportName;
+        }
+
+        public override string ToString()
+        {
+            return AirportName;
+        }
     }
 
     /// <summary>
@@ -74,5 +98,5 @@ namespace GbrSchedulero
         WestLafayetteIndiana
     }
 
-   
+
 }
