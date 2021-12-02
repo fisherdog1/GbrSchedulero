@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace GbrUnitTests
 {
     [TestClass]
-    public class UnitTest1
+    public class TrivialTests
     {
         public IConfigurationRoot? Configuration;
         public string connectionString;
@@ -17,7 +17,7 @@ namespace GbrUnitTests
         public void TestInit()
         {
             IConfigurationBuilder config = new ConfigurationBuilder()
-                .AddUserSecrets<UnitTest1>();
+                .AddUserSecrets<TrivialTests>();
 
             this.Configuration = config.Build();
 
