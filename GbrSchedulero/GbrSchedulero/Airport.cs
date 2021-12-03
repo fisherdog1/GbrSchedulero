@@ -82,7 +82,7 @@ namespace GbrSchedulero
         }
 
         /// <summary>
-        /// Compares airports based on their name.
+        /// Compares airports based on their airportId.
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
