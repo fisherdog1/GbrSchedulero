@@ -17,7 +17,7 @@ namespace GbrUnitTests
         public void AirportGetName_LincolnNebraska_retunLincolnAirport()
         {
             //Arrange
-            Airport airport = new Airport(AirportName.LincolnNebraska);
+            Airport airport = Airport.LincolnNebraska();
             //Act
             string airportName = airport.GetName();
             //Assert
@@ -32,9 +32,9 @@ namespace GbrUnitTests
         public void AirportGetDistance_between_LincolnNebraska_and_LincolnNebraska_returns_zero()
         {
             //Arrange
-            Airport airport = new Airport(AirportName.LincolnNebraska);
+            Airport airport = Airport.LincolnNebraska();
             //Act
-            int airportDistance = airport.GetDistance(new Airport(AirportName.LincolnNebraska));
+            int airportDistance = airport.GetDistance(Airport.LincolnNebraska());
             //Assert
             Assert.AreEqual(0, airportDistance);
         }
@@ -46,8 +46,8 @@ namespace GbrUnitTests
         public void AirportGetDistance_compute_distanceInterchangeably()
         {
             //Arrange
-            Airport LincolnAirport = new Airport(AirportName.LincolnNebraska);
-            Airport IowaAirport = new Airport(AirportName.IowaCityIowa);
+            Airport LincolnAirport = Airport.LincolnNebraska();
+            Airport IowaAirport = Airport.IowaCityIowa();
             //Act
             int airportDistanceFromLincolnToIowa = LincolnAirport.GetDistance(IowaAirport);
             int airportDistanceFromIowaToLincoln = IowaAirport.GetDistance(LincolnAirport);
@@ -56,6 +56,38 @@ namespace GbrUnitTests
             Assert.AreEqual(airportDistanceFromLincolnToIowa, airportDistanceFromIowaToLincoln);
         }
 
+
+        /// <summary>
+        /// checks that Equals method returns true when two airports have the same airportId 
+        /// </summary>
+        [TestMethod]
+        public void AirportEquals_with_two_sameAirportId_ShouldReturnTrue()
+        {
+            //Arrange
+            Airport LincolnAirport = Airport.LincolnNebraska();
+            Airport LincolnAirportcopy = Airport.LincolnNebraska();
+
+            //Act
+            bool AreEquals = LincolnAirport.Equals(LincolnAirportcopy);
+            //Assert
+            Assert.AreEqual(true, AreEquals);
+        }
+
+        /// <summary>
+        /// checks that Equals method returns false when two airports have different airportId
+        /// </summary>
+        [TestMethod]
+        public void AirportEquals_with_two_differentAirportId_ShouldReturnFalse()
+        {
+            //Arrange
+            Airport LincolnAirport = Airport.LincolnNebraska();
+            Airport IowaAirport = Airport.IowaCityIowa();
+
+            //Act
+            bool AreEquals = LincolnAirport.Equals(IowaAirport);
+            //Assert
+            Assert.AreEqual(false, AreEquals);
+        }
 
 
 

@@ -13,46 +13,56 @@ namespace GbrSchedulero
     {
 
         public string AirportName { get; private set; }
-        public AirportName selectedAirport { get; private set; }
-        public Airport(AirportName airportName)
+        public int AirportId { get; private set; }
+     
+        private Airport(string AirportName, int AirportId)
         {
-            this.selectedAirport = airportName;
-            if (selectedAirport == GbrSchedulero.AirportName.LincolnNebraska)
-            {
-                this.AirportName = "Lincoln Airport";
-            }
-            else if (selectedAirport == GbrSchedulero.AirportName.IowaCityIowa)
-            {
-                this.AirportName = "Easteren Iowa Airport";
-            }
-            else if (selectedAirport == GbrSchedulero.AirportName.EvanstonIllinois)
-            {
-                this.AirportName = "O'Hare International Airport";
-            }
-            else if (selectedAirport == GbrSchedulero.AirportName.WestLafayetteIndiana)
-            {
-                this.AirportName = "Purdue University Airport";
-            }
+            this.AirportName = AirportName;
+            this.AirportId = AirportId;
+        }
 
+
+        public static Airport LincolnNebraska()
+        {
+            Airport airport = new Airport("Lincoln Airport", 0);
+            return airport;
+        }
+
+        public static Airport IowaCityIowa()
+        {
+            Airport airport = new Airport("Easteren Iowa Airport", 1);
+            return airport;
+        }
+
+        public static Airport EvanstonIllinois()
+        {
+            Airport airport = new Airport("O'Hare International Airport", 2);
+            return airport;
+        }
+
+        public static Airport WestLafayetteIndiana()
+        {
+            Airport airport = new Airport("Purdue University Airport", 3);
+            return airport;
         }
 
         public static Airport[] AllAirports()
         {
-            return new Airport[] { 
-                new Airport(GbrSchedulero.AirportName.LincolnNebraska),
-                new Airport(GbrSchedulero.AirportName.EvanstonIllinois),
-                new Airport(GbrSchedulero.AirportName.IowaCityIowa),
-                new Airport(GbrSchedulero.AirportName.WestLafayetteIndiana)};
+            return new Airport[] {
+                new Airport("Lincoln Airport", 0),
+                new Airport("Easteren Iowa Airport", 1),
+                new Airport("O'Hare International Airport", 2),
+                new Airport("Purdue University Airport", 3)};
 
         }
 
         /// <summary>
-        /// a lookup table for distances between airports
+        /// a symmetric lookup table for distances between airports
         /// </summary>
         private static int[,] Airportdistance = new int[4, 4] { { 0, 272, 468, 608 },
-                                           { 272, 0, 193, 270 },
-                                           { 468, 193, 0, 119 },
-                                           { 608, 270, 119, 0 } };
+                                                                { 272, 0, 193, 270 },
+                                                                { 468, 193, 0, 119 },
+                                                                { 608, 270, 119, 0 } };
         /// <summary>
         /// get Airport name 
         /// </summary>
@@ -66,9 +76,9 @@ namespace GbrSchedulero
         /// </summary>
         /// <returns>Airportdistance in miles</returns>
         public int GetDistance(Airport otherAirport) {
-            int i = (int)this.selectedAirport;
-            int j = (int)otherAirport.selectedAirport;
-            return Airportdistance[i,j];
+            int airportId = this.AirportId;
+            int OtherAirportId = otherAirport.AirportId;
+            return Airportdistance[airportId, OtherAirportId];
         }
 
         /// <summary>
@@ -78,7 +88,7 @@ namespace GbrSchedulero
         /// <returns></returns>
         public bool Equals(Airport other)
         {
-            return this.AirportName == other.AirportName;
+            return this.AirportId == other.AirportId;
         }
 
         public override string ToString()
@@ -87,16 +97,7 @@ namespace GbrSchedulero
         }
     }
 
-    /// <summary>
-    /// Airports names of the covered region by the system
-    /// </summary>
-    public enum AirportName
-    {
-        LincolnNebraska,
-        IowaCityIowa,
-        EvanstonIllinois,
-        WestLafayetteIndiana
-    }
+  
 
 
 }
