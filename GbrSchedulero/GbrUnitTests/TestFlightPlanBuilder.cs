@@ -10,15 +10,15 @@ namespace GbrUnitTests
     /// <summary>
     /// Generates arbitrary aircraft
     /// </summary>
-    class TestFlightPlanBuilder
+    class TestFlightPlanBuilder : ITestDataGenerator<FlightPlan>
     {
-        public List<FlightPlan> GeneratePlans()
+        public List<FlightPlan> Generate(int count)
         {
             List<FlightPlan> plans = new List<FlightPlan>();
 
             Airport[] airports = Airport.AllAirports();
 
-            Random r = new Random(1337);
+            Random r = new Random(1337*count);
 
             for (int i = 0; i < 17; i++)
             {
