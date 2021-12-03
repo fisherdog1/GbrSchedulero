@@ -14,7 +14,7 @@ namespace GbrUnitTests
     /// <summary>
     /// Builds arbitrary Crewmembers
     /// </summary>
-    class TestCrewBuilder
+    class TestCrewBuilder : ITestDataGenerator<Crewmember>
     {
         List<string> firstNames;
         List<string> lastNames;
@@ -52,14 +52,14 @@ namespace GbrUnitTests
         /// Generate a random list of crewmembers
         /// </summary>
         /// <returns></returns>
-        public List<Crewmember> GenerateCrews()
+        public List<Crewmember> Generate(int count)
         {
             List<Crewmember> crewmembers = new List<Crewmember>();
 
             AircraftType typeGR10 = AircraftType.GBR10();
             AircraftType typeN150 = AircraftType.NU150();
 
-            Random r = new Random(1337);
+            Random r = new Random(1337*count);
 
             for (int i = 0; i < 42; i++)
             {
