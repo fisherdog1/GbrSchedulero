@@ -1,0 +1,99 @@
+﻿using GbrSchedulero;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace CHA.Data
+{//This class will not effect to Model classes
+    public class CrewmembersData
+    {
+        //public string FirstName { get; private set; }
+        public string FirstName { get; set; }
+        //public string LastName { get; private set; }
+        public string LastName { get; set; }
+        private List<CrewQualification> qualifications;
+
+        public CrewmembersData(string firstName, string lastName)
+        {
+            this.FirstName = firstName;
+            this.LastName = lastName;
+
+            qualifications = new List<CrewQualification>();
+        }
+        //Adding when extract data from database
+        public CrewmembersData()
+        {
+        }
+
+
+        /// <summary>
+        /// Returns which (if any) crew stations this Crewmember can be assigned on the given aircraft type
+        /// </summary>
+        /// <returns></returns>
+        public List<CrewStation> PossibleAssignments(AircraftType acType)
+        {
+            List<CrewStation> stations = new List<CrewStation>();
+
+            foreach (CrewQualification qual in qualifications)
+                if (qual.AcType == acType)
+                    foreach (CrewStation station in acType.GetCrewStations())
+                        if (station.Qualified(qual.Station))
+                            stations.Add(station);
+
+            return stations;
+        }
+
+        /// <summary>
+        /// Returns true if the Crewmember is accumulating rest hours (Landed with no upcoming flights)
+        /// </summary>
+        /// <returns></returns>
+        //public abstract bool IsResting();
+
+        /// <summary>
+        /// True if Crewmember is currently working, either duty or non-duty hours.
+        /// May be true if the crew is waiting for an upcoming flight, or on a flight.
+        /// A Crewmember is not stationed if:
+        /// They are deadheading a flight back to their home base
+        /// They are resting (Landed with no upcoming flights)
+        /// A Crewmember is still stationed even if they run out of duty hours if:
+        /// They are overdue returning to their home base
+        /// </summary>
+        /// <returns></returns>
+        //public abstract bool IsStationed();
+
+        /// <summary>
+        /// True if Crewmember is currently performing crew duties.
+        /// A Crewmember on duty is necessarily stationed, but Crewmembers are not on duty while waiting for upcoming flights or deadheading.
+        /// </summary>
+        /// <returns></returns>
+        //public abstract bool IsOnDuty();
+
+        /// <summary>
+        /// True if crewmember is on a flight but not acting as a crewmember. 
+        /// Deadheads do not count towards the crewing requirements of aircraft.
+        /// </summary>
+        /// <returns></returns>
+        //public abstract bool IsDeadhead();
+
+        /// <summary>
+        /// Get the number of duty hours this Crewmember has left on their shift. 
+        /// Crewmembers are not allowed to exceed their duty hours except in an emergency (diversion, RTB, etc).
+        /// </summary>
+        /// <returns></returns>
+        //public abstract object GetDutyHoursRemaining();
+
+        public override string ToString()
+        {
+            string str = $"{LastName}, {FirstName}\n";
+
+            foreach (CrewQualification qual in qualifications)
+            {
+                str += "    " + qual + "\n";
+            }
+
+            return str;
+        }
+    }
+}
+
