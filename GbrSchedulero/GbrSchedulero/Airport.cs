@@ -9,70 +9,95 @@ namespace GbrSchedulero
     /// <summary>
     /// Represents  Airport.
     /// </summary>
-    public class Airport
+    public class Airport : IEquatable<Airport>
     {
 
-        private string airportName { get;}
-        public AirportName selectedAirport { get; private set; }
-        public Airport(AirportName airportName)
+        public string AirportName { get; private set; }
+        public int AirportId { get; private set; }
+     
+        private Airport(string AirportName, int AirportId)
         {
-            this.selectedAirport = airportName;
-            if (selectedAirport == AirportName.LincolnNebraska)
-            {
-                this.airportName = "Lincoln Airport";
+            this.AirportName = AirportName;
+            this.AirportId = AirportId;
+        }
 
-            }
-            else if (selectedAirport == AirportName.IowaCityIowa)
-            {
-                this.airportName = "Easteren Iowa Airport";
-            }
-            else if (selectedAirport == AirportName.EvanstonIllinois)
-            {
-                this.airportName = "O'Hare International Airport";
-            }
-            else if (selectedAirport == AirportName.WestLafayetteIndiana)
-            {
-                this.airportName = "Purdue University Airport";
-            }
+
+        public static Airport LincolnNebraska()
+        {
+            Airport airport = new Airport("Lincoln Airport", 0);
+            return airport;
+        }
+
+        public static Airport IowaCityIowa()
+        {
+            Airport airport = new Airport("Easteren Iowa Airport", 1);
+            return airport;
+        }
+
+        public static Airport EvanstonIllinois()
+        {
+            Airport airport = new Airport("O'Hare International Airport", 2);
+            return airport;
+        }
+
+        public static Airport WestLafayetteIndiana()
+        {
+            Airport airport = new Airport("Purdue University Airport", 3);
+            return airport;
+        }
+
+        public static Airport[] AllAirports()
+        {
+            return new Airport[] {
+                new Airport("Lincoln Airport", 0),
+                new Airport("Easteren Iowa Airport", 1),
+                new Airport("O'Hare International Airport", 2),
+                new Airport("Purdue University Airport", 3)};
 
         }
+
         /// <summary>
-        /// a lookup table for distances between airports
+        /// a symmetric lookup table for distances between airports
         /// </summary>
-        int[,] Airportdistance = new int[4, 4] { { 0, 272, 468, 608 },
-                                           { 272, 0, 193, 270 },
-                                           { 468, 193, 0, 119 },
-                                           { 608, 270, 119, 0 } };
+        private static int[,] Airportdistance = new int[4, 4] { { 0, 272, 468, 608 },
+                                                                { 272, 0, 193, 270 },
+                                                                { 468, 193, 0, 119 },
+                                                                { 608, 270, 119, 0 } };
         /// <summary>
         /// get Airport name 
         /// </summary>
         /// <returns>airportName</returns>
         public string GetName(){
-            return airportName;
+            return AirportName;
         }
         /// <summary>
-        /// get the distance in(miles) between the currtent airport  and other airpot 
+        /// get the distance in(miles) between the current airport and other airport 
         /// using a lookup table Airportdistance
         /// </summary>
         /// <returns>Airportdistance in miles</returns>
         public int GetDistance(Airport otherAirport) {
-            int i = (int)this.selectedAirport;
-            int j = (int)otherAirport.selectedAirport;
-            return Airportdistance[i,j];
+            int airportId = this.AirportId;
+            int OtherAirportId = otherAirport.AirportId;
+            return Airportdistance[airportId, OtherAirportId];
         }
 
+        /// <summary>
+        /// Compares airports based on their airportId.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(Airport other)
+        {
+            return this.AirportId == other.AirportId;
+        }
+
+        public override string ToString()
+        {
+            return AirportName;
+        }
     }
 
-    /// <summary>
-    /// Airports names of the covered region by the system
-    /// </summary>
-    public enum AirportName
-    {
-        LincolnNebraska,
-        IowaCityIowa,
-        EvanstonIllinois,
-        WestLafayetteIndiana
-    }
+  
 
-   
+
 }

@@ -10,16 +10,16 @@ namespace GbrUnitTests
     /// <summary>
     /// Generates arbitrary aircraft
     /// </summary>
-    class TestAircraftBuilder
+    class TestAircraftBuilder : ITestDataGenerator<Aircraft>
     {
-        public List<Aircraft> GenerateAircraft()
+        public List<Aircraft> Generate(int count)
         {
             List<Aircraft> aircraft = new List<Aircraft>();
 
             AircraftType typeGR10 = AircraftType.GBR10();
             AircraftType typeN150 = AircraftType.NU150();
 
-            Random r = new Random(1337);
+            Random r = new Random(1337*count);
 
             for (int i = 0; i < 21; i++)
             {
