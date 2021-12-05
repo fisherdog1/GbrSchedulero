@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,14 +9,18 @@ namespace GbrSchedulero
 {
     public class Crewmember
     {
-        //public string FirstName { get; private set; }
+        
+        [Key]
+        public int CrewID { get;  set; }
+        //public string FirstName { get;  set; }
         public string FirstName { get;  set; }
-        //public string LastName { get; private set; }
         public string LastName { get;  set; }
+        //public string LastName { get;  set; }
         private List<CrewQualification> qualifications;
 
         public Crewmember(string firstName, string lastName)
         {
+            //this.CrewID = CrewID;
             this.FirstName = firstName;
             this.LastName = lastName;
 
