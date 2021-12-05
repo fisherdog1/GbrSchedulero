@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using System.Configuration;
 using System;
 using System.Collections.Generic;
+using MySqlConnector;
 
 namespace GbrUnitTests
 {
@@ -58,8 +59,6 @@ namespace GbrUnitTests
             Assert.IsTrue(true);
         }
 
-<<<<<<< HEAD
-=======
         [TestMethod]
         public void TestAircraftGen()
         {
@@ -68,6 +67,33 @@ namespace GbrUnitTests
 
             Assert.IsTrue(true);
         }
->>>>>>> ddb6377b4bbde499f0100b6c9c29883ec448c463
+
+        [TestMethod]
+        public void TestDataPull()
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                }
+                catch (MySqlException e)
+                {
+                    throw new Exception("DATABASE NOT CONNECTED", e);
+                }
+
+                MySqlCommand cmd = new MySqlCommand("Select * from Test;", connection);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Console.WriteLine(reader[0] + ", ");
+                        Console.Write(reader[1]);
+                    }
+                }
+            }
+        }
     }
 }

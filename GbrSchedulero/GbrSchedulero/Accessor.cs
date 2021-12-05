@@ -272,32 +272,5 @@ namespace GbrSchedulero
         //    return crew;
         //}
 
-        public void TestDataPull()
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                // TODO: dont need conn, use connection
-                try
-                {
-                    connection.Open();
-
-                }
-                catch (MySqlException e)
-                {
-                    throw new Exception("DATABASE NOT CONNECTED", e);
-                }
-
-                MySqlCommand cmd = new MySqlCommand("Select * from Test2;", connection);
-
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Console.WriteLine(reader[0] + ", ");
-                        Console.Write(reader[1]);
-                    }
-                }
-            }
-        }
     }
 }
