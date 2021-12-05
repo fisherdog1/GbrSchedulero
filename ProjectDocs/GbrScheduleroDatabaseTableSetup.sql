@@ -1,9 +1,9 @@
-drop table Airport;
-drop table Flight;
-drop table Aircraft;
-drop table AircraftType;
-drop table Crew;
-drop table CrewMember;
+drop table if exists Airport;
+drop table if exists Flight;
+drop table if exists Aircraft;
+drop table if exists AircraftType;
+drop table if exists Crew;
+drop table if exists CrewMember;
 
 -- TODO: Add flight plans and flights to airports
 
