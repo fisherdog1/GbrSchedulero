@@ -215,15 +215,9 @@ namespace GbrSchedulero
         //    return flight;
         //}
 
-
-        // Returns an airport given its name
-
-        // Returns a crew given a captain's name
         // Need to be able to make several crews given the amount of attendants
-
-        //public Flight GetCrew(string FirstName)
+        //public Flight GetCrew()
         //{
-        //    CrewStation crew = new CrewStation();
 
         //    using (MySqlConnection connection = new MySqlConnection(connectionString))
         //    {
@@ -239,7 +233,7 @@ namespace GbrSchedulero
         //            throw new Exception("DATABASE NOT CONNECTED", e);
         //        }
 
-        //        MySqlCommand cmd = new MySqlCommand("Select * from Crew where captain = @FirstName;", conn);
+        //        MySqlCommand cmd = new MySqlCommand("Select * from CrewMember;", conn);
 
         //        using (var reader = cmd.ExecuteReader())
         //        {
@@ -247,9 +241,9 @@ namespace GbrSchedulero
         //            {
         //                //need to get captain, first officer, attendants, type, qualifications, and aircraft type
 
-        //                AircraftType aircraftType =
+        //                //AircraftType aircraftType
 
-        //                Crewmember Captain =
+        //                Crewmember Captain = new Crewmember(reader.GetString("firstName"), reader.GetString("lastName");
         //                Crewmember Officer =
 
         //                if (aircraftType = "GBR-10")
