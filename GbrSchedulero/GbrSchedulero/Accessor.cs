@@ -216,55 +216,80 @@ namespace GbrSchedulero
         //}
 
         // Need to be able to make several crews given the amount of attendants
-        //public Flight GetCrew()
-        //{
+        public Flight GetCrew()
+        {
 
-        //    using (MySqlConnection connection = new MySqlConnection(connectionString))
-        //    {
-        //        MySqlConnection conn;
-        //        try
-        //        {
-        //            conn = new MySqlConnection(connectionString);
-        //            conn.Open();
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                MySqlConnection conn;
+                try
+                {
+                    conn = new MySqlConnection(connectionString);
+                    conn.Open();
 
-        //        }
-        //        catch (MySqlException e)
-        //        {
-        //            throw new Exception("DATABASE NOT CONNECTED", e);
-        //        }
+                }
+                catch (MySqlException e)
+                {
+                    throw new Exception("DATABASE NOT CONNECTED", e);
+                }
 
-        //        MySqlCommand cmd = new MySqlCommand("Select * from CrewMember;", conn);
+                MySqlCommand cmd = new MySqlCommand("Select * from CrewMember;", conn);
 
-        //        using (var reader = cmd.ExecuteReader())
-        //        {
-        //            while (reader.Read())
-        //            {
-        //                //need to get captain, first officer, attendants, type, qualifications, and aircraft type
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        //need to get captain, first officer, attendants, type, qualifications, and aircraft type
 
-        //                //AircraftType aircraftType
+                        //AircraftType aircraftType
 
-        //                Crewmember Captain = new Crewmember(reader.GetString("firstName"), reader.GetString("lastName");
-        //                Crewmember Officer =
+                        Crewmember Captain = new Crewmember(reader.GetString("firstName"), reader.GetString("lastName");
+                        Crewmember Officer =
 
-        //                if (aircraftType = "GBR-10")
-        //                {
-        //                    Crewmember Attendant1 =
-        //                    CrewStation crew = new CrewStation(StationType.Captain, StationType.Officer, StationType.Attendant, aircraftType);
-        //                }
-        //                else if (aircraftType = "NU-150")
-        //                {
-        //                    Crewmember Attendant1 =
-        //                    Crewmember Attendant2 =
-        //                    CrewStation crew = new CrewStation(StationType.Captain, StationType.Officer, StationType.Attendant, StationType.Attendant2, aircraftType);
-        //                }
+                        if (aircraftType = "GBR-10")
+                        {
+                            Crewmember Attendant1 =
+                            CrewStation crew = new CrewStation(StationType.Captain, StationType.Officer, StationType.Attendant, aircraftType);
+                        }
+                        else if (aircraftType = "NU-150")
+                        {
+                            Crewmember Attendant1 =
+                            Crewmember Attendant2 =
+                            CrewStation crew = new CrewStation(StationType.Captain, StationType.Officer, StationType.Attendant, StationType.Attendant2, aircraftType);
+                        }
 
-        //            }
-        //        }
+                    }
+                }
 
-        //        conn.Close();
-        //    }
-        //    return crew;
-        //}
+                conn.Close();
+            }
+            return crew;
+        }
+
+        // Deletes all data from database
+        public void ClearTables()
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                
+                try
+                {
+                    connection.Open();
+
+                }
+                catch (MySqlException e)
+                {
+                    throw new Exception("DATABASE NOT CONNECTED", e);
+                }
+
+                MySqlCommand cmd = new MySqlCommand("Truncate table Airport; Truncate table Flight; Truncate table Aircraft; Truncate table AircraftType; " +
+                    "Truncate table Crew; Truncate table CrewMember;", connection);
+                
+            }
+            
+        }
+
+
 
     }
 }
