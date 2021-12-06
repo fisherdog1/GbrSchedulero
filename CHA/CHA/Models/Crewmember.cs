@@ -11,11 +11,11 @@ namespace GbrSchedulero
     {
         
         [Key]
-        public int CrewID { get;  set; }
+        //public int CrewID { get;  set; }
+        public string FirstName { get;  private set; }
         //public string FirstName { get;  set; }
-        public string FirstName { get;  set; }
-        public string LastName { get;  set; }
         //public string LastName { get;  set; }
+        public string LastName { get;  private set; }
         private List<CrewQualification> qualifications;
 
         public Crewmember(string firstName, string lastName)
