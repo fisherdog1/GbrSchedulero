@@ -18,7 +18,11 @@ namespace CHA.Data
         }
         public DbSet<Crewmem> crewmems { get; set; }
 
-        
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+       // {
+          //  base.OnConfiguring(optionsBuilder);
+           // ModelBuilder.Entity<Crewmem>
+        //}
         /*
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
