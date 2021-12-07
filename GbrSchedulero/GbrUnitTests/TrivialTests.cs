@@ -4,11 +4,12 @@ using Microsoft.Extensions.Configuration;
 using System.Configuration;
 using System;
 using System.Collections.Generic;
+using MySqlConnector;
 
 namespace GbrUnitTests
 {
     [TestClass]
-    public class UnitTest1
+    public class TrivialTests
     {
         public IConfigurationRoot? Configuration;
         public string connectionString;
@@ -17,7 +18,7 @@ namespace GbrUnitTests
         public void TestInit()
         {
             IConfigurationBuilder config = new ConfigurationBuilder()
-                .AddUserSecrets<UnitTest1>();
+                .AddUserSecrets<TrivialTests>();
 
             this.Configuration = config.Build();
 
@@ -53,9 +54,55 @@ namespace GbrUnitTests
         public void TestCrewNames()
         {
             TestCrewBuilder tcb = new TestCrewBuilder();
-            List<Crewmember> exampleCrew = tcb.GenerateCrews();
+            List<Crewmember> exampleCrew = tcb.Generate(50);
 
             Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void TestAircraftGen()
+        {
+            TestAircraftBuilder tab = new TestAircraftBuilder();
+            List<Aircraft> acs = tab.Generate(50);
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void TestFlightPlanGen()
+        {
+            TestFlightPlanBuilder tab = new TestFlightPlanBuilder();
+            List<FlightPlan> acs = tab.Generate(50);
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void TestDataPull()
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                }
+                catch (MySqlException e)
+                {
+                    throw new Exception("DATABASE NOT CONNECTED", e);
+                }
+
+                MySqlCommand cmd = new MySqlCommand("Select * from Test;", connection);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Console.WriteLine(reader[0] + ", ");
+                        Console.Write(reader[1]);
+                    }
+                }
+            }
         }
     }
 }

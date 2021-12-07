@@ -31,7 +31,12 @@ namespace GbrSchedulero
     /// </summary>
     public class CrewStation
     {
-        public StationType CrewStationType { get; private set; }
+        public StationType CrewStationType { get; set; }
+
+        public void setStationType(StationType crewStationType)
+        {
+            this.CrewStationType = crewStationType;
+        }
 
         public CrewStation(StationType crewStationType)
         {

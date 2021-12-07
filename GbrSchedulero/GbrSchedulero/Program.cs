@@ -3,10 +3,12 @@ using MySqlConnector;
 
 namespace GbrSchedulero
 {
+    
     public class Program
     {
         static void Main(string[] args)
         {
+           
         }
 
         public static int DatabaseConnTest(String connectionString)
@@ -25,12 +27,12 @@ namespace GbrSchedulero
 
             Console.WriteLine("Db connected");
 
-            MySqlCommand cmd = new MySqlCommand("select * from Test;", conn);
+            MySqlCommand cmd = new MySqlCommand("select * from Airport;", conn);
             MySqlDataReader reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {
-                Console.WriteLine("Row: " + reader.GetString("testName"));
+                Console.WriteLine("Row: " + reader.GetString("airportId"));
             }
 
             return 1;

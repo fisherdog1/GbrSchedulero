@@ -11,6 +11,26 @@ namespace GbrSchedulero
     /// </summary>
     public abstract class Flight
     {
+        public string FlightNumber { get { return Plan.FlightNumber; } }
+        public FlightPlan Plan { get; private set; }
+        public int Passengers { get; private set; }
+        private List<Crewmember> crew;
+
+        public Flight(FlightPlan plan, Aircraft ac, int passengers, Crewmember[] crew)
+        {
+            this.Plan = plan;
+
+            this.Passengers = passengers;
+
+            this.crew = new List<Crewmember>();
+            this.crew.AddRange(crew);
+
+            AircraftType type = ac.AcType;
+
+            //Check if crew is suitable. (Extra crewmembers are placed in passenger seats?)
+            throw new NotImplementedException("Flight class unfinished.");
+        }
+
         /// <summary>
         /// True if this flight has landed at any destination, potentially not the planned destination
         /// </summary>
@@ -34,12 +54,6 @@ namespace GbrSchedulero
         /// </summary>
         /// <returns></returns>
         public abstract bool IsUpcoming();
-
-        /// <summary>
-        /// Return the associated flight plan, which specifies the route, scheduled departure and arrival times, etc.
-        /// </summary>
-        /// <returns></returns>
-        public abstract object GetPlan();
 
         /// <summary>
         /// Returns the time the flight actually departed
