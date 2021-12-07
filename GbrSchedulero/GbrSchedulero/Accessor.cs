@@ -162,17 +162,15 @@ namespace GbrSchedulero
         //    return aircraft;
         //}
 
-        // Returns a flight given its flight number
+        //Returns a flight given its flight number
         //public Flight GetFlight(string flightNumber)
         //{
         //    Flight flight = new Flight();
         //    using (MySqlConnection connection = new MySqlConnection(connectionString))
         //    {
-        //        MySqlConnection conn;
         //        try
         //        {
-        //            conn = new MySqlConnection(connectionString);
-        //            conn.Open();
+        //            connection.Open();
 
         //        }
         //        catch (MySqlException e)
@@ -180,7 +178,11 @@ namespace GbrSchedulero
         //            throw new Exception("DATABASE NOT CONNECTED", e);
         //        }
 
-        //        MySqlCommand cmd = new MySqlCommand("Select * from Flight where flightNumber = @flightNumber;", conn);
+        //        MySqlCommand cmd = new MySqlCommand("select * from Flight f " +
+        //            "join Aircraft a on f.aircraftID = a.aircraftID " +
+        //            "join AircraftType a_t on a.aircraftTypeID = a_t.aircraftTypeID " +
+        //            "join Crew c on a_t.crewId = c.crewId " +
+        //            "where flightNumber = @flightNumber;", connection);
 
         //        using (var reader = cmd.ExecuteReader())
         //        {
@@ -190,42 +192,74 @@ namespace GbrSchedulero
         //                //make a Crew, AircraftType, and Aircraft and to construct a Flight
         //                //add to flight list
 
-        //                //AircraftType type
-        //                //Crewmember crew
+        //                int passengers = 0;
+        //                string nameOf = reader.GetString("typeName");
+        //                if (nameOf.Equals("GBR-10"))
+        //                    passengers = 45;
+        //                else if (nameOf.Equals("NU-150"))
+        //                    passengers = 75;
 
-        //                //string registrationNumber
-        //                //Aircraft aircraft = new Aircraft(type, registrationNumber, crew);
+        //                AircraftType typeName = new AircraftType(nameOf, passengers);
 
-        //                //string flightNumber
-        //                //string origin
-        //                //string destination
-        //                //string scheduledTakeoff
-        //                //string estimatedTakeoff
-        //                //string actualTakeoff
-        //                //string scheduledTouchdown
-        //                //string estimatedTouchdown
-        //                //string actualTouchdown
-        //                //Flight flight = new Flight(flightNumber, aircraft, origin, destination, scheduledTakeoff, estimatedTakeoff, actualTakeoff, scheduledTouchdown, estimatedTouchdown, actualTouchdown);
+        //                string registrationNumber = reader.GetString("registrationNumber");
+        //                Aircraft aircraft = new Aircraft(registrationNumber, typeName);
+
+                        
+        //                //Crewmember captain = ;
+        //                //Crewmember firstOfficer = ;
+
+        //                //if (nameOf.Equals("GBR-10"))
+        //                //{
+        //                //    Crewmember Attendant1 = ;
+        //                //    Crewmember[] crew = new Crewmember[] {captain, firstOfficer, Attendant1};
+        //                //}
+        //                //else if (nameOf.Equals("NU-150"))
+        //                //{
+        //                //    Crewmember Attendant1 = ;
+        //                //    Crewmember Attendant2 = ;
+        //                //    Crewmember[] crew = new Crewmember[] {captain, firstOfficer, Attendant1, Attendant2};
+        //                //}
+
+        //                string origin = reader.GetString("originAirport");
+        //                Airport originAirport = FindAirport(origin);
+
+        //                string destination = reader.GetString("destinationAirport");
+        //                Airport destinationAirport = FindAirport(destination);
+
+        //                string takeoffTime = reader.GetString("scheduledTakeoff");
+        //                DateTime scheduledTakeoff = Convert.ToDateTime(takeoffTime);
+
+        //                string touchdownTime = reader.GetString("scheduledTouchdown");
+        //                DateTime scheduledTouchdown = Convert.ToDateTime(touchdownTime);
+
+        //                string estimatedTakeoff = reader.GetString("estimatedTakeoff");
+        //                string actualTakeoff = reader.GetString("actualTakeoff");
+        //                string estimatedTouchdown = reader.GetString("estimatedTouchdown");
+        //                string actualTouchdown = reader.GetString("actualTouchdown");
+
+        //                //find a way to find origin and destination airports
+        //                FlightPlan plan = new FlightPlan(flightNumber, originAirport, destinationAirport, scheduledTakeoff, scheduledTouchdown);
+
+        //                Flight flight = new Flight(plan, aircraft, passengers, crew);
 
         //            }
         //        }
 
-        //        conn.Close();
+        //        connection.Close();
         //    }
         //    return flight;
         //}
 
         // Need to be able to make several crews given the amount of attendants
-        public Flight GetCrew()
+        public Crewmember[] GetCrew()
         {
+            Crewmember[] crew = new Crewmember[] { };
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                MySqlConnection conn;
                 try
                 {
-                    conn = new MySqlConnection(connectionString);
-                    conn.Open();
+                    connection.Open();
 
                 }
                 catch (MySqlException e)
@@ -233,35 +267,49 @@ namespace GbrSchedulero
                     throw new Exception("DATABASE NOT CONNECTED", e);
                 }
 
-                MySqlCommand cmd = new MySqlCommand("Select * from CrewMember;", conn);
+                MySqlCommand cmd = new MySqlCommand("select * from Aircraft a " +
+                    "join AircraftType a_t on a.aircraftTypeId = a_t.aircraftTypeID " +
+                    "join Crew c on a.crewId = c.crewId " +
+                    "join CrewMember cm on c.memberId = cm.memberId; ", connection);
 
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        //need to get captain, first officer, attendants, type, qualifications, and aircraft type
 
-                        //AircraftType aircraftType
+                        int passengers = 0;
+                        string nameOf = reader.GetString("typeName");
+                        if (nameOf.Equals("GBR-10"))
+                            passengers = 45;
+                        else if (nameOf.Equals("NU-150"))
+                            passengers = 75;
 
-                        Crewmember Captain = new Crewmember(reader.GetString("firstName"), reader.GetString("lastName");
-                        Crewmember Officer =
+                        AircraftType typeName = new AircraftType(nameOf, passengers);
 
-                        if (aircraftType = "GBR-10")
-                        {
-                            Crewmember Attendant1 =
-                            CrewStation crew = new CrewStation(StationType.Captain, StationType.Officer, StationType.Attendant, aircraftType);
-                        }
-                        else if (aircraftType = "NU-150")
-                        {
-                            Crewmember Attendant1 =
-                            Crewmember Attendant2 =
-                            CrewStation crew = new CrewStation(StationType.Captain, StationType.Officer, StationType.Attendant, StationType.Attendant2, aircraftType);
-                        }
+                        //create crew
+                        //Crewmember captain = ;
+                        //Crewmember firstOfficer = ;
+
+                        //crew[0] = captain;
+                        //crew[1] = firstOfficer;
+
+                        //if (nameOf.Equals("GBR-10"))
+                        //{
+                        //    Crewmember Attendant1 = ;
+                        //    crew[2] = Attendant1;
+                        //}   
+                        //else if (nameOf.Equals("NU-150"))
+                        //{
+                        //    Crewmember Attendant1 = ;
+                        //    Crewmember Attendant2 = ;
+                        //    crew[2] = Attendant1;
+                        //    crew[3] = Attendant2;
+                        //}
 
                     }
                 }
 
-                conn.Close();
+                connection.Close();
             }
             return crew;
         }
@@ -290,6 +338,41 @@ namespace GbrSchedulero
         }
 
 
+        public Airport FindAirport(string name)
+        {
+            
+            Airport airport = new Airport(name, 999);
 
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+
+                try
+                {
+                    connection.Open();
+
+                }
+                catch (MySqlException e)
+                {
+                    throw new Exception("DATABASE NOT CONNECTED", e);
+                }
+
+                MySqlCommand cmd = new MySqlCommand("Select * from Airport where airportId = @airportId;", connection);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        //Grab all parameters of airport
+
+                        int id = reader.GetInt32("airportId");
+                        airport.setId(id);
+                        
+                    }
+                }
+
+                connection.Close();
+            }
+            return airport;
+        }
     }
 }

@@ -12,13 +12,23 @@ namespace GbrSchedulero
     public class Airport : IEquatable<Airport>
     {
 
-        public string AirportName { get; private set; }
-        public int AirportId { get; private set; }
+        public string AirportName { get; set; }
+        public int AirportId { get; set; }
      
-        private Airport(string AirportName, int AirportId)
+        public Airport(string AirportName, int AirportId)
         {
             this.AirportName = AirportName;
             this.AirportId = AirportId;
+        }
+
+        public void setName(string name)
+        {
+            this.AirportName = name;
+        }
+
+        public void setId(int id)
+        {
+            this.AirportId = id;
         }
 
 
