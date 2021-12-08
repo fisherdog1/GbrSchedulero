@@ -39,26 +39,5 @@ namespace CHA.Data
         public LoginData()
         {
         }
-
-        //Adding when extract data from database
-
-
-
-        /// <summary>
-        /// Returns which (if any) crew stations this Crewmember can be assigned on the given aircraft type
-        /// </summary>
-        /// <returns></returns>
-        public List<CrewStation> PossibleAssignments(AircraftType acType)
-        {
-            List<CrewStation> stations = new List<CrewStation>();
-
-            foreach (CrewQualification qual in qualifications)
-                if (qual.AcType == acType)
-                    foreach (CrewStation station in acType.GetCrewStations())
-                        if (station.Qualified(qual.Station))
-                            stations.Add(station);
-
-            return stations;
-        }
     }
 }

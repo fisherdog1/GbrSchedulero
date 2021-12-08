@@ -55,14 +55,17 @@ namespace GbrSchedulero
             return airport;
         }
 
+        private static Airport[] singletonAirports;
         public static Airport[] AllAirports()
         {
-            return new Airport[] {
-                LincolnNebraska(),
-                IowaCityIowa(),
-                EvanstonIllinois(),
-                WestLafayetteIndiana()};
+            if (singletonAirports == null)
+                singletonAirports = new Airport[] {
+                            LincolnNebraska(),
+                            IowaCityIowa(),
+                            EvanstonIllinois(),
+                            WestLafayetteIndiana()};
 
+            return singletonAirports;
         }
 
         /// <summary>

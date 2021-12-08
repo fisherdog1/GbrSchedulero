@@ -37,12 +37,21 @@ namespace CHA.Data
                 .HasOne<Airport>(fp => fp.Destination)
                 .WithMany();
 
+            //Crewmembers can have one or more qualifications
+            builder.Entity<Crewmember>()
+                .HasMany<CrewQualification>(c => c.qualifications)
+                .WithOne();
 
+            //Crew qualifications can be for one aircraft type
+            builder.Entity<CrewQualification>()
+                .HasOne<AircraftType>(cq => cq.AcType)
+                .WithMany();
         }
 
         public DbSet<AircraftType> AircraftTypes { get; set; }
         public DbSet<Airport> Airports { get; set; }
         public DbSet<Crewmember> Crewmembers { get; set; }
+        public DbSet<CrewQualification> Qualifications { get; set; }
         public DbSet<Aircraft> Aircrafts { get; set; }
         public DbSet<FlightPlan> FlightPlans { get; set; }
         public DbSet<Flight> Flights { get; set; }

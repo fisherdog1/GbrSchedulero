@@ -53,7 +53,7 @@ namespace GbrUnitTests
         [TestMethod]
         public void TestCrewNames()
         {
-            TestCrewBuilder tcb = new TestCrewBuilder();
+            TestCrewBuilder tcb = new TestCrewBuilder(AircraftType.AllTypes());
             List<Crewmember> exampleCrew = tcb.Generate(50);
 
             Assert.IsTrue(true);

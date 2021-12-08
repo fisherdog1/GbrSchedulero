@@ -50,7 +50,7 @@ namespace GbrUnitTests
                 List<Aircraft> testAircrafts = new TestAircraftBuilder(types).Generate(10);
                 context.AddRange(testAircrafts);
 
-                List<Crewmember> testCrewmembers = new TestCrewBuilder().Generate(30);
+                List<Crewmember> testCrewmembers = new TestCrewBuilder(AircraftType.AllTypes()).Generate(30);
                 context.AddRange(testCrewmembers);
 
                 List<FlightPlan> testPlans = new TestFlightPlanBuilder(airports).Generate(5);

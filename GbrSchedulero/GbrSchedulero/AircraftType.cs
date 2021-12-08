@@ -22,16 +22,16 @@ namespace GbrSchedulero
         public int AircraftTypeID { get; set; }
         public string TypeName { get; private set; }
         public int MaxPassengers { get; private set; }
-        private List<CrewStation> stations;
+        private List<StationType> stations;
 
         public AircraftType(string typeName, int maxPassengers)
         {
             this.TypeName = typeName;
             this.MaxPassengers = maxPassengers;
-            this.stations = new List<CrewStation>();
+            this.stations = new List<StationType>();
         }
 
-        public void AddStation(CrewStation station)
+        public void AddStation(StationType station)
         {
             this.stations.Add(station);
         }
@@ -40,9 +40,9 @@ namespace GbrSchedulero
         {
             AircraftType gbr10 = new AircraftType("GBR-10", 45);
 
-            gbr10.AddStation(new CrewStation(StationType.Captain));
-            gbr10.AddStation(new CrewStation(StationType.Officer));
-            gbr10.AddStation(new CrewStation(StationType.Attendant));
+            gbr10.AddStation(StationType.Captain);
+            gbr10.AddStation(StationType.Officer);
+            gbr10.AddStation(StationType.Attendant);
 
             return gbr10;
         }
@@ -51,17 +51,21 @@ namespace GbrSchedulero
         {
             AircraftType nu150 = new AircraftType("NU-150", 75);
 
-            nu150.AddStation(new CrewStation(StationType.Captain));
-            nu150.AddStation(new CrewStation(StationType.Officer));
-            nu150.AddStation(new CrewStation(StationType.Attendant));
-            nu150.AddStation(new CrewStation(StationType.Attendant));
+            nu150.AddStation(StationType.Captain);
+            nu150.AddStation(StationType.Officer);
+            nu150.AddStation(StationType.Attendant);
+            nu150.AddStation(StationType.Attendant);
 
             return nu150;
         }
 
+        private static AircraftType[] singletonAircraftTypes;
         public static AircraftType[] AllTypes()
         {
-            return new AircraftType[] {NU150(), GBR10() };
+            if (singletonAircraftTypes == null)
+                singletonAircraftTypes = new AircraftType[] { NU150(), GBR10() };
+
+            return singletonAircraftTypes;
         }
 
         //public abstract int GetPassengerSeats();
@@ -72,7 +76,7 @@ namespace GbrSchedulero
         /// Crew qualifications are based on both the AircraftType and the station (implementation tbd).
         /// </summary>
         /// <returns></returns>
-        public List<CrewStation> GetCrewStations()
+        public List<StationType> GetCrewStations()
         {
             return stations;
         }

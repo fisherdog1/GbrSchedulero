@@ -3,14 +3,16 @@ using System;
 using CHA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CHA.Migrations
 {
     [DbContext(typeof(FlightScheduleDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211208195305_Migration4")]
+    partial class Migration4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,9 +84,6 @@ namespace CHA.Migrations
                     b.Property<int?>("CrewmemberID")
                         .HasColumnType("int");
 
-                    b.Property<int>("Station")
-                        .HasColumnType("int");
-
                     b.Property<int>("StationID")
                         .HasColumnType("int");
 
@@ -94,7 +93,23 @@ namespace CHA.Migrations
 
                     b.HasIndex("CrewmemberID");
 
+                    b.HasIndex("StationID");
+
                     b.ToTable("Qualifications");
+                });
+
+            modelBuilder.Entity("GbrSchedulero.CrewStation", b =>
+                {
+                    b.Property<int>("CrewStationID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CrewStationType")
+                        .HasColumnType("int");
+
+                    b.HasKey("CrewStationID");
+
+                    b.ToTable("Stations");
                 });
 
             modelBuilder.Entity("GbrSchedulero.Crewmember", b =>
@@ -182,7 +197,15 @@ namespace CHA.Migrations
                         .WithMany("qualifications")
                         .HasForeignKey("CrewmemberID");
 
+                    b.HasOne("GbrSchedulero.CrewStation", "Station")
+                        .WithMany()
+                        .HasForeignKey("StationID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("AcType");
+
+                    b.Navigation("Station");
                 });
 
             modelBuilder.Entity("GbrSchedulero.Flight", b =>
