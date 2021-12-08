@@ -21,7 +21,7 @@ namespace CHA.Controllers
         // GET: Crewmems
         public async Task<IActionResult> Index()
         {
-            return View(await _context.crewmems.ToListAsync());
+            return View(await _context.Crewmembers.ToListAsync());
         }
 
         // GET: Crewmems/Details/5
@@ -32,8 +32,8 @@ namespace CHA.Controllers
                 return NotFound();
             }
 
-            var crewmem = await _context.crewmems
-                .FirstOrDefaultAsync(m => m.CrewID == id);
+            var crewmem = await _context.Crewmembers
+                .FirstOrDefaultAsync(m => m.CrewmemberID == id);
             if (crewmem == null)
             {
                 return NotFound();
@@ -72,7 +72,7 @@ namespace CHA.Controllers
                 return NotFound();
             }
 
-            var crewmem = await _context.crewmems.FindAsync(id);
+            var crewmem = await _context.Crewmembers.FindAsync(id);
             if (crewmem == null)
             {
                 return NotFound();
@@ -123,8 +123,8 @@ namespace CHA.Controllers
                 return NotFound();
             }
 
-            var crewmem = await _context.crewmems
-                .FirstOrDefaultAsync(m => m.CrewID == id);
+            var crewmem = await _context.Crewmembers
+                .FirstOrDefaultAsync(m => m.CrewmemberID == id);
             if (crewmem == null)
             {
                 return NotFound();
@@ -138,15 +138,15 @@ namespace CHA.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var crewmem = await _context.crewmems.FindAsync(id);
-            _context.crewmems.Remove(crewmem);
+            var crewmem = await _context.Crewmembers.FindAsync(id);
+            _context.Crewmembers.Remove(crewmem);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CrewmemExists(int id)
         {
-            return _context.crewmems.Any(e => e.CrewID == id);
+            return _context.Crewmembers.Any(e => e.CrewmemberID == id);
         }
     }
 }

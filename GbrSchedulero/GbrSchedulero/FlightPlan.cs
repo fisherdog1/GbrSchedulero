@@ -11,6 +11,8 @@ namespace GbrSchedulero
     /// </summary>
     public class FlightPlan
     {
+        //Primary Key
+        public int FlightPlanID { get; set; }
         public string FlightNumber { get; private set; }
         public Airport Destination { get; private set; }
         public Airport Origin { get; private set; }

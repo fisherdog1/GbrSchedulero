@@ -8,6 +8,8 @@ namespace GbrSchedulero
 {
     public class Crewmember
     {
+        //Primary Key
+        public int CrewmemberID { get; set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
         private List<CrewQualification> qualifications;

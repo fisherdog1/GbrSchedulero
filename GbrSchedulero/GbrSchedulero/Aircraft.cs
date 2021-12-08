@@ -8,6 +8,8 @@ namespace GbrSchedulero
 {
     public class Aircraft : IEquatable<Aircraft>
     {
+        //Primary Key
+        public int AircraftID { get; set; }
         public string Registration { get; private set; }
         public AircraftType AcType { get; private set; }
 
