@@ -47,6 +47,23 @@ namespace CHA.Data
                 .HasOne<AircraftType>(cq => cq.AcType)
                 .WithMany();
 
+//<<<<<<< HEAD
+//=======
+            builder.Entity<FlightCrewAssignment>()
+                .HasOne(fa => fa.Flight)
+                .WithMany(f => f.Crewmembers)
+                .HasForeignKey(fa => fa.FlightID);
+
+            builder.Entity<AssignmentChangeOrder>()
+                .HasOne<FlightCrewAssignment>(aco => aco.PreviousOrder)
+                .WithOne(/**/) //Add something here so assignments can navigate to their relevant change order
+                .HasForeignKey<AssignmentChangeOrder>(aco => aco.PreviousOrderID); 
+
+            builder.Entity<AssignmentChangeOrder>()
+                .HasOne<FlightCrewAssignment>(aco => aco.CurentOrder)
+                .WithOne()
+                .HasForeignKey<AssignmentChangeOrder>(aco => aco.CurrentOrderID);
+//>>>>>>> 0186c1289abf5f0cb8f8fbcbb5efa0cffe69f8ec
         }
 
         public DbSet<AircraftType> AircraftTypes { get; set; }
@@ -57,5 +74,6 @@ namespace CHA.Data
         public DbSet<FlightPlan> FlightPlans { get; set; }
         public DbSet<Flight> Flights { get; set; }
         public DbSet<FlightCrewAssignment> Assignments { get; set; }
+        public DbSet<AssignmentChangeOrder> ChangeOrders { get; set; }
     }
 }
