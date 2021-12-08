@@ -16,7 +16,7 @@ namespace GbrSchedulero
     /// Provisionally abstract for outlining purposes. Will most likely become concrete later
     /// Return types and parameters with type Object indicate undecided types.
     /// </summary>
-    public class AircraftType
+    public class AircraftType : IEquatable<AircraftType>
     {
         //Primary Key
         public int AircraftTypeID { get; set; }
@@ -59,9 +59,14 @@ namespace GbrSchedulero
             return nu150;
         }
 
+        public static AircraftType[] AllTypes()
+        {
+            return new AircraftType[] {NU150(), GBR10() };
+        }
+
         //public abstract int GetPassengerSeats();
         //public abstract string GetTypeName();
-        
+
         /// <summary>
         /// Get the possible crew stations. In our case this will always be a captain and first officer station, plus one or more attendant stations.
         /// Crew qualifications are based on both the AircraftType and the station (implementation tbd).
@@ -75,6 +80,12 @@ namespace GbrSchedulero
         public override string ToString()
         {
             return TypeName;
+        }
+
+        //This might be neccessary to stop EF creating duplicate types?
+        public bool Equals(AircraftType other)
+        {
+            return this.TypeName == other.TypeName;
         }
     }
 }

@@ -12,21 +12,24 @@ namespace GbrUnitTests
     /// </summary>
     class TestFlightPlanBuilder : ITestDataGenerator<FlightPlan>
     {
+        private Airport[] Airports;
+        public TestFlightPlanBuilder(Airport[] airports)
+        {
+            this.Airports = airports;
+        }
+
         public List<FlightPlan> Generate(int count)
         {
             List<FlightPlan> plans = new List<FlightPlan>();
-
-            Airport[] airports = Airport.AllAirports();
-
             Random r = new Random(1337*count);
 
-            for (int i = 0; i < 17; i++)
+            for (int i = 0; i < count; i++)
             {
-                int ap = r.Next(airports.Length);
-                Airport origin = airports[ap];
+                int ap = r.Next(Airports.Length);
+                Airport origin = Airports[ap];
 
-                int apd = (ap + r.Next(1, airports.Length)) % airports.Length;
-                Airport destination = airports[apd];
+                int apd = (ap + r.Next(1, Airports.Length)) % Airports.Length;
+                Airport destination = Airports[apd];
 
                 string flightNumber = "CHA" + r.Next(0, 9999).ToString("d4");
 
@@ -39,7 +42,8 @@ namespace GbrUnitTests
                 //Arrival time based on time enroute
                 DateTime arrivalTime = departureTime.Add(FlightPlan.GetTotalTimeEnroute(origin, destination));
 
-                FlightPlan plan = new FlightPlan(flightNumber, origin, destination, departureTime, arrivalTime);
+                //Stinky
+                FlightPlan plan = new FlightPlan(flightNumber, ap + 1, apd + 1, departureTime, arrivalTime);
                 plans.Add(plan);
             }
 

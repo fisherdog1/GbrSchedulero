@@ -61,7 +61,7 @@ namespace GbrUnitTests
 
             Random r = new Random(1337*count);
 
-            for (int i = 0; i < 42; i++)
+            for (int i = 0; i < count; i++)
             {
                 Crewmember crewmember = new Crewmember(
                     firstNames[r.Next(firstNames.Count)], 

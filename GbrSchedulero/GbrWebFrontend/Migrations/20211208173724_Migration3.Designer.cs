@@ -3,14 +3,16 @@ using System;
 using CHA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CHA.Migrations
 {
     [DbContext(typeof(FlightScheduleDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211208173724_Migration3")]
+    partial class Migration3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
