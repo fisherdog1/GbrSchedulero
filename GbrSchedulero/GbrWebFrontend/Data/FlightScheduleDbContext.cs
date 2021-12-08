@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GbrSchedulero;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,9 @@ namespace CHA.Data
         {
 
         }
-        public DbSet<Crewmem> crewmems { get; set; }
-
-        
-
+        public DbSet<Crewmember> Crewmembers { get; set; }
+        public DbSet<Aircraft> Aircrafts { get; set; }
+        public DbSet<FlightPlan> FlightPlans { get; set; }
+        public DbSet<Flight> Flights { get; set; }
     }
 }
