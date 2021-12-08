@@ -18,7 +18,7 @@
         <br />
         <ul>
             <li><a href="/Home">Home</a></li>
-            <li ><a href="/Crewmems">Crew schedule</a></li>
+            <li><a href="/Crewmems">Crew schedule</a></li>
             <li><a href="/AboutUs">About Us</a></li>
             <li><a href="/ContactUs">Contact Us</a></li>
             <li class="active"><a href="/Login">Login</a></li>
@@ -52,16 +52,22 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Log In" class="btn btn-primary" />
             </div>
+            <br />
+            <div class="form-group">
+                <a href="/Create an Account">Create an account</a>
+            </div>
+            <br />
+
         </form>
     </div>
 </div>
-
+<!--
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
+-->
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

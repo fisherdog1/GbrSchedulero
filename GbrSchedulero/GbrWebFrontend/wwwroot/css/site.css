@@ -132,7 +132,7 @@ ul li a:hover {
 
 .title {
     position: absolute;
-    top: 35%;
+    top: 25%;
     left: 20%;
     transform: translate(-50%,-50%);
 }
@@ -144,7 +144,7 @@ ul li a:hover {
 /*Crew table*/
 .crew_title {
     position: absolute;
-    top: 30%;
+    top: 20%;
     left: 50%;
     transform: translate(-50%,-50%);
 }
@@ -181,6 +181,7 @@ td {
     margin-top: 8px;
     margin-right: 16px;
     font-size: 17px;
+    top: 50%;
 }
 /*About Us*/
 .aboutus{
@@ -215,12 +216,6 @@ input[type=submit] {
         background-color: #45a049;
     }
 
-/* Style the container/contact section */
-.container {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 10px;
-}
 
 /* Create two columns that float next to eachother */
 .column {

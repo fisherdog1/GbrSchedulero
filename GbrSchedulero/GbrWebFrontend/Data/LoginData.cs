@@ -13,14 +13,18 @@ namespace CHA.Data
         [Key]
         public int CrewID { get; set; }
 
-        [StringLength(60, MinimumLength = 8, ErrorMessage = "Email must be between 8 and 60 characters.")]
+        //[StringLength(60, MinimumLength = 8, ErrorMessage = "Email must be between 8 and 60 characters.")]
+        //[Required]
+        //[BindProperty]
         [Required]
-        [BindProperty]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [StringLength(20, MinimumLength = 8, ErrorMessage = "Password must be between 8 and 60 characters.")]
+        //[StringLength(20, MinimumLength = 8, ErrorMessage = "Password must be between 8 and 60 characters.")]
+        //[Required]
+        //[BindProperty]
         [Required]
-        [BindProperty]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
         public void OnGet()
         {
