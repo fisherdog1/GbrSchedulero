@@ -53,7 +53,7 @@ namespace GbrUnitTests
         [TestMethod]
         public void TestCrewNames()
         {
-            TestCrewBuilder tcb = new TestCrewBuilder();
+            TestCrewBuilder tcb = new TestCrewBuilder(AircraftType.AllTypes());
             List<Crewmember> exampleCrew = tcb.Generate(50);
 
             Assert.IsTrue(true);
@@ -62,7 +62,7 @@ namespace GbrUnitTests
         [TestMethod]
         public void TestAircraftGen()
         {
-            TestAircraftBuilder tab = new TestAircraftBuilder();
+            TestAircraftBuilder tab = new TestAircraftBuilder(AircraftType.AllTypes());
             List<Aircraft> acs = tab.Generate(50);
 
             Assert.IsTrue(true);
@@ -71,7 +71,8 @@ namespace GbrUnitTests
         [TestMethod]
         public void TestFlightPlanGen()
         {
-            TestFlightPlanBuilder tab = new TestFlightPlanBuilder();
+            Airport[] airports = Airport.AllAirports();
+            TestFlightPlanBuilder tab = new TestFlightPlanBuilder(airports);
             List<FlightPlan> acs = tab.Generate(50);
 
             Assert.IsTrue(true);

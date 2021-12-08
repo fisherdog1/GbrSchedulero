@@ -35,16 +35,26 @@ namespace GbrUnitTests
         {
             using (FlightScheduleDbContext context = new FlightScheduleDbContext(ContextOptions))
             {
-                //Note: at the moment this keeps adding more types and aircraft each time
-                //Something either in FlightScheduleDbContext or this test file needs to be changed to prevent this happening
+                //This is very slow
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+
                 //These tests could also be moved to a LocalDb
-                context.Add(AircraftType.GBR10());
-                context.Add(AircraftType.NU150());
 
-                List<Aircraft> testAircrafts = new TestAircraftBuilder().Generate(10);
+                AircraftType[] types = AircraftType.AllTypes();
+                context.AddRange(types);
 
-                foreach (Aircraft ac in testAircrafts)
-                    context.Add(ac);
+                Airport[] airports = Airport.AllAirports();
+                context.AddRange(airports);
+
+                List<Aircraft> testAircrafts = new TestAircraftBuilder(types).Generate(10);
+                context.AddRange(testAircrafts);
+
+                List<Crewmember> testCrewmembers = new TestCrewBuilder(AircraftType.AllTypes()).Generate(30);
+                context.AddRange(testCrewmembers);
+
+                List<FlightPlan> testPlans = new TestFlightPlanBuilder(airports).Generate(5);
+                context.AddRange(testPlans);
 
                 context.SaveChanges();
             }
@@ -66,7 +76,7 @@ namespace GbrUnitTests
         [TestMethod]
         public void HasAircraftTypes()
         {
-
+            //TODO
         }
     }
 }

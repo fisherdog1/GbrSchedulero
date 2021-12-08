@@ -14,19 +14,24 @@ namespace GbrSchedulero
         //Primary Key
         public int FlightPlanID { get; set; }
         public string FlightNumber { get; private set; }
-        public Airport Destination { get; private set; }
-        public Airport Origin { get; private set; }
         public DateTime DepartureTime { get; private set; }
         public DateTime ArrivalTime { get; private set; }
 
-        public FlightPlan(string flightNumber, Airport origin, Airport destination, DateTime departureTime, DateTime arrivalTime)
+        public int DestinationID { get; set; }
+        public int OriginID { get; set; }
+
+        //Navigation Properties
+        public Airport Destination { get; private set; }
+        public Airport Origin { get; private set; }
+
+        public FlightPlan(string flightNumber, int originId, int destinationId, DateTime departureTime, DateTime arrivalTime)
         {
-            if (origin == destination)
+            if (originId == destinationId)
                 throw new Exception("Origin and Destination airport cannot be the same.");
 
             this.FlightNumber = flightNumber;
-            this.Origin = origin;
-            this.Destination = destination;
+            this.OriginID = originId;
+            this.DestinationID = destinationId;
             this.DepartureTime = departureTime;
             this.ArrivalTime = arrivalTime;
         }

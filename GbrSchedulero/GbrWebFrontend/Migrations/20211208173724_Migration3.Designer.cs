@@ -3,14 +3,16 @@ using System;
 using CHA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CHA.Migrations
 {
     [DbContext(typeof(FlightScheduleDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211208173724_Migration3")]
+    partial class Migration3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,36 +67,6 @@ namespace CHA.Migrations
                     b.HasKey("AirportId");
 
                     b.ToTable("Airports");
-                });
-
-            modelBuilder.Entity("GbrSchedulero.CrewQualification", b =>
-                {
-                    b.Property<int>("CrewQualificationID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AcTypeAircraftTypeID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AicraftTypeID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CrewmemberID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Station")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StationID")
-                        .HasColumnType("int");
-
-                    b.HasKey("CrewQualificationID");
-
-                    b.HasIndex("AcTypeAircraftTypeID");
-
-                    b.HasIndex("CrewmemberID");
-
-                    b.ToTable("Qualifications");
                 });
 
             modelBuilder.Entity("GbrSchedulero.Crewmember", b =>
@@ -172,19 +144,6 @@ namespace CHA.Migrations
                     b.Navigation("AcType");
                 });
 
-            modelBuilder.Entity("GbrSchedulero.CrewQualification", b =>
-                {
-                    b.HasOne("GbrSchedulero.AircraftType", "AcType")
-                        .WithMany()
-                        .HasForeignKey("AcTypeAircraftTypeID");
-
-                    b.HasOne("GbrSchedulero.Crewmember", null)
-                        .WithMany("qualifications")
-                        .HasForeignKey("CrewmemberID");
-
-                    b.Navigation("AcType");
-                });
-
             modelBuilder.Entity("GbrSchedulero.Flight", b =>
                 {
                     b.HasOne("GbrSchedulero.FlightPlan", "Plan")
@@ -211,11 +170,6 @@ namespace CHA.Migrations
                     b.Navigation("Destination");
 
                     b.Navigation("Origin");
-                });
-
-            modelBuilder.Entity("GbrSchedulero.Crewmember", b =>
-                {
-                    b.Navigation("qualifications");
                 });
 #pragma warning restore 612, 618
         }

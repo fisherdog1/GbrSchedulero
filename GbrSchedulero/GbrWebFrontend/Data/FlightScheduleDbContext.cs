@@ -1,22 +1,13 @@
 ﻿using GbrSchedulero;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CHA.Data
 {
-    public class FlightScheduleDbContext: DbContext
+    public class FlightScheduleDbContext : DbContext
     {
         public FlightScheduleDbContext(DbContextOptions<FlightScheduleDbContext> options) : base(options)
-        {
-            this.Database.EnsureCreated();
-        }
-
-        public FlightScheduleDbContext()
         {
 
         }
@@ -36,9 +27,31 @@ namespace CHA.Data
             }
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            //One Airport corresponds to multiple FlightPlan
+            builder.Entity<FlightPlan>()
+                .HasOne<Airport>(fp => fp.Origin)
+                .WithMany();
+            builder.Entity<FlightPlan>()
+                .HasOne<Airport>(fp => fp.Destination)
+                .WithMany();
+
+            //Crewmembers can have one or more qualifications
+            builder.Entity<Crewmember>()
+                .HasMany<CrewQualification>(c => c.qualifications)
+                .WithOne();
+
+            //Crew qualifications can be for one aircraft type
+            builder.Entity<CrewQualification>()
+                .HasOne<AircraftType>(cq => cq.AcType)
+                .WithMany();
+        }
+
         public DbSet<AircraftType> AircraftTypes { get; set; }
         public DbSet<Airport> Airports { get; set; }
         public DbSet<Crewmember> Crewmembers { get; set; }
+        public DbSet<CrewQualification> Qualifications { get; set; }
         public DbSet<Aircraft> Aircrafts { get; set; }
         public DbSet<FlightPlan> FlightPlans { get; set; }
         public DbSet<Flight> Flights { get; set; }

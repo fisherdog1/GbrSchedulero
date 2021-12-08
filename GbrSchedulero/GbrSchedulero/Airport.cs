@@ -11,10 +11,9 @@ namespace GbrSchedulero
     /// </summary>
     public class Airport : IEquatable<Airport>
     {
-
-        public string AirportName { get; set; }
         public int AirportId { get; set; }
-     
+        public string AirportName { get; set; }
+
         public Airport(string AirportName, int AirportId)
         {
             this.AirportName = AirportName;
@@ -34,36 +33,39 @@ namespace GbrSchedulero
 
         public static Airport LincolnNebraska()
         {
-            Airport airport = new Airport("Lincoln Airport", 0);
+            Airport airport = new Airport("Lincoln Airport", 1);
             return airport;
         }
 
         public static Airport IowaCityIowa()
         {
-            Airport airport = new Airport("Easteren Iowa Airport", 1);
+            Airport airport = new Airport("Easteren Iowa Airport", 2);
             return airport;
         }
 
         public static Airport EvanstonIllinois()
         {
-            Airport airport = new Airport("O'Hare International Airport", 2);
+            Airport airport = new Airport("O'Hare International Airport", 3);
             return airport;
         }
 
         public static Airport WestLafayetteIndiana()
         {
-            Airport airport = new Airport("Purdue University Airport", 3);
+            Airport airport = new Airport("Purdue University Airport", 4);
             return airport;
         }
 
+        private static Airport[] singletonAirports;
         public static Airport[] AllAirports()
         {
-            return new Airport[] {
-                new Airport("Lincoln Airport", 0),
-                new Airport("Easteren Iowa Airport", 1),
-                new Airport("O'Hare International Airport", 2),
-                new Airport("Purdue University Airport", 3)};
+            if (singletonAirports == null)
+                singletonAirports = new Airport[] {
+                            LincolnNebraska(),
+                            IowaCityIowa(),
+                            EvanstonIllinois(),
+                            WestLafayetteIndiana()};
 
+            return singletonAirports;
         }
 
         /// <summary>
@@ -88,7 +90,7 @@ namespace GbrSchedulero
         public int GetDistance(Airport otherAirport) {
             int airportId = this.AirportId;
             int OtherAirportId = otherAirport.AirportId;
-            return Airportdistance[airportId, OtherAirportId];
+            return Airportdistance[airportId - 1, OtherAirportId - 1];
         }
 
         /// <summary>

@@ -12,7 +12,9 @@ namespace GbrSchedulero
         public int CrewmemberID { get; set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
-        private List<CrewQualification> qualifications;
+
+        //Navigation
+        public List<CrewQualification> qualifications { get; set; }
 
         public Crewmember(string firstName, string lastName)
         {
@@ -25,23 +27,6 @@ namespace GbrSchedulero
         public void AddQualification(CrewQualification qualification)
         {
             this.qualifications.Add(qualification);
-        }
-
-        /// <summary>
-        /// Returns which (if any) crew stations this Crewmember can be assigned on the given aircraft type
-        /// </summary>
-        /// <returns></returns>
-        public List<CrewStation> PossibleAssignments(AircraftType acType)
-        {
-            List<CrewStation> stations = new List<CrewStation>();
-
-            foreach (CrewQualification qual in qualifications)
-                if (qual.AcType == acType)
-                    foreach (CrewStation station in acType.GetCrewStations())
-                        if (station.Qualified(qual.Station))
-                            stations.Add(station);
-
-            return stations;
         }
 
         /// <summary>
