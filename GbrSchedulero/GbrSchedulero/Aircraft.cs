@@ -19,6 +19,11 @@ namespace GbrSchedulero
             this.AcType = acType;
         }
 
+        private Aircraft()
+        {
+
+        }
+
         public bool Equals(Aircraft other)
         {
             return this.Registration == other.Registration;

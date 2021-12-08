@@ -18,6 +18,8 @@ namespace GbrSchedulero
     /// </summary>
     public class AircraftType
     {
+        //Primary Key
+        public int AircraftTypeID { get; set; }
         public string TypeName { get; private set; }
         public int MaxPassengers { get; private set; }
         private List<CrewStation> stations;

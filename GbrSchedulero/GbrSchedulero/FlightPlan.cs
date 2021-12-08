@@ -31,6 +31,11 @@ namespace GbrSchedulero
             this.ArrivalTime = arrivalTime;
         }
 
+        private FlightPlan()
+        {
+
+        }
+
         /// <summary>
         /// If this is a recurring flight plan, this method should return the time of the next Flight instance that will be formed from this plan.
         /// </summary>
