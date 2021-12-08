@@ -1,4 +1,4 @@
-﻿@model CHA.Data.Crewmem
+﻿@model GbrSchedulero.Crewmember
 
 @{
     ViewData["Title"] = "Delete";
@@ -26,7 +26,7 @@
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="CrewID" />
+        <input type="hidden" asp-for="CrewmemberID" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CHA.Data;
+using GbrSchedulero;
 
 namespace CHA.Controllers
 {
@@ -53,7 +54,7 @@ namespace CHA.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CrewID,FirstName,LastName")] Crewmem crewmem)
+        public async Task<IActionResult> Create([Bind("CrewID,FirstName,LastName")] Crewmember crewmem)
         {
             if (ModelState.IsValid)
             {
@@ -85,9 +86,9 @@ namespace CHA.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CrewID,FirstName,LastName")] Crewmem crewmem)
+        public async Task<IActionResult> Edit(int id, [Bind("CrewID,FirstName,LastName")] Crewmember crewmem)
         {
-            if (id != crewmem.CrewID)
+            if (id != crewmem.CrewmemberID)
             {
                 return NotFound();
             }
@@ -101,7 +102,7 @@ namespace CHA.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CrewmemExists(crewmem.CrewID))
+                    if (!CrewmemExists(crewmem.CrewmemberID))
                     {
                         return NotFound();
                     }

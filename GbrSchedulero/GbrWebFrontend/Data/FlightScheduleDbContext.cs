@@ -9,14 +9,16 @@ namespace CHA.Data
 {
     public class FlightScheduleDbContext: DbContext
     {
-        public FlightScheduleDbContext(DbContextOptions<FlightScheduleDbContext> options): base(options)
+        public FlightScheduleDbContext(DbContextOptions<FlightScheduleDbContext> options) : base(options)
         {
 
         }
+
         public FlightScheduleDbContext()
         {
 
         }
+
         public DbSet<Crewmember> Crewmembers { get; set; }
         public DbSet<Aircraft> Aircrafts { get; set; }
         public DbSet<FlightPlan> FlightPlans { get; set; }
