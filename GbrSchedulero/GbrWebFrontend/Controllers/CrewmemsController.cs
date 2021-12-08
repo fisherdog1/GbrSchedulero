@@ -11,9 +11,9 @@ namespace CHA.Controllers
 {
     public class CrewmemsController : Controller
     {
-        private readonly MyDbContext _context;
+        private readonly FlightScheduleDbContext _context;
 
-        public CrewmemsController(MyDbContext context)
+        public CrewmemsController(FlightScheduleDbContext context)
         {
             _context = context;
         }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CHA.Migrations
 {
-    [DbContext(typeof(MyDbContext))]
+    [DbContext(typeof(FlightScheduleDbContext))]
     partial class MyDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

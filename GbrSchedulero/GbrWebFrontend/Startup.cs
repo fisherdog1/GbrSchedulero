@@ -27,7 +27,7 @@ namespace CHA
         public void ConfigureServices(IServiceCollection services)
         {
             
-            services.AddDbContext<MyDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("Default")));
+            services.AddDbContext<FlightScheduleDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("Default")));
             services.AddDbContext<DbLoginContext>(options => options.UseMySQL(Configuration.GetConnectionString("Default")));
             services.AddControllersWithViews();
 

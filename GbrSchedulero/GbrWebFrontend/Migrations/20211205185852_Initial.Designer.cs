@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CHA.Migrations
 {
-    [DbContext(typeof(MyDbContext))]
+    [DbContext(typeof(FlightScheduleDbContext))]
     [Migration("20211205185852_Initial")]
     partial class Initial
     {
