@@ -46,6 +46,7 @@ namespace CHA.Data
             builder.Entity<CrewQualification>()
                 .HasOne<AircraftType>(cq => cq.AcType)
                 .WithMany();
+
         }
 
         public DbSet<AircraftType> AircraftTypes { get; set; }

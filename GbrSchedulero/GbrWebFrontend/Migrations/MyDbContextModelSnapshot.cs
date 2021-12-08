@@ -76,16 +76,10 @@ namespace CHA.Migrations
                     b.Property<int?>("AcTypeAircraftTypeID")
                         .HasColumnType("int");
 
-                    b.Property<int>("AicraftTypeID")
-                        .HasColumnType("int");
-
                     b.Property<int?>("CrewmemberID")
                         .HasColumnType("int");
 
                     b.Property<int>("Station")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StationID")
                         .HasColumnType("int");
 
                     b.HasKey("CrewQualificationID");
