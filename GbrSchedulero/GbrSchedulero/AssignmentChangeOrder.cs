@@ -32,6 +32,19 @@ namespace GbrSchedulero
         public FlightCrewAssignment PreviousOrder { get; set; }
         public FlightCrewAssignment CurentOrder { get; set; }
 
+        /// <summary>
+        /// This isn't really sufficient given the rules of ChangeOrders, doesn't enforce all the rules above.
+        /// </summary>
+        /// <param name="previousOrder">The order to replace</param>
+        /// <param name="currentOrder">New order</param>
+        /// <param name="changeEffected">Time at which change is effected</param>
+        public AssignmentChangeOrder(FlightCrewAssignment previousOrder, FlightCrewAssignment currentOrder, DateTime changeEffected)
+        {
+            this.PreviousOrder = previousOrder;
+            this.CurentOrder = currentOrder;
+            this.ChangeEffected = changeEffected;
+        }
+
         public AssignmentChangeOrder()
         {
 

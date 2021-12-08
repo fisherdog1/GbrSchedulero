@@ -57,8 +57,20 @@ namespace GbrUnitTests
                 context.AddRange(testPlans);
 
                 //Add a test flight, almost certainly not valid
-                Flight testFlight = new Flight(testPlans[0], testAircrafts[0], 20, testCrewmembers.GetRange(0,2));
+                //This process should be abstracted to ensure the correct processing of change orders
+                Flight testFlight = new Flight(testPlans[0], testAircrafts[0], 20);
+                AssignmentChangeOrder aso1 = testFlight.AssignCrewmember(testCrewmembers[0]);
+                AssignmentChangeOrder aso2 = testFlight.AssignCrewmember(testCrewmembers[1]);
+                AssignmentChangeOrder aso3 = testFlight.AssignCrewmember(testCrewmembers[2]);
                 context.Add(testFlight);
+                context.Add(aso1);
+                context.Add(aso2);
+                context.Add(aso3);
+                context.SaveChanges();
+
+                //Change the flight
+                testFlight.Passengers += 10;
+                context.Update(testFlight);
 
                 context.SaveChanges();
             }
