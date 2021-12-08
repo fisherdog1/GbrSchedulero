@@ -13,9 +13,7 @@ namespace CHA.Data
     {
         public FlightScheduleDbContext(DbContextOptions<FlightScheduleDbContext> options) : base(options)
         {
-            //Delete and re-initialize db (?)
-            this.Database.EnsureDeleted();
-            this.Database.Migrate();
+            this.Database.EnsureCreated();
         }
 
         public FlightScheduleDbContext()

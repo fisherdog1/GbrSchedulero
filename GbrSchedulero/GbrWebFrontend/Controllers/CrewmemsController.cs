@@ -54,7 +54,7 @@ namespace CHA.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CrewID,FirstName,LastName")] Crewmember crewmem)
+        public async Task<IActionResult> Create([Bind("CrewmemberID,FirstName,LastName")] Crewmember crewmem)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace CHA.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CrewID,FirstName,LastName")] Crewmember crewmem)
+        public async Task<IActionResult> Edit(int id, [Bind("CrewmemberID,FirstName,LastName")] Crewmember crewmem)
         {
             if (id != crewmem.CrewmemberID)
             {
