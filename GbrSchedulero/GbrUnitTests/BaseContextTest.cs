@@ -56,6 +56,10 @@ namespace GbrUnitTests
                 List<FlightPlan> testPlans = new TestFlightPlanBuilder(airports).Generate(5);
                 context.AddRange(testPlans);
 
+                //Add a test flight, almost certainly not valid
+                Flight testFlight = new Flight(testPlans[0], testAircrafts[0], 20, testCrewmembers.GetRange(0,2));
+                context.Add(testFlight);
+
                 context.SaveChanges();
             }
         }

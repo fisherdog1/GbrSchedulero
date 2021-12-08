@@ -56,5 +56,6 @@ namespace CHA.Data
         public DbSet<Aircraft> Aircrafts { get; set; }
         public DbSet<FlightPlan> FlightPlans { get; set; }
         public DbSet<Flight> Flights { get; set; }
+        public DbSet<FlightCrewAssignment> Assignments { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,22 +13,25 @@ namespace GbrSchedulero
     public class Flight
     {
         //Primary Key
-        public int FlightID { get; set; }
-        public string FlightNumber { get { return Plan.FlightNumber; } }
-        public FlightPlan Plan { get; private set; }
+        public int FlightID { get; set; } //This is not the flight number.
         public int Passengers { get; private set; }
-        private List<Crewmember> crew;
 
-        public Flight(FlightPlan plan, Aircraft ac, int passengers, Crewmember[] crew)
+        //Navigation
+        public Aircraft Ship { get; set; }
+        public FlightPlan Plan { get; private set; }
+        public List<FlightCrewAssignment> Crewmembers { get; set; }
+
+        public Flight(FlightPlan plan, Aircraft ac, int passengers, ICollection<Crewmember> crew)
         {
             this.Plan = plan;
-
+            this.Ship = ac;
             this.Passengers = passengers;
+            this.Crewmembers = new List<FlightCrewAssignment>();
 
-            this.crew = new List<Crewmember>();
-            this.crew.AddRange(crew);
-
-            //AircraftType type = ac.AcType;
+            foreach (Crewmember crewmember in crew)
+            {
+                this.Crewmembers.Add(new FlightCrewAssignment(this, crewmember));
+            }
 
             //Check if crew is suitable. (Extra crewmembers are placed in passenger seats?)
             //throw new NotImplementedException("Flight class unfinished.");
