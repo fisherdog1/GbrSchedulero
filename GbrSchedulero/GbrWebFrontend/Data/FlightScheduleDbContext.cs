@@ -45,7 +45,31 @@ namespace CHA.Data
             //Crew qualifications can be for one aircraft type
             builder.Entity<CrewQualification>()
                 .HasOne<AircraftType>(cq => cq.AcType)
-                .WithMany();
+                .WithMany()
+                .HasForeignKey("AircraftTypeID");
+
+            builder.Entity<Flight>()
+                .HasOne<Aircraft>(fl => fl.Ship)
+                .WithMany()
+                .HasForeignKey("AircraftID");
+
+            builder.Entity<Flight>()
+                .HasOne<FlightPlan>(fl => fl.Plan)
+                .WithMany()
+                .HasForeignKey("FlightPlanID");
+
+            builder.Entity<FlightCrewAssignment>()
+                .HasKey(fa => new { fa.FlightID, fa.CrewmemberID });
+
+            builder.Entity<FlightCrewAssignment>()
+                .HasOne(fa => fa.Crewmember)
+                .WithMany(c => c.Flights)
+                .HasForeignKey(fa => fa.CrewmemberID);
+
+            builder.Entity<FlightCrewAssignment>()
+                .HasOne(fa => fa.Flight)
+                .WithMany(f => f.Crewmembers)
+                .HasForeignKey(fa => fa.FlightID);
         }
 
         public DbSet<AircraftType> AircraftTypes { get; set; }
@@ -55,5 +79,6 @@ namespace CHA.Data
         public DbSet<Aircraft> Aircrafts { get; set; }
         public DbSet<FlightPlan> FlightPlans { get; set; }
         public DbSet<Flight> Flights { get; set; }
+        public DbSet<FlightCrewAssignment> Assignments { get; set; }
     }
 }
