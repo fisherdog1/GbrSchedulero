@@ -59,7 +59,7 @@ namespace CHA.Data
                 .HasForeignKey("FlightPlanID");
 
             builder.Entity<FlightCrewAssignment>()
-                .HasKey(fa => new { fa.FlightID, fa.CrewmemberID });
+                .HasKey(fa => fa.FlightCrewAssignmentID);
 
             builder.Entity<FlightCrewAssignment>()
                 .HasOne(fa => fa.Crewmember)

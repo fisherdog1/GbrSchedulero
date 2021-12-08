@@ -9,9 +9,15 @@ namespace GbrSchedulero
     //Many-Many representation of a Crewmember assigned to a Flight
     public class FlightCrewAssignment
     {
+        //Primary Key
+        public int FlightCrewAssignmentID { get; set; }
+
+        //Foreign Key
         public int FlightID { get; set; }
-        public Flight Flight { get; set; }
         public int CrewmemberID { get; set; }
+
+        //Navigation
+        public Flight Flight { get; set; }
         public Crewmember Crewmember { get; set; }
 
         public FlightCrewAssignment(Flight flight, Crewmember crewmember)
