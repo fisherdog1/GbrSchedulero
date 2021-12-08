@@ -14,10 +14,6 @@ namespace GbrSchedulero
         //Primary key
         public int CrewQualificationID { get; set; }
 
-        //Foreign Key
-        public int AicraftTypeID { get; set; }
-        public int StationID { get; set; }
-
         //Navigation
         public AircraftType AcType { get; private set; }
 
