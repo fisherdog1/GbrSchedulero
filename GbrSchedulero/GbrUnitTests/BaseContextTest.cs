@@ -95,9 +95,14 @@ namespace GbrUnitTests
         }
 
         [TestMethod]
-        public void HasAircraftTypes()
+        public void HasTwoAircraftTypes()
         {
-            //TODO
+            //Check if the database contains two aircraft types
+            using (FlightScheduleDbContext context = new FlightScheduleDbContext(ContextOptions))
+            {
+                IQueryable<AircraftType> a = context.AircraftTypes.Where(ac => true);
+                Assert.AreEqual(a.Count(), 2);
+            }
         }
     }
 }
