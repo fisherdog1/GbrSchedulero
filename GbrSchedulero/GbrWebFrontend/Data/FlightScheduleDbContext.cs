@@ -59,12 +59,6 @@ namespace CHA.Data
                 .HasForeignKey<AssignmentChangeOrder>(aco => aco.PreviousAssignmentID); 
 
             builder.Entity<AssignmentChangeOrder>()
-
-                .HasOne<FlightCrewAssignment>(aco => aco.CurentOrder)
-                .WithOne()
-                .HasForeignKey<AssignmentChangeOrder>(aco => aco.CurrentOrderID);
-
-
                 .HasOne<FlightCrewAssignment>(aco => aco.CurrentAssignment)
                 .WithOne(a => a.ChangeOrder)
                 .HasForeignKey<AssignmentChangeOrder>(aco => aco.CurrentAssignmentID);
