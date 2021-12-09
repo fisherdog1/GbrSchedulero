@@ -54,6 +54,8 @@ namespace GbrUnitTests
                 context.AddRange(testAircrafts);
 
                 List<Crewmember> testCrewmembers = new TestCrewBuilder(AircraftType.AllTypes()).Generate(30);
+                //Add an extra qual to one crewmember for testing (Captain NU150)
+                testCrewmembers[0].AddQualification(new CrewQualification(StationType.Captain, types[0]));
                 context.AddRange(testCrewmembers);
 
                 List<FlightPlan> testPlans = new TestFlightPlanBuilder(airports).Generate(5);
@@ -78,6 +80,8 @@ namespace GbrUnitTests
                 context.Update(testFlight);
 
                 context.SaveChanges();
+
+                Crewmember crewmember = context.Crewmembers.Where<Crewmember>(c => c.CrewmemberID == 1).FirstOrDefault();
             }
         }
     }

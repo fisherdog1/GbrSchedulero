@@ -47,7 +47,6 @@ namespace CHA.Data
                 .HasOne<AircraftType>(cq => cq.AcType)
                 .WithMany();
 
-
             builder.Entity<FlightCrewAssignment>()
                 .HasOne(fa => fa.Flight)
                 .WithMany(f => f.Crewmembers)

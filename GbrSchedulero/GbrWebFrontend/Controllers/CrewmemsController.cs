@@ -34,11 +34,15 @@ namespace CHA.Controllers
             }
 
             var crewmem = await _context.Crewmembers
+                .Include(c => c.Qualifications)
+                .ThenInclude(q => q.AcType)
                 .FirstOrDefaultAsync(m => m.CrewmemberID == id);
+
             if (crewmem == null)
             {
                 return NotFound();
             }
+
 
             return View(crewmem);
         }

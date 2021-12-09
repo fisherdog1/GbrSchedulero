@@ -10,17 +10,24 @@
     <h4>Crewmem</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FirstName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.LastName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dd class="col-sm-10">
+            @foreach (var qual in Model.Qualifications)
+            {
+                string qualText = qual.ToString() + "\n";
+                @Html.DisplayFor(m => qualText)
+            }
         </dd>
     </dl>
 </div>
