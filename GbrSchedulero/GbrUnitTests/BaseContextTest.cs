@@ -13,10 +13,8 @@ namespace GbrUnitTests
     {
         protected DbContextOptions<FlightScheduleDbContext> ContextOptions;
         protected string ConnectionString;
-        public BaseContextTest(DbContextOptions<FlightScheduleDbContext> options)
+        public BaseContextTest()
         {
-            this.ContextOptions = options;
-
             //Get connection string for testing on production db
             IConfigurationRoot configuration = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
@@ -24,6 +22,10 @@ namespace GbrUnitTests
                     .Build();
 
             ConnectionString = configuration.GetConnectionString("Default");
+
+            this.ContextOptions = new DbContextOptionsBuilder<FlightScheduleDbContext>()
+              .UseMySQL(ConnectionString)
+              .Options;
 
             Seed();
         }
@@ -69,7 +71,10 @@ namespace GbrUnitTests
                 context.SaveChanges();
 
                 //Change the flight
-                testFlight.Passengers += 10;
+                AssignmentChangeOrder aso4 = testFlight.RemoveCrewmember(testCrewmembers[0]);
+                AssignmentChangeOrder aso5 = testFlight.AssignCrewmember(testCrewmembers[3]);
+                context.Add(aso4);
+                context.Add(aso5);
                 context.Update(testFlight);
 
                 context.SaveChanges();
@@ -80,13 +85,9 @@ namespace GbrUnitTests
     [TestClass]
     public class SimpleContextTest : BaseContextTest
     {
-        public SimpleContextTest() 
-            : base(new DbContextOptionsBuilder<FlightScheduleDbContext>()
-                  //I cannot for the life of me figure out how not to repeat the connection string here
-                  .UseMySQL("server=gbrschedulero.c5vcx9th6rqh.us-east-2.rds.amazonaws.com;uid=admin;pwd=PxidtU6rHzP7wwdarVhQ;database=schedulero")
-                  .Options)
+        public SimpleContextTest()
         {
-
+            
         }
 
         [TestMethod]
