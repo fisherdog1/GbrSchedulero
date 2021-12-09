@@ -72,14 +72,14 @@ namespace CHA.Data
                 .HasForeignKey(fa => fa.FlightID);
 
             builder.Entity<AssignmentChangeOrder>()
-                .HasOne<FlightCrewAssignment>(aco => aco.PreviousOrder)
-                .WithOne(/**/) //Add something here so assignments can navigate to their relevant change order
-                .HasForeignKey<AssignmentChangeOrder>(aco => aco.PreviousOrderID); 
+                .HasOne<FlightCrewAssignment>(aco => aco.PreviousAssignment)
+                .WithOne()
+                .HasForeignKey<AssignmentChangeOrder>(aco => aco.PreviousAssignmentID); 
 
             builder.Entity<AssignmentChangeOrder>()
-                .HasOne<FlightCrewAssignment>(aco => aco.CurentOrder)
-                .WithOne()
-                .HasForeignKey<AssignmentChangeOrder>(aco => aco.CurrentOrderID);
+                .HasOne<FlightCrewAssignment>(aco => aco.CurrentAssignment)
+                .WithOne(a => a.ChangeOrder)
+                .HasForeignKey<AssignmentChangeOrder>(aco => aco.CurrentAssignmentID);
         }
 
         public DbSet<AircraftType> AircraftTypes { get; set; }

@@ -23,14 +23,14 @@ namespace GbrSchedulero
         public int AssignmentChangeOrderID { get; set; }
 
         //Foreign Key
-        public int? PreviousOrderID { get; set; }
-        public int? CurrentOrderID { get; set; }
+        public int? PreviousAssignmentID { get; set; }
+        public int? CurrentAssignmentID { get; set; }
 
         public DateTime ChangeEffected { get; set; }
 
         //Navigation
-        public FlightCrewAssignment PreviousOrder { get; set; }
-        public FlightCrewAssignment CurentOrder { get; set; }
+        public FlightCrewAssignment PreviousAssignment { get; set; }
+        public FlightCrewAssignment CurrentAssignment { get; set; }
 
         /// <summary>
         /// This isn't really sufficient given the rules of ChangeOrders, doesn't enforce all the rules above.
@@ -38,10 +38,10 @@ namespace GbrSchedulero
         /// <param name="previousOrder">The order to replace</param>
         /// <param name="currentOrder">New order</param>
         /// <param name="changeEffected">Time at which change is effected</param>
-        public AssignmentChangeOrder(FlightCrewAssignment previousOrder, FlightCrewAssignment currentOrder, DateTime changeEffected)
+        public AssignmentChangeOrder(int? previousAssignmentID, int? currentAssignmentID, DateTime changeEffected)
         {
-            this.PreviousOrder = previousOrder;
-            this.CurentOrder = currentOrder;
+            this.PreviousAssignmentID = previousAssignmentID;
+            this.CurrentAssignmentID = currentAssignmentID;
             this.ChangeEffected = changeEffected;
         }
 

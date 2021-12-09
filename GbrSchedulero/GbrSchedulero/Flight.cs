@@ -42,21 +42,27 @@ namespace GbrSchedulero
         }
 
         /// <summary>
-        /// Assigns the specified crewmember to this flight, and returns a change order which must be saved to the database
+        /// Assigns the specified crewmember to this flight, produces a change order which must be saved to the database
         /// </summary>
         /// <param name="crewmember"></param>
         /// <returns></returns>
-        public AssignmentChangeOrder AssignCrewmember(Crewmember crewmember)
+        public void AssignCrewmember(IChangeOrderUpdater updater, Crewmember crewmember)
         {
             FlightCrewAssignment newAssignment = new FlightCrewAssignment(this, crewmember);
             this.Crewmembers.Add(newAssignment);
 
             //TODO: Look up previous assignment, this will surely require some dependency injection
 
-            //Now is temporary, could be different value provided
-            AssignmentChangeOrder changeOrder = new AssignmentChangeOrder(null, newAssignment, DateTime.Now);
+            AssignmentChangeOrder oldOrder = updater.GetExistingChangeOrder(newAssignment);
+            int? oldAssignmentId = null;
 
-            return changeOrder;
+            if (oldOrder != null)
+                oldAssignmentId = oldOrder.CurrentAssignment.FlightCrewAssignmentID;
+
+            //Now is temporary, could be different value provided
+            AssignmentChangeOrder changeOrder = new AssignmentChangeOrder(oldAssignmentId, newAssignment.FlightCrewAssignmentID, DateTime.Now);
+
+            updater.ApplyChangeOrderUpdate(changeOrder);
         }
 
         /// <summary>
@@ -64,7 +70,7 @@ namespace GbrSchedulero
         /// </summary>
         /// <param name="crewmember"></param>
         /// <returns></returns>
-        public AssignmentChangeOrder RemoveCrewmember(Crewmember crewmember)
+        public void RemoveCrewmember(IChangeOrderUpdater updater, Crewmember crewmember)
         {
             FlightCrewAssignment currentAssignment = null;
 
@@ -72,11 +78,17 @@ namespace GbrSchedulero
                 if (assignment.Crewmember.CrewmemberID == crewmember.CrewmemberID)
                     currentAssignment = assignment;
 
+            //Don't do anything if assignment doesn't exist
             if (currentAssignment == null)
-                return null;
+                return;
 
-            AssignmentChangeOrder changeOrder = new AssignmentChangeOrder(currentAssignment, null, DateTime.Now);
-            return changeOrder;
+            AssignmentChangeOrder oldOrder = updater.GetExistingChangeOrder(currentAssignment);
+
+            if (oldOrder == null)
+                return;
+
+            AssignmentChangeOrder changeOrder = new AssignmentChangeOrder(oldOrder.CurrentAssignment.FlightCrewAssignmentID, null, DateTime.Now);
+            updater.ApplyChangeOrderUpdate(changeOrder);
         }
 
         /// <summary>

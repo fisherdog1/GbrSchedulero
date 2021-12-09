@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace GbrUnitTests
 {
@@ -58,23 +59,22 @@ namespace GbrUnitTests
                 List<FlightPlan> testPlans = new TestFlightPlanBuilder(airports).Generate(5);
                 context.AddRange(testPlans);
 
+                ChangeOrderProvider provider = new ChangeOrderProvider(context);
+
                 //Add a test flight, almost certainly not valid
                 //This process should be abstracted to ensure the correct processing of change orders
                 Flight testFlight = new Flight(testPlans[0], testAircrafts[0], 20);
-                AssignmentChangeOrder aso1 = testFlight.AssignCrewmember(testCrewmembers[0]);
-                AssignmentChangeOrder aso2 = testFlight.AssignCrewmember(testCrewmembers[1]);
-                AssignmentChangeOrder aso3 = testFlight.AssignCrewmember(testCrewmembers[2]);
+                testFlight.AssignCrewmember(provider, testCrewmembers[0]);
+                testFlight.AssignCrewmember(provider, testCrewmembers[1]);
+                testFlight.AssignCrewmember(provider, testCrewmembers[2]);
                 context.Add(testFlight);
-                context.Add(aso1);
-                context.Add(aso2);
-                context.Add(aso3);
                 context.SaveChanges();
 
                 //Change the flight
-                AssignmentChangeOrder aso4 = testFlight.RemoveCrewmember(testCrewmembers[0]);
-                AssignmentChangeOrder aso5 = testFlight.AssignCrewmember(testCrewmembers[3]);
-                context.Add(aso4);
-                context.Add(aso5);
+                testFlight = context.Flights.Where(a => a.FlightID == 1).Single();
+                testFlight.RemoveCrewmember(provider, testCrewmembers[0]);
+                testFlight.AssignCrewmember(provider, testCrewmembers[3]);
+                //testFlight.RemoveCrewmember(provider, testCrewmembers[0]);
                 context.Update(testFlight);
 
                 context.SaveChanges();
