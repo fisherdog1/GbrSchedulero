@@ -11,7 +11,7 @@ namespace GbrUnitTests
     [TestClass]
     public class TrivialTests
     {
-        public IConfigurationRoot? Configuration;
+        public IConfigurationRoot Configuration;
         public string connectionString;
 
         [TestInitialize]

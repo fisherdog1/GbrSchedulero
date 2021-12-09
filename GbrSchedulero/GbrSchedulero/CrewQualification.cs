@@ -19,7 +19,7 @@ namespace GbrSchedulero
 
         //Enum
         public StationType Station { get; private set; }
-        public object AircraftTypes { get; set; }
+        public object AircraftTypes { get; set; }//adding from create CrewmemberController
 
         public CrewQualification(StationType station, AircraftType acType)
         {

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace GbrUnitTests
 {
@@ -13,10 +14,8 @@ namespace GbrUnitTests
     {
         protected DbContextOptions<FlightScheduleDbContext> ContextOptions;
         protected string ConnectionString;
-        public BaseContextTest(DbContextOptions<FlightScheduleDbContext> options)
+        public BaseContextTest()
         {
-            this.ContextOptions = options;
-
             //Get connection string for testing on production db
             IConfigurationRoot configuration = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
@@ -24,6 +23,10 @@ namespace GbrUnitTests
                     .Build();
 
             ConnectionString = configuration.GetConnectionString("Default");
+
+            this.ContextOptions = new DbContextOptionsBuilder<FlightScheduleDbContext>()
+              .UseMySQL(ConnectionString)
+              .Options;
 
             Seed();
         }
@@ -56,9 +59,23 @@ namespace GbrUnitTests
                 List<FlightPlan> testPlans = new TestFlightPlanBuilder(airports).Generate(5);
                 context.AddRange(testPlans);
 
+                ChangeOrderProvider provider = new ChangeOrderProvider(context);
+
                 //Add a test flight, almost certainly not valid
-                Flight testFlight = new Flight(testPlans[0], testAircrafts[0], 20, testCrewmembers.GetRange(0,2));
+                //This process should be abstracted to ensure the correct processing of change orders
+                Flight testFlight = new Flight(testPlans[0], testAircrafts[0], 20);
+                testFlight.AssignCrewmember(provider, testCrewmembers[0]);
+                testFlight.AssignCrewmember(provider, testCrewmembers[1]);
+                testFlight.AssignCrewmember(provider, testCrewmembers[2]);
                 context.Add(testFlight);
+                context.SaveChanges();
+
+                //Change the flight
+                testFlight = context.Flights.Where(a => a.FlightID == 1).Single();
+                testFlight.RemoveCrewmember(provider, testCrewmembers[0]);
+                testFlight.AssignCrewmember(provider, testCrewmembers[3]);
+                //testFlight.RemoveCrewmember(provider, testCrewmembers[0]);
+                context.Update(testFlight);
 
                 context.SaveChanges();
             }
@@ -68,13 +85,9 @@ namespace GbrUnitTests
     [TestClass]
     public class SimpleContextTest : BaseContextTest
     {
-        public SimpleContextTest() 
-            : base(new DbContextOptionsBuilder<FlightScheduleDbContext>()
-                  //I cannot for the life of me figure out how not to repeat the connection string here
-                  .UseMySQL("server=gbrschedulero.c5vcx9th6rqh.us-east-2.rds.amazonaws.com;uid=admin;pwd=PxidtU6rHzP7wwdarVhQ;database=schedulero")
-                  .Options)
+        public SimpleContextTest()
         {
-
+            
         }
 
         [TestMethod]

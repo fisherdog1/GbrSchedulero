@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CHA.Data;
+using GbrSchedulero;
 
 namespace CHA
 {
@@ -26,7 +27,10 @@ namespace CHA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<FlightScheduleDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("Default")));
+            services.AddDbContext<FlightScheduleDbContext>(options =>
+            {
+                options.UseMySQL(Configuration.GetConnectionString("Default"));
+            }); 
             services.AddDbContext<DbLoginContext>(options => options.UseMySQL(Configuration.GetConnectionString("Default")));
             services.AddControllersWithViews();
         }
