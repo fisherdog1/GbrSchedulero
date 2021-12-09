@@ -39,7 +39,7 @@ namespace CHA.Data
 
             //Crewmembers can have one or more qualifications
             builder.Entity<Crewmember>()
-                .HasMany<CrewQualification>(c => c.qualifications)
+                .HasMany<CrewQualification>(c => c.Qualifications)
                 .WithOne();
 
             //Crew qualifications can be for one aircraft type

@@ -19,6 +19,7 @@ namespace GbrSchedulero
         //Navigation
         public Flight Flight { get; set; }
         public Crewmember Crewmember { get; set; }
+      
 
         public FlightCrewAssignment(Flight flight, Crewmember crewmember)
         {

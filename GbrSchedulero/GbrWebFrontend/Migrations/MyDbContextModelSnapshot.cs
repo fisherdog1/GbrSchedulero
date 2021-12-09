@@ -67,6 +67,32 @@ namespace CHA.Migrations
                     b.ToTable("Airports");
                 });
 
+            modelBuilder.Entity("GbrSchedulero.AssignmentChangeOrder", b =>
+                {
+                    b.Property<int>("AssignmentChangeOrderID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ChangeEffected")
+                        .HasColumnType("datetime");
+
+                    b.Property<int?>("CurrentOrderID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PreviousOrderID")
+                        .HasColumnType("int");
+
+                    b.HasKey("AssignmentChangeOrderID");
+
+                    b.HasIndex("CurrentOrderID")
+                        .IsUnique();
+
+                    b.HasIndex("PreviousOrderID")
+                        .IsUnique();
+
+                    b.ToTable("ChangeOrders");
+                });
+
             modelBuilder.Entity("GbrSchedulero.CrewQualification", b =>
                 {
                     b.Property<int>("CrewQualificationID")
@@ -120,11 +146,37 @@ namespace CHA.Migrations
                     b.Property<int?>("PlanFlightPlanID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ShipAircraftID")
+                        .HasColumnType("int");
+
                     b.HasKey("FlightID");
 
                     b.HasIndex("PlanFlightPlanID");
 
+                    b.HasIndex("ShipAircraftID");
+
                     b.ToTable("Flights");
+                });
+
+            modelBuilder.Entity("GbrSchedulero.FlightCrewAssignment", b =>
+                {
+                    b.Property<int>("FlightCrewAssignmentID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CrewmemberID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FlightID")
+                        .HasColumnType("int");
+
+                    b.HasKey("FlightCrewAssignmentID");
+
+                    b.HasIndex("CrewmemberID");
+
+                    b.HasIndex("FlightID");
+
+                    b.ToTable("Assignments");
                 });
 
             modelBuilder.Entity("GbrSchedulero.FlightPlan", b =>
@@ -166,6 +218,21 @@ namespace CHA.Migrations
                     b.Navigation("AcType");
                 });
 
+            modelBuilder.Entity("GbrSchedulero.AssignmentChangeOrder", b =>
+                {
+                    b.HasOne("GbrSchedulero.FlightCrewAssignment", "CurentOrder")
+                        .WithOne()
+                        .HasForeignKey("GbrSchedulero.AssignmentChangeOrder", "CurrentOrderID");
+
+                    b.HasOne("GbrSchedulero.FlightCrewAssignment", "PreviousOrder")
+                        .WithOne()
+                        .HasForeignKey("GbrSchedulero.AssignmentChangeOrder", "PreviousOrderID");
+
+                    b.Navigation("CurentOrder");
+
+                    b.Navigation("PreviousOrder");
+                });
+
             modelBuilder.Entity("GbrSchedulero.CrewQualification", b =>
                 {
                     b.HasOne("GbrSchedulero.AircraftType", "AcType")
@@ -185,7 +252,32 @@ namespace CHA.Migrations
                         .WithMany()
                         .HasForeignKey("PlanFlightPlanID");
 
+                    b.HasOne("GbrSchedulero.Aircraft", "Ship")
+                        .WithMany()
+                        .HasForeignKey("ShipAircraftID");
+
                     b.Navigation("Plan");
+
+                    b.Navigation("Ship");
+                });
+
+            modelBuilder.Entity("GbrSchedulero.FlightCrewAssignment", b =>
+                {
+                    b.HasOne("GbrSchedulero.Crewmember", "Crewmember")
+                        .WithMany("Flights")
+                        .HasForeignKey("CrewmemberID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GbrSchedulero.Flight", "Flight")
+                        .WithMany("Crewmembers")
+                        .HasForeignKey("FlightID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Crewmember");
+
+                    b.Navigation("Flight");
                 });
 
             modelBuilder.Entity("GbrSchedulero.FlightPlan", b =>
@@ -209,7 +301,14 @@ namespace CHA.Migrations
 
             modelBuilder.Entity("GbrSchedulero.Crewmember", b =>
                 {
+                    b.Navigation("Flights");
+
                     b.Navigation("qualifications");
+                });
+
+            modelBuilder.Entity("GbrSchedulero.Flight", b =>
+                {
+                    b.Navigation("Crewmembers");
                 });
 #pragma warning restore 612, 618
         }

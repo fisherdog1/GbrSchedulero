@@ -14,7 +14,7 @@ namespace GbrSchedulero
         public string LastName { get; private set; }
 
         //Navigation
-        public List<CrewQualification> qualifications { get; set; }
+        public List<CrewQualification> Qualifications { get; set; }
         public List<FlightCrewAssignment> Flights { get; set; }
 
         public Crewmember(string firstName, string lastName)
@@ -22,12 +22,12 @@ namespace GbrSchedulero
             this.FirstName = firstName;
             this.LastName = lastName;
 
-            qualifications = new List<CrewQualification>();
+            Qualifications = new List<CrewQualification>();
         }
 
         public void AddQualification(CrewQualification qualification)
         {
-            this.qualifications.Add(qualification);
+            this.Qualifications.Add(qualification);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace GbrSchedulero
         {
             string str = $"{LastName}, {FirstName}\n";
 
-            foreach (CrewQualification qual in qualifications)
+            foreach (CrewQualification qual in Qualifications)
             {
                 str += "    " + qual + "\n";
             }

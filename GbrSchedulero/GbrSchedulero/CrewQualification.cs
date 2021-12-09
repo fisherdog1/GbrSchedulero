@@ -19,7 +19,8 @@ namespace GbrSchedulero
 
         //Enum
         public StationType Station { get; private set; }
-        
+        public object AircraftTypes { get; set; }
+
         public CrewQualification(StationType station, AircraftType acType)
         {
             this.Station = station;
