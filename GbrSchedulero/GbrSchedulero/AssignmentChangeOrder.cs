@@ -19,6 +19,8 @@ namespace GbrSchedulero
     /// </summary>
     public class AssignmentChangeOrder
     {
+        //public readonly object CurentOrder; //add to fix
+
         //Primary Key
         public int AssignmentChangeOrderID { get; set; }
 
@@ -31,6 +33,8 @@ namespace GbrSchedulero
         //Navigation
         public FlightCrewAssignment PreviousAssignment { get; set; }
         public FlightCrewAssignment CurrentAssignment { get; set; }
+        //public object CurentOrder { get; set; }//add to fix error
+        //public object CurrentOrderID { get; set; }//add to fix error
 
         /// <summary>
         /// This isn't really sufficient given the rules of ChangeOrders, doesn't enforce all the rules above.
