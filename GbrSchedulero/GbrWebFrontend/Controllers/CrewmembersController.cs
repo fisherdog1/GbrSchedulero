@@ -22,29 +22,21 @@ namespace GbrWebFrontend.Controllers
         // GET: Crewmembers
         public async Task<IActionResult> Index()
         {
-            //var Crewmembers = _context.Crewmembers.Include(a => a.Flights).AsNoTracking();
-            
-            return View(await _context.Crewmembers.Include(a => a.Qualifications)
-               .ToListAsync());
+            return View(await _context.Crewmembers.Include(a => a.Qualifications).ToListAsync());
+
         }
-
-     
-
-
-
 
         // GET: Crewmembers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-
             if (id == null)
             {
                 return NotFound();
             }
 
-            var crewmember = await _context.Crewmembers
-            .FirstOrDefaultAsync(m => m.CrewmemberID == id);
-            //var crewmember = await _context.Crewmembers.Include(a => a.Flights).ThenInclude(b => b.Crewmember).SingleOrDefaultAsync(c => c.CrewmemberID == id);
+            //var crewmember = await _context.Crewmembers
+            //.FirstOrDefaultAsync(m => m.CrewmemberID == id);
+            var crewmember = await _context.Crewmembers.Include(b => b.Qualifications).FirstOrDefaultAsync(m => m.CrewmemberID == id);
             if (crewmember == null)
             {
                 return NotFound();
