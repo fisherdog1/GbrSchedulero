@@ -67,8 +67,8 @@ namespace GbrUnitTests
                 //This process should be abstracted to ensure the correct processing of change orders
                 Flight testFlight = new Flight(testPlans[0], testAircrafts[0], 20);
                 testFlight.AssignCrewmember(provider, testCrewmembers[0]);
-                testFlight.AssignCrewmember(provider, testCrewmembers[1]);
-                testFlight.AssignCrewmember(provider, testCrewmembers[2]);
+                //testFlight.AssignCrewmember(provider, testCrewmembers[1]);
+                //testFlight.AssignCrewmember(provider, testCrewmembers[2]);
                 context.Add(testFlight);
                 context.SaveChanges();
 

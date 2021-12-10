@@ -11,25 +11,62 @@
 </p>
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Passengers)
-            </th>
-            <th></th>
-        </tr>
+
     </thead>
     <tbody>
-@foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Passengers)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.FlightID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FlightID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FlightID">Delete</a>
-            </td>
+            <th>
+                Flight Number
+            </th>
+            <th>
+                Depart
+            </th>
+            <th>
+                Arrive
+            </th>
+            <th>
+                Aircraft
+            </th>
+            <th>
+                Passengers
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Actions
+            </th>
         </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Plan.FlightNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Plan.DepartureTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Plan.ArrivalTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ship.Registration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Passengers)
+                </td>
+                <td>
+                    @{
+                        bool crewValid = item.ValidCrew();
+                        @(crewValid?"Ready":"Needs Crew")
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.FlightID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.FlightID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.FlightID">Cancel</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

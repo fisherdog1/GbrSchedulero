@@ -1,7 +1,13 @@
 ﻿using GbrSchedulero;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Newtonsoft.Json;
 
 namespace CHA.Data
 {
@@ -29,6 +35,12 @@ namespace CHA.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //
+            builder.Entity<AircraftType>()
+                .Property(act => act.Stations)
+                .HasConversion(new StationsCoverter())
+                .Metadata.SetValueComparer(new StationComparer());
+
             //One Airport corresponds to multiple FlightPlan
             builder.Entity<FlightPlan>()
                 .HasOne<Airport>(fp => fp.Origin)
@@ -78,5 +90,23 @@ namespace CHA.Data
         public DbSet<Flight> Flights { get; set; }
         public DbSet<FlightCrewAssignment> Assignments { get; set; }
         public DbSet<AssignmentChangeOrder> ChangeOrders { get; set; }
+    }
+
+    internal class StationComparer : ValueComparer<ICollection<StationType>>
+    {
+        public StationComparer() : base(
+            (c1, c2) => c1.SequenceEqual(c2),
+            c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())), c => (ICollection<StationType>)c.ToHashSet())
+        {
+        }
+    }
+
+    internal class StationsCoverter : ValueConverter<ICollection<StationType>, string>
+    {
+        public StationsCoverter() : base(
+            v => JsonConvert.SerializeObject(v),
+            v => JsonConvert.DeserializeObject<ICollection<StationType>>(v))
+        {
+        }
     }
 }

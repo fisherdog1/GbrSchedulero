@@ -30,6 +30,15 @@ namespace GbrSchedulero
             this.Qualifications.Add(qualification);
         }
 
+        internal bool Qualified(AircraftType type, StationType position)
+        {
+            foreach (CrewQualification qual in Qualifications)
+                if (qual.Station == position && qual.AcType == type)
+                    return true;
+
+            return false;
+        }
+
         /// <summary>
         /// Returns true if the Crewmember is accumulating rest hours (Landed with no upcoming flights)
         /// </summary>

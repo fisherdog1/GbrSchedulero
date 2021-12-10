@@ -42,6 +42,36 @@ namespace GbrSchedulero
         }
 
         /// <summary>
+        /// Returns true if the flight has been assigned a valid crew
+        /// </summary>
+        /// <returns></returns>
+        public bool ValidCrew()
+        {
+            //Temp copy of crew assignments so crewmembers can be removed as roles are filled
+            List<FlightCrewAssignment> positionsCopy = new List<FlightCrewAssignment>(Crewmembers);
+            FlightCrewAssignment tempRemove = null;
+
+            //Check each position
+            foreach (StationType position in Ship.AcType.GetCrewStations())
+            {
+                foreach (FlightCrewAssignment assignment in positionsCopy)
+                    if (assignment.Crewmember.Qualified(Ship.AcType, position))
+                    {
+                        //Remove the crewmember from the selectable list
+                        tempRemove = assignment;
+                        break;
+                    }
+
+                if (tempRemove != null)
+                    positionsCopy.Remove(tempRemove);
+                else
+                    return false; //Missing a crew position
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Assigns the specified crewmember to this flight, produces a change order which must be saved to the database
         /// </summary>
         /// <param name="crewmember"></param>

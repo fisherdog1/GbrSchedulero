@@ -22,18 +22,18 @@ namespace GbrSchedulero
         public int AircraftTypeID { get; set; }
         public string TypeName { get; private set; }
         public int MaxPassengers { get; private set; }
-        private List<StationType> stations;
+        public ICollection<StationType> Stations;
 
         public AircraftType(string typeName, int maxPassengers)
         {
             this.TypeName = typeName;
             this.MaxPassengers = maxPassengers;
-            this.stations = new List<StationType>();
+            this.Stations = new List<StationType>();
         }
 
         public void AddStation(StationType station)
         {
-            this.stations.Add(station);
+            this.Stations.Add(station);
         }
 
         public static AircraftType GBR10()
@@ -76,9 +76,9 @@ namespace GbrSchedulero
         /// Crew qualifications are based on both the AircraftType and the station (implementation tbd).
         /// </summary>
         /// <returns></returns>
-        public List<StationType> GetCrewStations()
+        public ICollection<StationType> GetCrewStations()
         {
-            return stations;
+            return Stations;
         }
 
         public override string ToString()
