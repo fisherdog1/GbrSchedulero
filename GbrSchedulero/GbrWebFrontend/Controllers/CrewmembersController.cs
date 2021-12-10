@@ -22,9 +22,16 @@ namespace GbrWebFrontend.Controllers
         // GET: Crewmembers
         public async Task<IActionResult> Index()
         {
-            var Crewmembers = _context.Crewmembers.Include(a => a.Flights).AsNoTracking();
-            return View(await _context.Crewmembers.ToListAsync());
+            //var Crewmembers = _context.Crewmembers.Include(a => a.Flights).AsNoTracking();
+            
+            return View(await _context.Crewmembers.Include(a => a.Qualifications)
+               .ToListAsync());
         }
+
+     
+
+
+
 
         // GET: Crewmembers/Details/5
         public async Task<IActionResult> Details(int? id)
