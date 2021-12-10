@@ -52,7 +52,7 @@
         </table>
     </div>
     <div class="row">
-        <div class="col-md">
+        <div class="col-md" style="padding-left: 0; padding-top: 6pt; padding-right: 0;">
             <table style="table-layout: fixed; width: 100%;">
                 <colgroup>
                     <col span="1" style="width: 32px" />
@@ -77,10 +77,8 @@
                     </tr>
                 }
             </table>
-            <input type="submit" value="Submit Form" />
-            <a asp-action="Index">Back to List</a>
         </div>
-        <div class="col-md">
+        <div class="col-md" style="padding-right: 0; padding-left: 6pt; padding-top: 6pt;">
             <table style="table-layout: fixed; width: 100%;">
                 <colgroup>
                     <col span="1" style="width: 32px" />
@@ -105,6 +103,16 @@
                     </tr>
                 }
             </table>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 6pt;">
+        <div class="col-sm">
+            <input type="submit" value="Submit" />
+        </div>
+        <div class="col-sm">
+            <a asp-action="Index">
+                <button type="button" class="btn btn-danger">Return to Flights</button>
+            </a>
         </div>
     </div>
 }
