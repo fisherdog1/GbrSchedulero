@@ -14,13 +14,46 @@
             <div>Flight Number</div>
             @Html.TextBox("flightNumber")
         </div>
-        <div class="col-md"></div>
+        <div class="col-md">
+            @Html.Editor("departDate", "DateTime")
+        </div>
+        <div class="col-md">
+            @Html.Editor("arriveDate", "DateTime")
+        </div>
+    </div>
+    <div class="row">
+        <table style="table-layout: fixed; width: 100%;">
+            <thead>
+                <tr>
+                    <th />
+                    <th>Aircraft</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Aircraft ac in Model.Aircrafts)
+                {
+                    <tr>
+                        <td>
+                            @Html.RadioButton("aircraftId", ac.AircraftID)
+                        </td>
+                        <td>
+                            @ac.Registration
+                        </td>
+                        <td>
+                            @ac.AcType
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
     <div class="row">
         <div class="col-md">
             <table style="table-layout: fixed; width: 100%;">
                 <thead>
                     <tr>
+                        <th />
                         <th>
                             Origin
                         </th>
@@ -29,6 +62,9 @@
                 @foreach (Airport plan in Model.Airports)
                 {
                     <tr>
+                        <td>
+                            @Html.RadioButton("originSelection", plan.AirportId)
+                        </td>
                         <td>
                             @plan.AirportName
                         </td>
@@ -42,6 +78,7 @@
             <table style="table-layout: fixed; width: 100%;">
                 <thead>
                     <tr>
+                        <th />
                         <th>
                             Destination
                         </th>
@@ -50,6 +87,9 @@
                 @foreach (Airport plan in Model.Airports)
                 {
                     <tr>
+                        <td>
+                            @Html.RadioButton("destinationSelection", plan.AirportId)
+                        </td>
                         <td>
                             @plan.AirportName
                         </td>

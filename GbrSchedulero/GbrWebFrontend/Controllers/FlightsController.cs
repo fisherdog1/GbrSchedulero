@@ -39,20 +39,28 @@ namespace GbrWebFrontend.Controllers
         {
             dynamic model = new ExpandoObject();
             model.Flight = null;
-            model.Airports = _context.Airports.Where(a => true).AsEnumerable();
-            model.Aircrafts = _context.Aircrafts.Where(a => true).AsEnumerable();
+            model.Airports = _context.Airports
+                .Where(a => true)
+                .AsEnumerable();
+            model.Aircrafts = _context.Aircrafts
+                .Where(a => true)
+                .Include(a => a.AcType)
+                .AsEnumerable();
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult CreateFlight(string flightNumber)
+        public ActionResult CreateFlight(string flightNumber, int aircraftId, int originSelection, int destinationSelection,
+            DateTime departDate, DateTime arriveDate)
         {
-            //Add a dummy flight for now
-            FlightPlan plan = _context.FlightPlans.Where(fp => fp.FlightPlanID == 1).FirstOrDefault();
-            Aircraft ac = _context.Aircrafts.Where(ac => ac.AircraftID == 1).FirstOrDefault();
+            FlightPlan plan = new FlightPlan(flightNumber, originSelection, destinationSelection, departDate, arriveDate);
+            _context.Add(plan);
 
-            Flight dummy = new Flight(plan, ac, 12);
-            _context.Add(dummy);
+            Aircraft ac = _context.Aircrafts.Where(ac => ac.AircraftID == aircraftId).FirstOrDefault();
+
+            Flight flight = new Flight(plan, ac, 0);
+
+            _context.Add(flight);
             _context.SaveChanges();
 
             return RedirectToAction(nameof(Index));
