@@ -12,7 +12,13 @@ namespace CHA.Data
     {
         [Key]
         public int CrewID { get; set; }
-
+        [Required]
+        
+        [DataType(DataType.Text, ErrorMessage = "Missing first name")]
+        public string FirstName { get; set; }
+        [Required]
+        [DataType(DataType.Text, ErrorMessage ="Missing last name" )]
+        public string LastName { get; set; }
         //[StringLength(60, MinimumLength = 8, ErrorMessage = "Email must be between 8 and 60 characters.")]
         //[Required]
         //[BindProperty]
