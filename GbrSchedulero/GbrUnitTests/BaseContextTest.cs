@@ -66,17 +66,17 @@ namespace GbrUnitTests
                 //Add a test flight, almost certainly not valid
                 //This process should be abstracted to ensure the correct processing of change orders
                 Flight testFlight = new Flight(testPlans[0], testAircrafts[0], 20);
-                testFlight.AssignCrewmember(provider, testCrewmembers[0]);
+                //testFlight.AssignCrewmember(provider, testCrewmembers[0]);
                 //testFlight.AssignCrewmember(provider, testCrewmembers[1]);
-                //testFlight.AssignCrewmember(provider, testCrewmembers[2]);
+                testFlight.AssignCrewmember(provider, testCrewmembers[2]);
                 context.Add(testFlight);
                 context.SaveChanges();
 
                 //Change the flight
                 testFlight = context.Flights.Where(a => a.FlightID == 1).Single();
-                testFlight.RemoveCrewmember(provider, testCrewmembers[0]);
-                testFlight.AssignCrewmember(provider, testCrewmembers[3]);
+                //TODO: Doesn't actually remove
                 //testFlight.RemoveCrewmember(provider, testCrewmembers[0]);
+                testFlight.AssignCrewmember(provider, testCrewmembers[3]);
                 context.Update(testFlight);
 
                 context.SaveChanges();

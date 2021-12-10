@@ -22,31 +22,15 @@ namespace GbrWebFrontend.Controllers
         // GET: Flights
         public async Task<IActionResult> Index()
         {
+            //Huge query
             return View(await _context.Flights
                 .Include(fl => fl.Plan)
                 .Include(fl => fl.Crewmembers)
                 .ThenInclude(e => e.Crewmember)
+                .ThenInclude(c => c.Qualifications)
                 .Include(fl => fl.Ship)
                 .ThenInclude(sh => sh.AcType)
                 .ToListAsync());
-        }
-
-        // GET: Flights/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var flight = await _context.Flights
-                .FirstOrDefaultAsync(m => m.FlightID == id);
-            if (flight == null)
-            {
-                return NotFound();
-            }
-
-            return View(flight);
         }
 
         // GET: Flights/Create

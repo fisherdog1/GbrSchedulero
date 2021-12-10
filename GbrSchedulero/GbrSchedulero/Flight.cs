@@ -61,6 +61,8 @@ namespace GbrSchedulero
                         tempRemove = assignment;
                         break;
                     }
+                    else
+                        tempRemove = null; //Literally does not work without this, do not remove.
 
                 if (tempRemove != null)
                     positionsCopy.Remove(tempRemove);
