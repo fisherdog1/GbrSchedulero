@@ -36,7 +36,7 @@ namespace GbrSchedulero
             //throw new NotImplementedException("Flight class unfinished.");
         }
 
-        private Flight()
+        public Flight()
         {
 
         }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CHA.Data;
 using GbrSchedulero;
+using System.Dynamic;
 
 namespace GbrWebFrontend.Controllers
 {
@@ -36,23 +37,25 @@ namespace GbrWebFrontend.Controllers
         // GET: Flights/Create
         public IActionResult Create()
         {
-            return View();
+            dynamic model = new ExpandoObject();
+            model.Flight = null;
+            model.Airports = _context.Airports.Where(a => true).AsEnumerable();
+            model.Aircrafts = _context.Aircrafts.Where(a => true).AsEnumerable();
+            return View(model);
         }
 
-        // POST: Flights/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FlightID,Passengers")] Flight flight)
+        public ActionResult CreateFlight(string flightNumber)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(flight);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(flight);
+            //Add a dummy flight for now
+            FlightPlan plan = _context.FlightPlans.Where(fp => fp.FlightPlanID == 1).FirstOrDefault();
+            Aircraft ac = _context.Aircrafts.Where(ac => ac.AircraftID == 1).FirstOrDefault();
+
+            Flight dummy = new Flight(plan, ac, 12);
+            _context.Add(dummy);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Flights/Edit/5

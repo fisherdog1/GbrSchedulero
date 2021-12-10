@@ -36,7 +36,7 @@ namespace GbrSchedulero
             this.ArrivalTime = arrivalTime;
         }
 
-        private FlightPlan()
+        public FlightPlan()
         {
 
         }

@@ -19,7 +19,7 @@ namespace GbrSchedulero
             this.AcType = acType;
         }
 
-        private Aircraft()
+        public Aircraft()
         {
 
         }
