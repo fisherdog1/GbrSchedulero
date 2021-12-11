@@ -12,24 +12,24 @@ namespace CHA.Data
     {
         [Key]
         public int CrewID { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+       
+        public string FirstName { get; set; }
+
+        [DataType(DataType.Text)]
         [Required]
         
-        [DataType(DataType.Text, ErrorMessage = "Missing first name")]
-        public string FirstName { get; set; }
-        [Required]
-        [DataType(DataType.Text, ErrorMessage ="Missing last name" )]
         public string LastName { get; set; }
-        //[StringLength(60, MinimumLength = 8, ErrorMessage = "Email must be between 8 and 60 characters.")]
-        //[Required]
-        //[BindProperty]
+       
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        //[StringLength(20, MinimumLength = 8, ErrorMessage = "Password must be between 8 and 60 characters.")]
-        //[Required]
-        //[BindProperty]
+        [StringLength(20, MinimumLength = 8, ErrorMessage = "Password must be between 8 and 20 characters.")]
         [Required]
+        [BindProperty]
         [DataType(DataType.Password)]
         public string Password { get; set; }
         public void OnGet()
@@ -37,9 +37,11 @@ namespace CHA.Data
         }
         private List<CrewQualification> qualifications;
 
-        public LoginData(string email, string password)
+        public LoginData(string email, string password, string FirstName, string LastName)
         {
             //this.CrewID = CrewID;
+            this.FirstName = FirstName;
+            this.LastName = LastName;
             this.Email = email;
             this.Password = password;
 
