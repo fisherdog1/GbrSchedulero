@@ -4,55 +4,26 @@
 @{
     ViewData["Title"] = "Create Flight";
 }
-
-<h1>Create Flight</h1>
-<hr />
-@using (Html.BeginForm("CreateFlight", "Flights", FormMethod.Post))
-{
-    <div class="row">
-        <div class="col-md">
-            <div>Flight Number</div>
-            @Html.TextBox("flightNumber")
+<div>
+    <h1>Create Flight</h1>
+    <hr />
+    @using (Html.BeginForm("CreateFlight", "Flights", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col-md">
+                <p class="flcontrollab">Flight Number</p>
+                @Html.TextBox("flightNumber")
+            </div>
+            <div class="col-md">
+                <p class="flcontrollab">Departure Time</p>
+                <input class="datetime" id="departDate" name="departDate" type="datetime-local" value="">
+            </div>
+            <div class="col-md">
+                <p class="flcontrollab">Arrival Time</p>
+                <input class="datetime" id="arriveDate" name="arriveDate" type="datetime-local" value="">
+            </div>
         </div>
-        <div class="col-md">
-            @Html.Editor("departDate", "DateTime")
-        </div>
-        <div class="col-md">
-            @Html.Editor("arriveDate", "DateTime")
-        </div>
-    </div>
-    <div class="row">
-        <table style="table-layout: fixed; width: 100%;">
-            <colgroup>
-                <col span="1" style="width: 32px" />
-            </colgroup>
-            <thead>
-                <tr>
-                    <th />
-                    <th>Aircraft</th>
-                    <th>Type</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (Aircraft ac in Model.Aircrafts)
-                {
-                    <tr>
-                        <td align="center" valign="middle">
-                            @Html.RadioButton("aircraftId", ac.AircraftID)
-                        </td>
-                        <td>
-                            @ac.Registration
-                        </td>
-                        <td>
-                            @ac.AcType
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <div class="row">
-        <div class="col-md" style="padding-left: 0; padding-top: 6pt; padding-right: 0;">
+        <div class="row">
             <table style="table-layout: fixed; width: 100%;">
                 <colgroup>
                     <col span="1" style="width: 32px" />
@@ -60,62 +31,94 @@
                 <thead>
                     <tr>
                         <th />
-                        <th>
-                            Origin
-                        </th>
+                        <th>Aircraft</th>
+                        <th>Type</th>
                     </tr>
                 </thead>
-                @foreach (Airport plan in Model.Airports)
-                {
-                    <tr>
-                        <td align="center" valign="middle">
-                            @Html.RadioButton("originSelection", plan.AirportId)
-                        </td>
-                        <td>
-                            @plan.AirportName
-                        </td>
-                    </tr>
-                }
+                <tbody>
+                    @foreach (Aircraft ac in Model.Aircrafts)
+                    {
+                        <tr>
+                            <td align="center" valign="middle">
+                                @Html.RadioButton("aircraftId", ac.AircraftID)
+                            </td>
+                            <td>
+                                @ac.Registration
+                            </td>
+                            <td>
+                                @ac.AcType
+                            </td>
+                        </tr>
+                    }
+                </tbody>
             </table>
         </div>
-        <div class="col-md" style="padding-right: 0; padding-left: 6pt; padding-top: 6pt;">
-            <table style="table-layout: fixed; width: 100%;">
-                <colgroup>
-                    <col span="1" style="width: 32px" />
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th />
-                        <th>
-                            Destination
-                        </th>
-                    </tr>
-                </thead>
-                @foreach (Airport plan in Model.Airports)
-                {
-                    <tr>
-                        <td align="center" valign="middle">
-                            @Html.RadioButton("destinationSelection", plan.AirportId)
-                        </td>
-                        <td>
-                            @plan.AirportName
-                        </td>
-                    </tr>
-                }
-            </table>
+        <div class="row">
+            <div class="col-md" style="padding-left: 0; padding-top: 6pt; padding-right: 0;">
+                <table style="table-layout: fixed; width: 100%;">
+                    <colgroup>
+                        <col span="1" style="width: 32px" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th />
+                            <th>
+                                Origin
+                            </th>
+                        </tr>
+                    </thead>
+                    @foreach (Airport plan in Model.Airports)
+                    {
+                        <tr>
+                            <td align="center" valign="middle">
+                                @Html.RadioButton("originSelection", plan.AirportId)
+                            </td>
+                            <td>
+                                @plan.AirportName
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="col-md" style="padding-right: 0; padding-left: 6pt; padding-top: 6pt;">
+                <table style="table-layout: fixed; width: 100%;">
+                    <colgroup>
+                        <col span="1" style="width: 32px" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th />
+                            <th>
+                                Destination
+                            </th>
+                        </tr>
+                    </thead>
+                    @foreach (Airport plan in Model.Airports)
+                    {
+                        <tr>
+                            <td align="center" valign="middle">
+                                @Html.RadioButton("destinationSelection", plan.AirportId)
+                            </td>
+                            <td>
+                                @plan.AirportName
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
         </div>
-    </div>
-    <div class="row" style="padding-top: 6pt;">
-        <div class="col-sm">
-            <input type="submit" value="Submit" />
+        <div class="row" style="padding-top: 6pt;">
+            <div class="col-sm">
+                <input type="submit" value="Submit" style="border-radius: 20px; padding-top: 5pt; padding-bottom: 5pt; padding-left: 20pt; padding-right: 20pt" />
+            </div>
+            <div class="col-sm">
+                <a asp-action="Index">
+                    <button type="button" class="btn btn-danger" style="border-radius: 20px; padding-top: 5pt; padding-bottom: 5pt; padding-left: 20pt; padding-right: 20pt">Return to Flights</button>
+                </a>
+            </div>
         </div>
-        <div class="col-sm">
-            <a asp-action="Index">
-                <button type="button" class="btn btn-danger">Return to Flights</button>
-            </a>
-        </div>
-    </div>
-}
+    }
+</div>
 
 
 @section Scripts {
