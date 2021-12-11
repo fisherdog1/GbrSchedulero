@@ -1,73 +1,93 @@
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+@font-face {
+    font-family: 'customFont';
+    src: url('readex.woff2') format('woff2'), url('readex.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 20px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
+
+.flcontrollab {
+    font-family: customFont;
+    font-size: 18pt;
+    font-weight: lighter;
+}
+
+h1 {
+    font-family: customFont;
+    font-weight: bold;
+}
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
 }
 /* Sticky home styles
 -------------------------------------------------- */
@@ -95,23 +115,23 @@ ul {
         display: inline-block
     }
 
-ul li a {
-    text-decoration: none;
-    color: darkblue; /*darkturquoise*/
-    padding: 5px 20px;
-    border: 1px solid transparent;
-    transition: 0.6s ease;
-}
+        ul li a {
+            text-decoration: none;
+            color: darkblue; /*darkturquoise*/
+            padding: 5px 20px;
+            border: 1px solid transparent;
+            transition: 0.6s ease;
+        }
 
-ul li.active a {
-    background-color: darkcyan;
-    color: #000;
-}
+        ul li.active a {
+            background-color: darkcyan;
+            color: #000;
+        }
 
-ul li a:hover {
-    background-color: darkcyan;
-    color: #000;
-}
+        ul li a:hover {
+            background-color: darkcyan;
+            color: #000;
+        }
 
 .logo img {
     float: left;
@@ -136,10 +156,11 @@ ul li a:hover {
     left: 20%;
     transform: translate(-50%,-50%);
 }
-.title h1 {
-    color: darkturquoise;
-    font-size: 30px;
-}
+
+    .title h1 {
+        color: darkturquoise;
+        font-size: 30px;
+    }
 
 /*Crew table*/
 .crew_title {
@@ -148,16 +169,19 @@ ul li a:hover {
     left: 50%;
     transform: translate(-50%,-50%);
 }
-.crew_title h1 {
-    color: darkturquoise;
-    font-size: 30px;
-}
+
+    .crew_title h1 {
+        color: darkturquoise;
+        font-size: 30px;
+    }
 
 table, th, td {
     border: 1px solid black;
 }
 
 th {
+    font-family: customFont;
+    font-weight: bold;
     color: black;
     background-color: darkcyan;
     padding-top: 5px;
@@ -167,6 +191,8 @@ th {
 }
 
 td {
+    font-family: customFont;
+    font-weight: lighter;
     color: black;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -184,9 +210,9 @@ td {
     top: 50%;
 }
 /*About Us*/
-.aboutus{
-    color:teal;
-    font-size:larger;
+.aboutus {
+    color: teal;
+    font-size: larger;
     position: center;
 }
 /*Contact Us*/
@@ -197,11 +223,26 @@ td {
 /* Style inputs */
 input[type=text], select, textarea {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    margin-top: 6px;
+    padding: 16px;
+    font-size: 16pt;
+    border: 1px solid #888;
+    margin-top: 0px;
     margin-bottom: 16px;
+    border-radius: 2px;
     resize: vertical;
+}
+
+.datetime {
+    align-items: center;
+    font-family: monospace;
+    font-size: 16pt;
+    width: 100% !important;
+    padding-top: 10pt !important;
+    padding-bottom: 10pt !important;
+    padding-inline-start: 1px;
+    cursor: default;
+    overflow: hidden;
+    padding: 0px;
 }
 
 input[type=submit] {
@@ -250,20 +291,4 @@ input[type=return] {
         width: 100%;
         margin-top: 0;
     }
-}
-
-[class*="col-md"] {
-
-}
-
-.AirportTableLeft {
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 4pt;
-}
-
-.AirportTableRight {
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 4pt;
 }
