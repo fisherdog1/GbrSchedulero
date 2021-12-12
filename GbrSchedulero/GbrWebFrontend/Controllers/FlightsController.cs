@@ -37,8 +37,8 @@ namespace GbrWebFrontend.Controllers
         // GET: Flights/Create
         public IActionResult Create()
         {
-            dynamic model = new ExpandoObject();
-            model.Flight = null;
+            NewFlightViewModel model = new NewFlightViewModel();
+            model.Flights = null;
             model.Airports = _context.Airports
                 .Where(a => true)
                 .AsEnumerable();
