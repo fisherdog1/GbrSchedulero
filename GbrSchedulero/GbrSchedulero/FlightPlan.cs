@@ -29,6 +29,9 @@ namespace GbrSchedulero
             if (originId == destinationId)
                 throw new Exception("Origin and Destination airport cannot be the same.");
 
+            if (DateTime.Compare(departureTime, arrivalTime) >= 0)
+                throw new Exception("The departure time must be earlier than arrival time of the flight plan.");
+
             this.FlightNumber = flightNumber;
             this.OriginID = originId;
             this.DestinationID = destinationId;
