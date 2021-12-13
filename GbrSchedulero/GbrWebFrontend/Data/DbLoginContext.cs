@@ -17,6 +17,6 @@ namespace CHA.Data
         {
 
         }
-        public DbSet<LoginData> loginDatas { get; set; }
+        public DbSet<LoginData> Crewmembers { get; set; }
     }
 }

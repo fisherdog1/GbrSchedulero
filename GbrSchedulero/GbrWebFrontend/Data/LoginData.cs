@@ -11,7 +11,7 @@ namespace CHA.Data
     public class LoginData
     {
         [Key]
-        public int CrewID { get; set; }
+        public int CrewmemberID { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
@@ -25,7 +25,7 @@ namespace CHA.Data
        
         [Required]
         [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
+        public string EmailAddress { get; set; }
 
         [StringLength(20, MinimumLength = 8, ErrorMessage = "Password must be between 8 and 20 characters.")]
         [Required]
@@ -37,12 +37,12 @@ namespace CHA.Data
         }
         private List<CrewQualification> qualifications;
 
-        public LoginData(string email, string password, string FirstName, string LastName)
+        public LoginData(int CrewmemberID, string email, string password, string FirstName, string LastName)
         {
-            //this.CrewID = CrewID;
+            this.CrewmemberID = CrewmemberID;
             this.FirstName = FirstName;
             this.LastName = LastName;
-            this.Email = email;
+            this.EmailAddress = email;
             this.Password = password;
 
             qualifications = new List<CrewQualification>();
