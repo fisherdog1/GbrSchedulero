@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CHA.Data;
 using GbrSchedulero;
 using System.Dynamic;
+using Microsoft.AspNetCore.Http;
 
 namespace GbrWebFrontend.Controllers
 {
@@ -67,8 +68,33 @@ namespace GbrWebFrontend.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditFlight(IEnumerable<int> crewmemberID)
+        public ActionResult EditFlight(IFormCollection formCollection)
         {
+            IEnumerable<int> ids = null;
+            if (!string.IsNullOrEmpty(formCollection["crewmemberID"]))
+            {
+                string crewmemberIDs = formCollection["crewmemberID"];
+                ids = crewmemberIDs.Split(",").Select(a => int.Parse(a));
+                
+                //No selection
+                if (ids == null || ids.Count() == 0)
+                    return RedirectToAction(nameof(Index));
+            }
+
+            int flightId = int.Parse(formCollection["flightId"]);
+            Flight flight = _context.Flights.Where(fl => fl.FlightID == flightId).FirstOrDefault();
+
+            //Add crewmembers to flight
+            IEnumerable<Crewmember> crewmembers = _context.Crewmembers.Where(c => ids.Contains(c.CrewmemberID));
+
+            foreach (Crewmember crewmember in crewmembers)
+            {
+                FlightCrewAssignment assignment = new FlightCrewAssignment(flight, crewmember);
+                _context.Add(assignment);
+            }
+
+            _context.SaveChanges();
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -86,14 +112,24 @@ namespace GbrWebFrontend.Controllers
                 return NotFound();
             }
 
-            EditFlightViewModel model = new EditFlightViewModel();
-            model.Crewmembers = _context.Crewmembers
-                .Join(_context.Qualifications,
-                c => c.CrewmemberID,
-                q => q.CrewmemberID,
-                (c, q) => c);
+            AircraftType type = _context.Flights
+                .Where(fl => fl.FlightID == id)
+                .Include(fl => fl.Ship)
+                .ThenInclude(s => s.AcType)
+                .FirstOrDefault().Ship.AcType;
 
-            return View(model);
+            IEnumerable<CrewAssignmentViewLine> model = (from c in _context.Crewmembers
+                              join q in _context.Qualifications on c.CrewmemberID equals q.CrewmemberID
+                              join t in _context.AircraftTypes on q.AircraftTypeID equals t.AircraftTypeID
+                              where t.AircraftTypeID == type.AircraftTypeID
+                              select new CrewAssignmentViewLine{
+                                  Crewmember = c,
+                                  Position = q.Station
+                              });
+
+
+
+            return View(new CrewAssignmentViewModel {FlightID = (int)id, Lines = model});
         }
 
         // POST: Flights/Edit/5

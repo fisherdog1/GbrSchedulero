@@ -55,7 +55,7 @@ namespace GbrUnitTests
 
                 List<Crewmember> testCrewmembers = new TestCrewBuilder(AircraftType.AllTypes()).Generate(30);
                 //Add an extra qual to one crewmember for testing (Captain NU150)
-                testCrewmembers[0].AddQualification(new CrewQualification(StationType.Captain, types[0]));
+                testCrewmembers[0].AddQualification(new CrewQualification(StationType.Officer, types[1]));
                 context.AddRange(testCrewmembers);
 
                 List<FlightPlan> testPlans = new TestFlightPlanBuilder(airports).Generate(5);

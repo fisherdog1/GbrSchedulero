@@ -10,8 +10,8 @@ namespace GbrSchedulero
     {
         //Primary Key
         public int CrewmemberID { get; set; }
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         //Navigation
         public List<CrewQualification> Qualifications { get; set; }
@@ -23,6 +23,11 @@ namespace GbrSchedulero
             this.LastName = lastName;
 
             Qualifications = new List<CrewQualification>();
+        }
+
+        public Crewmember()
+        {
+
         }
 
         public void AddQualification(CrewQualification qualification)

@@ -1,5 +1,5 @@
 ﻿@using GbrSchedulero
-@model EditFlightViewModel
+@model CrewAssignmentViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -10,6 +10,7 @@
 <div class="row">
     @using (Html.BeginForm("EditFlight", "Flights", FormMethod.Post))
     {
+        <input type="hidden" name="flightId" value="@Model.FlightID" />
         <div class="row">
             <table style="table-layout: fixed; width: 100%;">
                 <colgroup>
@@ -24,20 +25,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (Crewmember c in Model.Crewmembers)
+                    @foreach (CrewAssignmentViewLine line in Model.Lines)
                     {
                         <tr>
                             <td align="center" valign="middle">
-                                @Html.CheckBox("crewmemberID", c.CrewmemberID)
+                                <input type="checkbox" name="crewmemberID" value="@line.Crewmember.CrewmemberID"/>
                             </td>
                             <td>
-                                @c.FirstName
+                                @line.Crewmember.FirstName
                             </td>
                             <td>
-                                @c.LastName
+                                @line.Crewmember.LastName
                             </td>
                             <td>
-                                Position
+                                @line.Position.ToString()
                             </td>
                         </tr>
                     }
