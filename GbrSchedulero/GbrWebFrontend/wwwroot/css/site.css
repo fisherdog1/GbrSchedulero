@@ -185,14 +185,18 @@ ul {
         font-size: 30px;
     }
 
-table, th, td {
-    border: 1px solid black;
+table th, td {
+    font-family: customFont;
+    
 }
 
+tr:nth-child(even) {background-color: #b5f4f6;}
+
 th {
-    font-family: customFont;
+    
     font-weight: bold;
-    color: black;
+    font-size: 14pt;
+    color: white;
     background-color: darkcyan;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -201,8 +205,9 @@ th {
 }
 
 td {
-    font-family: customFont;
+    
     font-weight: lighter;
+    font-size: 12pt;
     color: black;
     padding-top: 5px;
     padding-bottom: 5px;

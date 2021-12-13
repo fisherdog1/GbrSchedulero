@@ -22,7 +22,10 @@ namespace GbrWebFrontend.Controllers
         // GET: Crewmembers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Crewmembers.Include(a => a.Qualifications).ToListAsync());
+            return View(await _context.Crewmembers
+                .Include(a => a.Qualifications)
+                .ThenInclude(q => q.AcType)
+                .ToListAsync());
 
         }
 
@@ -36,7 +39,11 @@ namespace GbrWebFrontend.Controllers
 
             //var crewmember = await _context.Crewmembers
             //.FirstOrDefaultAsync(m => m.CrewmemberID == id);
-            var crewmember = await _context.Crewmembers.Include(b => b.Qualifications).FirstOrDefaultAsync(m => m.CrewmemberID == id);
+            var crewmember = await _context.Crewmembers
+                .Include(b => b.Qualifications)
+                .ThenInclude(q => q.AcType)
+                .FirstOrDefaultAsync(m => m.CrewmemberID == id);
+
             if (crewmember == null)
             {
                 return NotFound();
