@@ -77,9 +77,19 @@ body {
     font-weight: lighter;
 }
 
+.major-para p{
+    font-family: customFont;
+    font-size: 16pt;
+}
+
 h1 {
     font-family: customFont;
     font-weight: bold;
+}
+
+.background img {
+    box-shadow: 10pt 5pt 5pt rgba(0,0,0,0.2);
+
 }
 
 .footer {
@@ -104,24 +114,24 @@ h1 {
     background-position: center;
 }
 
+.navbarText {
+    font-family: customFont;
+    color: darkturquoise;
+}
+
+h1 {
+    color: darkturquoise;
+}
+
 ul {
     float: right;
     list-style-type: none;
-    margin-top: 20px;
+    margin-top: 0px;
 }
-
 
     ul li {
         display: inline-block
     }
-
-        ul li a {
-            text-decoration: none;
-            color: darkblue; /*darkturquoise*/
-            padding: 5px 20px;
-            border: 1px solid transparent;
-            transition: 0.6s ease;
-        }
 
         ul li.active a {
             background-color: darkcyan;
@@ -291,4 +301,12 @@ input[type=return] {
         width: 100%;
         margin-top: 0;
     }
+}
+
+.nav-item {
+    padding-left: 10pt;
+    padding-right: 10pt;
+    font-family: customFont;
+    font-size: 18pt;
+    font-weight: bold;
 }

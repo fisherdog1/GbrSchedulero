@@ -4,37 +4,8 @@
     ViewData["Title"] = "Index";
 }
 <header>
-    <div class="main">
-        <div class="logo">
-            <img src="~/images/airlineicondownload.png" />
-        </div>
-
-
-        <div class="title">
-            <h1>CORNHUSKER AIRWAY-CHA</h1>
-        </div>
-        <br />
-        <ul>
-            <li><a href="/Home">Home</a></li>
-            <li class="active"><a href="/Crewmembers">Crew schedule</a></li>
-            <li><a href="/AboutUs">About Us</a></li>
-            <li><a href="/ContactUs">Contact Us</a></li>
-            <li><a href="/Login">Login</a></li>
-        </ul>
-
-
-    </div>
 </header>
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-
-<h1>Index</h1>
-
+<h1>Crewmember Index</h1>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -50,8 +21,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Qualifications)
             </th>
-
-
             <th></th>
         </tr>
     </thead>
