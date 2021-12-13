@@ -14,8 +14,13 @@ namespace GbrSchedulero
         //Primary key
         public int CrewQualificationID { get; set; }
 
+        //Foreign Key
+        public int CrewmemberID { get; set; }
+        public int AircraftTypeID { get; set; }
+
         //Navigation
-        public AircraftType AcType { get; private set; }
+        public Crewmember Crewmember { get; set; }
+        public AircraftType AircraftType { get; set; }
 
         //Enum
         public StationType Station { get; private set; }
@@ -24,13 +29,14 @@ namespace GbrSchedulero
         public CrewQualification(StationType station, AircraftType acType)
         {
             this.Station = station;
-            this.AcType = acType;
+            this.AircraftType = acType;
         }
 
         public CrewQualification()
         {
 
         }
+
         public bool Qualified(StationType station)
         {
             if (station == StationType.Captain)
@@ -48,11 +54,11 @@ namespace GbrSchedulero
             switch (Station)
             {
                 case StationType.Captain:
-                    return $"Captain, {AcType}";
+                    return $"Captain, {AircraftType}";
                 case StationType.Officer:
-                    return $"First Officer, {AcType}";
+                    return $"First Officer, {AircraftType}";
                 default:
-                    return $"Flight Attendant, {AcType}";
+                    return $"Flight Attendant, {AircraftType}";
             }
         }
     }

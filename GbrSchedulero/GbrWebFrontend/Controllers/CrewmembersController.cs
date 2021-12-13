@@ -24,7 +24,7 @@ namespace GbrWebFrontend.Controllers
         {
             return View(await _context.Crewmembers
                 .Include(a => a.Qualifications)
-                .ThenInclude(q => q.AcType)
+                .ThenInclude(q => q.AircraftType)
                 .ToListAsync());
 
         }
@@ -41,7 +41,7 @@ namespace GbrWebFrontend.Controllers
             //.FirstOrDefaultAsync(m => m.CrewmemberID == id);
             var crewmember = await _context.Crewmembers
                 .Include(b => b.Qualifications)
-                .ThenInclude(q => q.AcType)
+                .ThenInclude(q => q.AircraftType)
                 .FirstOrDefaultAsync(m => m.CrewmemberID == id);
 
             if (crewmember == null)

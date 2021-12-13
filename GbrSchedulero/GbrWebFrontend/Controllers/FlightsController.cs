@@ -66,6 +66,12 @@ namespace GbrWebFrontend.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        public ActionResult EditFlight(IEnumerable<int> crewmemberID)
+        {
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: Flights/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -79,7 +85,15 @@ namespace GbrWebFrontend.Controllers
             {
                 return NotFound();
             }
-            return View(flight);
+
+            EditFlightViewModel model = new EditFlightViewModel();
+            model.Crewmembers = _context.Crewmembers
+                .Join(_context.Qualifications,
+                c => c.CrewmemberID,
+                q => q.CrewmemberID,
+                (c, q) => c);
+
+            return View(model);
         }
 
         // POST: Flights/Edit/5

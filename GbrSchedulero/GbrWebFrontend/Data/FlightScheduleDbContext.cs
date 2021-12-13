@@ -45,6 +45,7 @@ namespace CHA.Data
             builder.Entity<FlightPlan>()
                 .HasOne<Airport>(fp => fp.Origin)
                 .WithMany();
+
             builder.Entity<FlightPlan>()
                 .HasOne<Airport>(fp => fp.Destination)
                 .WithMany();
@@ -56,8 +57,14 @@ namespace CHA.Data
 
             //Crew qualifications can be for one aircraft type
             builder.Entity<CrewQualification>()
-                .HasOne<AircraftType>(cq => cq.AcType)
-                .WithMany();
+                .HasOne(cq => cq.AircraftType)
+                .WithMany()
+                .HasForeignKey(cq => cq.AircraftTypeID);
+
+            builder.Entity<CrewQualification>()
+                .HasOne(cq => cq.Crewmember)
+                .WithMany(c => c.Qualifications)
+                .HasForeignKey(cq => cq.CrewmemberID);
 
             builder.Entity<FlightCrewAssignment>()
                 .HasOne(fa => fa.Flight)

@@ -1,32 +1,60 @@
-﻿@model GbrSchedulero.Flight
+﻿@using GbrSchedulero
+@model EditFlightViewModel
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Flight</h4>
+<h1>Edit Crewmembers</h1>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="FlightID" />
-            <div class="form-group">
-                <label asp-for="Passengers" class="control-label"></label>
-                <input asp-for="Passengers" class="form-control" />
-                <span asp-validation-for="Passengers" class="text-danger"></span>
+    @using (Html.BeginForm("EditFlight", "Flights", FormMethod.Post))
+    {
+        <div class="row">
+            <table style="table-layout: fixed; width: 100%;">
+                <colgroup>
+                    <col span="1" style="width: 32px" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th />
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Crewmember c in Model.Crewmembers)
+                    {
+                        <tr>
+                            <td align="center" valign="middle">
+                                @Html.CheckBox("crewmemberID", c.CrewmemberID)
+                            </td>
+                            <td>
+                                @c.FirstName
+                            </td>
+                            <td>
+                                @c.LastName
+                            </td>
+                            <td>
+                                Position
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="row" style="padding-top: 6pt;">
+            <div class="col-sm">
+                <input type="submit" value="Submit" style="border-radius: 20px; padding-top: 5pt; padding-bottom: 5pt; padding-left: 20pt; padding-right: 20pt" />
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="col-sm">
+                <a asp-action="Index">
+                    <button type="button" class="btn btn-danger" style="border-radius: 20px; padding-top: 5pt; padding-bottom: 5pt; padding-left: 20pt; padding-right: 20pt">Return to Flights</button>
+                </a>
             </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+        </div>
+    }
 </div>
 
 @section Scripts {

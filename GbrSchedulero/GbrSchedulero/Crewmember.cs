@@ -33,7 +33,7 @@ namespace GbrSchedulero
         internal bool Qualified(AircraftType type, StationType position)
         {
             foreach (CrewQualification qual in Qualifications)
-                if (qual.Station == position && qual.AcType == type)
+                if (qual.Station == position && qual.AircraftType == type)
                     return true;
 
             return false;
