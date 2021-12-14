@@ -5,5 +5,5 @@ public class CrewAssignmentViewModel
 {
     public int FlightID;
     public IEnumerable<FlightCrewAssignment> CurrentCrew;
-    public IEnumerable<CrewAssignmentViewLine> Lines;
+    public IEnumerable<CrewQualification> AvailableCrew;
 }

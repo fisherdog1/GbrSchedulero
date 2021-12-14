@@ -65,20 +65,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (CrewAssignmentViewLine line in Model.Lines)
+                    @foreach (CrewQualification line in Model.AvailableCrew)
                     {
                         <tr>
                             <td align="center" valign="middle">
-                                <input type="checkbox" name="qualificationID" value="@line.CrewQual.CrewQualificationID" />
+                                <input type="checkbox" name="qualificationID" value="@line.CrewQualificationID" />
                             </td>
                             <td>
-                                @line.CrewQual.Crewmember.FirstName
+                                @line.Crewmember.FirstName
                             </td>
                             <td>
-                                @line.CrewQual.Crewmember.LastName
+                                @line.Crewmember.LastName
                             </td>
                             <td>
-                                @line.CrewQual.Station.ToString()
+                                @line.Station.ToString()
                             </td>
                         </tr>
                     }

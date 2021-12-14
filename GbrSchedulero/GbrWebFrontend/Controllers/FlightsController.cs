@@ -131,20 +131,18 @@ namespace GbrWebFrontend.Controllers
                 .AsEnumerable();
                 
             //What
-            IEnumerable<CrewAssignmentViewLine> model = (from c in _context.Crewmembers
+            IEnumerable<CrewQualification> model = (from c in _context.Crewmembers
                               join q in _context.Qualifications on c.CrewmemberID equals q.CrewmemberID
                               join t in _context.AircraftTypes on q.AircraftTypeID equals t.AircraftTypeID
                               where t.AircraftTypeID == type.AircraftTypeID
                               orderby q.Station
-                              select new CrewAssignmentViewLine{
-                                  CrewQual = new CrewQualification{
+                              select new CrewQualification {
                                       CrewQualificationID = q.CrewQualificationID,
                                       Station = q.Station,
                                       Crewmember = c
-                                  },
                               });
 
-            return View(new CrewAssignmentViewModel {FlightID = (int)id, Lines = model, CurrentCrew = currentCrew });
+            return View(new CrewAssignmentViewModel {FlightID = (int)id, AvailableCrew = model, CurrentCrew = currentCrew });
         }
 
         // POST: Flights/Edit/5
