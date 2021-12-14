@@ -87,6 +87,11 @@ h1 {
     font-weight: bold;
 }
 
+h2 {
+    font-family: customFont;
+    font-weight: bold;
+}
+
 .background img {
     box-shadow: 10pt 5pt 5pt rgba(0,0,0,0.2);
 

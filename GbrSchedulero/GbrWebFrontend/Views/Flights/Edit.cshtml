@@ -11,6 +11,46 @@
     @using (Html.BeginForm("EditFlight", "Flights", FormMethod.Post))
     {
         <input type="hidden" name="flightId" value="@Model.FlightID" />
+        <br/>
+        <h2>Current Crew</h2>
+        <hr />
+        <div class="row">
+            <table style="table-layout: fixed; width: 100%;">
+                <colgroup>
+                    <col span="1" style="width: 32px" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th />
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (FlightCrewAssignment line in Model.CurrentCrew)
+                    {
+                        <tr>
+                            <td align="center" valign="middle">
+                                R
+                            </td>
+                            <td>
+                                @line.Qualification.Crewmember.FirstName
+                            </td>
+                            <td>
+                                @line.Qualification.Crewmember.LastName
+                            </td>
+                            <td>
+                                @line.Qualification.Station.ToString()
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <h2>Available Crew</h2>
+        <hr />
         <div class="row">
             <table style="table-layout: fixed; width: 100%;">
                 <colgroup>
@@ -29,16 +69,16 @@
                     {
                         <tr>
                             <td align="center" valign="middle">
-                                <input type="checkbox" name="crewmemberID" value="@line.Crewmember.CrewmemberID"/>
+                                <input type="checkbox" name="qualificationID" value="@line.CrewQual.CrewQualificationID" />
                             </td>
                             <td>
-                                @line.Crewmember.FirstName
+                                @line.CrewQual.Crewmember.FirstName
                             </td>
                             <td>
-                                @line.Crewmember.LastName
+                                @line.CrewQual.Crewmember.LastName
                             </td>
                             <td>
-                                @line.Position.ToString()
+                                @line.CrewQual.Station.ToString()
                             </td>
                         </tr>
                     }

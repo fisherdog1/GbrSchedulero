@@ -21,9 +21,10 @@ namespace GbrSchedulero
         //Navigation
         public Crewmember Crewmember { get; set; }
         public AircraftType AircraftType { get; set; }
+        public List<FlightCrewAssignment> Assignments { get; set; }
 
         //Enum
-        public StationType Station { get; private set; }
+        public StationType Station { get; set; }
         //public object AircraftTypes { get; set; }//adding from create CrewmemberController
 
         public CrewQualification(StationType station, AircraftType acType)

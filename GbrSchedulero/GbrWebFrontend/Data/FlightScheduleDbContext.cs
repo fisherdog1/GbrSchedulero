@@ -68,7 +68,7 @@ namespace CHA.Data
 
             builder.Entity<FlightCrewAssignment>()
                 .HasOne(fa => fa.Flight)
-                .WithMany(f => f.Crewmembers)
+                .WithMany(f => f.CrewAssignments)
                 .HasForeignKey(fa => fa.FlightID);
 
             builder.Entity<AssignmentChangeOrder>()

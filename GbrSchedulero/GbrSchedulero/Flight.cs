@@ -22,14 +22,14 @@ namespace GbrSchedulero
         //Navigation
         public Aircraft Ship { get; set; }
         public FlightPlan Plan { get; set; }
-        public List<FlightCrewAssignment> Crewmembers { get; set; }
+        public List<FlightCrewAssignment> CrewAssignments { get; set; }
 
         public Flight(FlightPlan plan, Aircraft ac, int passengers)
         {
             this.Plan = plan;
             this.Ship = ac;
             this.Passengers = passengers;
-            this.Crewmembers = new List<FlightCrewAssignment>();
+            this.CrewAssignments = new List<FlightCrewAssignment>();
 
 
             //Check if crew is suitable. (Extra crewmembers are placed in passenger seats?)
@@ -47,80 +47,44 @@ namespace GbrSchedulero
         /// <returns></returns>
         public bool ValidCrew()
         {
-            //Temp copy of crew assignments so crewmembers can be removed as roles are filled
-            List<FlightCrewAssignment> positionsCopy = new List<FlightCrewAssignment>(Crewmembers);
-            FlightCrewAssignment tempRemove = null;
-
             //Check each position
             foreach (StationType position in Ship.AcType.GetCrewStations())
             {
-                foreach (FlightCrewAssignment assignment in positionsCopy)
-                    if (assignment.Crewmember.Qualified(Ship.AcType, position))
+                bool positionSat = false;
+
+                foreach (FlightCrewAssignment assignment in CrewAssignments)
+                    if (assignment.Qualification.Station == position)
                     {
-                        //Remove the crewmember from the selectable list
-                        tempRemove = assignment;
+                        positionSat = true;
                         break;
                     }
-                    else
-                        tempRemove = null; //Literally does not work without this, do not remove.
 
-                if (tempRemove != null)
-                    positionsCopy.Remove(tempRemove);
-                else
-                    return false; //Missing a crew position
+                if (positionSat == false)
+                    return false;
             }
 
             return true;
         }
 
         /// <summary>
-        /// Assigns the specified crewmember to this flight, produces a change order which must be saved to the database
+        /// Assigns the specified crewmember position to this flight
         /// </summary>
-        /// <param name="crewmember"></param>
-        /// <returns></returns>
-        public void AssignCrewmember(IChangeOrderUpdater updater, Crewmember crewmember)
+        public void AssignCrewmember(CrewQualification position)
         {
-            FlightCrewAssignment newAssignment = new FlightCrewAssignment(this, crewmember);
-            this.Crewmembers.Add(newAssignment);
+            FlightCrewAssignment assignment = new FlightCrewAssignment(this, position);
+            this.CrewAssignments.Add(assignment);
 
-            //TODO: Look up previous assignment, this will surely require some dependency injection
-
-            AssignmentChangeOrder oldOrder = updater.GetExistingChangeOrder(newAssignment);
-            int? oldAssignmentId = null;
-
-            if (oldOrder != null)
-                oldAssignmentId = oldOrder.CurrentAssignment.FlightCrewAssignmentID;
-
-            //Now is temporary, could be different value provided
-            AssignmentChangeOrder changeOrder = new AssignmentChangeOrder(oldAssignmentId, newAssignment.FlightCrewAssignmentID, DateTime.Now);
-
-            updater.ApplyChangeOrderUpdate(changeOrder);
+            //TODO: Doesn't affect ChangeOrders
         }
 
         /// <summary>
-        /// Unassign the provided crewmember, returns null if no such crewmember, returns a change order otherwise.
+        /// Unassign the provided crew position.
         /// </summary>
-        /// <param name="crewmember"></param>
-        /// <returns></returns>
-        public void RemoveCrewmember(IChangeOrderUpdater updater, Crewmember crewmember)
+        public void RemoveCrewmember(CrewQualification position)
         {
-            FlightCrewAssignment currentAssignment = null;
+            CrewAssignments.RemoveAll(pos => pos.Qualification == position);
 
-            foreach (FlightCrewAssignment assignment in Crewmembers)
-                if (assignment.Crewmember.CrewmemberID == crewmember.CrewmemberID)
-                    currentAssignment = assignment;
-
-            //Don't do anything if assignment doesn't exist
-            if (currentAssignment == null)
-                return;
-
-            AssignmentChangeOrder oldOrder = updater.GetExistingChangeOrder(currentAssignment);
-
-            if (oldOrder == null)
-                return;
-
-            AssignmentChangeOrder changeOrder = new AssignmentChangeOrder(oldOrder.CurrentAssignment.FlightCrewAssignmentID, null, DateTime.Now);
-            updater.ApplyChangeOrderUpdate(changeOrder);
+            //TODO: Doesn't affect ChangeOrders
         }
 
         /// <summary>

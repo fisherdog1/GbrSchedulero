@@ -68,7 +68,7 @@ namespace GbrUnitTests
                 Flight testFlight = new Flight(testPlans[0], testAircrafts[0], 20);
                 //testFlight.AssignCrewmember(provider, testCrewmembers[0]);
                 //testFlight.AssignCrewmember(provider, testCrewmembers[1]);
-                testFlight.AssignCrewmember(provider, testCrewmembers[2]);
+                testFlight.AssignCrewmember(testCrewmembers[2].Qualifications[0]);
                 context.Add(testFlight);
                 context.SaveChanges();
 
@@ -76,7 +76,7 @@ namespace GbrUnitTests
                 testFlight = context.Flights.Where(a => a.FlightID == 1).Single();
                 //TODO: Doesn't actually remove
                 //testFlight.RemoveCrewmember(provider, testCrewmembers[0]);
-                testFlight.AssignCrewmember(provider, testCrewmembers[3]);
+                testFlight.AssignCrewmember(testCrewmembers[3].Qualifications[0]);
                 context.Update(testFlight);
 
                 context.SaveChanges();

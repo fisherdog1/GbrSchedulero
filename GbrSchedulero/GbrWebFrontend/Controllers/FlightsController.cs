@@ -27,9 +27,9 @@ namespace GbrWebFrontend.Controllers
             //Huge query
             return View(await _context.Flights
                 .Include(fl => fl.Plan)
-                .Include(fl => fl.Crewmembers)
-                .ThenInclude(e => e.Crewmember)
-                .ThenInclude(c => c.Qualifications)
+                .Include(fl => fl.CrewAssignments)
+                .ThenInclude(a => a.Qualification)
+                .ThenInclude(q => q.Crewmember)
                 .Include(fl => fl.Ship)
                 .ThenInclude(sh => sh.AcType)
                 .ToListAsync());
@@ -71,10 +71,10 @@ namespace GbrWebFrontend.Controllers
         public ActionResult EditFlight(IFormCollection formCollection)
         {
             IEnumerable<int> ids = null;
-            if (!string.IsNullOrEmpty(formCollection["crewmemberID"]))
+            if (!string.IsNullOrEmpty(formCollection["qualificationID"]))
             {
-                string crewmemberIDs = formCollection["crewmemberID"];
-                ids = crewmemberIDs.Split(",").Select(a => int.Parse(a));
+                string qualificationIDs = formCollection["qualificationID"];
+                ids = qualificationIDs.Split(",").Select(a => int.Parse(a));
                 
                 //No selection
                 if (ids == null || ids.Count() == 0)
@@ -85,11 +85,11 @@ namespace GbrWebFrontend.Controllers
             Flight flight = _context.Flights.Where(fl => fl.FlightID == flightId).FirstOrDefault();
 
             //Add crewmembers to flight
-            IEnumerable<Crewmember> crewmembers = _context.Crewmembers.Where(c => ids.Contains(c.CrewmemberID));
+            IEnumerable<CrewQualification> quals = _context.Qualifications.Where(q => ids.Contains(q.CrewQualificationID));
 
-            foreach (Crewmember crewmember in crewmembers)
+            foreach (CrewQualification qual in quals)
             {
-                FlightCrewAssignment assignment = new FlightCrewAssignment(flight, crewmember);
+                FlightCrewAssignment assignment = new FlightCrewAssignment(flight, qual);
                 _context.Add(assignment);
             }
 
@@ -118,18 +118,33 @@ namespace GbrWebFrontend.Controllers
                 .ThenInclude(s => s.AcType)
                 .FirstOrDefault().Ship.AcType;
 
+            //IEnumerable<FlightCrewAssignment> currentCrew = (from q in _context.Qualifications
+            //                  join a in _context.Assignments on q.CrewQualificationID equals a.CrewQualificationID
+            //                  join c in _context.Crewmembers on q.CrewmemberID equals c.CrewmemberID
+            //                  where a.FlightID == (int)id
+            //                  select a);
+
+            IEnumerable<FlightCrewAssignment> currentCrew = _context.Assignments
+                .Where(a => a.FlightID == (int)id)
+                .Include(a => a.Qualification)
+                .ThenInclude(q => q.Crewmember)
+                .AsEnumerable();
+                
+            //What
             IEnumerable<CrewAssignmentViewLine> model = (from c in _context.Crewmembers
                               join q in _context.Qualifications on c.CrewmemberID equals q.CrewmemberID
                               join t in _context.AircraftTypes on q.AircraftTypeID equals t.AircraftTypeID
                               where t.AircraftTypeID == type.AircraftTypeID
+                              orderby q.Station
                               select new CrewAssignmentViewLine{
-                                  Crewmember = c,
-                                  Position = q.Station
+                                  CrewQual = new CrewQualification{
+                                      CrewQualificationID = q.CrewQualificationID,
+                                      Station = q.Station,
+                                      Crewmember = c
+                                  },
                               });
 
-
-
-            return View(new CrewAssignmentViewModel {FlightID = (int)id, Lines = model});
+            return View(new CrewAssignmentViewModel {FlightID = (int)id, Lines = model, CurrentCrew = currentCrew });
         }
 
         // POST: Flights/Edit/5

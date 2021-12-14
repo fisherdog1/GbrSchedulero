@@ -14,19 +14,18 @@ namespace GbrSchedulero
 
         //Foreign Key
         public int FlightID { get; set; }
-        public int CrewmemberID { get; set; }
+        public int CrewQualificationID { get; set; }
 
         //Navigation
         public Flight Flight { get; set; }
-        public Crewmember Crewmember { get; set; }
-
+        public CrewQualification Qualification { get; set; }
         public AssignmentChangeOrder ChangeOrder { get; set; }
 
 
-        public FlightCrewAssignment(Flight flight, Crewmember crewmember)
+        public FlightCrewAssignment(Flight flight, CrewQualification qualification)
         {
             this.Flight = flight;
-            this.Crewmember = crewmember;
+            this.Qualification = qualification;
         }
         public FlightCrewAssignment()
         {

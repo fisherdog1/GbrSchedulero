@@ -15,7 +15,6 @@ namespace GbrSchedulero
 
         //Navigation
         public List<CrewQualification> Qualifications { get; set; }
-        public List<FlightCrewAssignment> Flights { get; set; }
 
         public Crewmember(string firstName, string lastName)
         {
