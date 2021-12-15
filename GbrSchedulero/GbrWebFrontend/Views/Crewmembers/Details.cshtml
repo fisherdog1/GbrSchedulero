@@ -1,4 +1,5 @@
-﻿@model GbrSchedulero.Crewmember
+﻿@using GbrSchedulero
+@model Crewmember
 
 @{
     ViewData["Title"] = "Details";
@@ -7,6 +8,61 @@
 <h1>Crewmember Details</h1>
 <hr />
 <div>
+    @if (Model.Assignments().Count() == 0)
+    {
+        <h2>No Current Assignments</h2>
+        <hr />
+    }
+    else
+    {
+        <h2>Current Assignments</h2>
+        <hr />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Flight
+                    </th>
+                    <th>
+                        Position
+                    </th>
+                    <th>
+                        Departs
+                    </th>
+                    <th>
+                        Arrives
+                    </th>
+                    <th>
+                        Duty Hours
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (FlightCrewAssignment assignment in Model.Assignments())
+                {
+                    <tr>
+                        <td>
+                            @assignment.Flight.Plan.FlightNumber
+                        </td>
+                        <td>
+                            @assignment.Qualification.Station.ToString()
+                        </td>
+                        <td>
+                            @assignment.Flight.Plan.DepartureTime
+                        </td>
+                        <td>
+                            @assignment.Flight.Plan.ArrivalTime
+                        </td>
+                        <td>
+                            @assignment.Flight.Plan.GetTotalTimeEnroute().ToString(@"hh\:mm\:ss")
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FirstName)

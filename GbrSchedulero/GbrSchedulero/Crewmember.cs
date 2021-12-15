@@ -29,6 +29,19 @@ namespace GbrSchedulero
 
         }
 
+        /// <summary>
+        /// Return the assignments made for this crewmember
+        /// </summary>
+        public IEnumerable<FlightCrewAssignment> Assignments()
+        {
+            List<FlightCrewAssignment> assignments = new List<FlightCrewAssignment>();
+
+            foreach (CrewQualification qual in Qualifications)
+                assignments.AddRange(qual.Assignments);
+
+            return assignments;
+        }
+
         public void AddQualification(CrewQualification qualification)
         {
             this.Qualifications.Add(qualification);

@@ -37,11 +37,21 @@ namespace GbrWebFrontend.Controllers
                 return NotFound();
             }
 
-            //var crewmember = await _context.Crewmembers
-            //.FirstOrDefaultAsync(m => m.CrewmemberID == id);
+            //Get crewmember, qualification aircraft types
+            //Also get assignments
             var crewmember = await _context.Crewmembers
                 .Include(b => b.Qualifications)
                 .ThenInclude(q => q.AircraftType)
+                .Include(b => b.Qualifications)
+                .ThenInclude(q => q.Assignments)
+                .ThenInclude(a => a.Flight)
+                .ThenInclude(f => f.Plan)
+                .ThenInclude(p => p.Origin)
+                .Include(b => b.Qualifications)
+                .ThenInclude(q => q.Assignments)
+                .ThenInclude(a => a.Flight)
+                .ThenInclude(f => f.Plan)
+                .ThenInclude(p => p.Destination)
                 .FirstOrDefaultAsync(m => m.CrewmemberID == id);
 
             if (crewmember == null)
