@@ -31,10 +31,10 @@ To launch the webserver, click "IIS Express" from the debug toolbar in Visual St
 
 # Dependencies
 
-Newtonsoft.Json 13.0.1 (Only used for unit testing)
-MySqlConnector 2.1.0
-Entity Framework Core 5.0.12 (SqlServer and Tools)
-MySql EntityFrameworkCore 5.0.8
-Bootstrap 5.1.2 (For flex features and layout on webpages)
-
+Newtonsoft.Json 13.0.1 (Only used for unit testing)\
+MySqlConnector 2.1.0\
+Entity Framework Core 5.0.12 (SqlServer and Tools)\
+MySql EntityFrameworkCore 5.0.8\
+Bootstrap 5.1.2 (For flex features and layout on webpages)\
+\
 Entity Framework Core Triggers is included but not used.
