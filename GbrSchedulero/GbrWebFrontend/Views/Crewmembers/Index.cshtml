@@ -1,0 +1,55 @@
+﻿@model IEnumerable<GbrSchedulero.Crewmember>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<header>
+</header>
+<h1>Crewmember Index</h1>
+<hr />
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Qualifications)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @foreach (var qual in item.Qualifications)
+                    {
+                        string qualText = qual.ToString();
+                        @Html.DisplayFor(m => qualText)
+                        @Html.Raw("<br/>")
+                    }
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CrewmemberID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.CrewmemberID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CrewmemberID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,103 @@
+﻿@using GbrSchedulero
+@model CrewAssignmentViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit Crewmembers</h1>
+<hr />
+<div class="row">
+    @using (Html.BeginForm("EditFlight", "Flights", FormMethod.Post))
+    {
+        <input type="hidden" name="flightId" value="@Model.FlightID" />
+        <br/>
+        <h2>Current Crew</h2>
+        <hr />
+        <div class="row">
+            <table style="table-layout: fixed; width: 100%;">
+                <colgroup>
+                    <col span="1" style="width: 32px" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th />
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (FlightCrewAssignment line in Model.CurrentCrew)
+                    {
+                        <tr>
+                            <td align="center" valign="middle">
+                                R
+                            </td>
+                            <td>
+                                @line.Qualification.Crewmember.FirstName
+                            </td>
+                            <td>
+                                @line.Qualification.Crewmember.LastName
+                            </td>
+                            <td>
+                                @line.Qualification.Station.ToString()
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <h2>Available Crew</h2>
+        <hr />
+        <div class="row">
+            <table style="table-layout: fixed; width: 100%;">
+                <colgroup>
+                    <col span="1" style="width: 32px" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th />
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (CrewQualification line in Model.AvailableCrew)
+                    {
+                        <tr>
+                            <td align="center" valign="middle">
+                                <input type="checkbox" name="qualificationID" value="@line.CrewQualificationID" />
+                            </td>
+                            <td>
+                                @line.Crewmember.FirstName
+                            </td>
+                            <td>
+                                @line.Crewmember.LastName
+                            </td>
+                            <td>
+                                @line.Station.ToString()
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="row" style="padding-top: 6pt;">
+            <div class="col-sm">
+                <input type="submit" value="Submit" style="border-radius: 20px; padding-top: 5pt; padding-bottom: 5pt; padding-left: 20pt; padding-right: 20pt" />
+            </div>
+            <div class="col-sm">
+                <a asp-action="Index">
+                    <button type="button" class="btn btn-danger" style="border-radius: 20px; padding-top: 5pt; padding-bottom: 5pt; padding-left: 20pt; padding-right: 20pt">Return to Flights</button>
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

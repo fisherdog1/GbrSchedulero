@@ -8,38 +8,52 @@ namespace GbrSchedulero
 {
     public class Crewmember
     {
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        private List<CrewQualification> qualifications;
+        //Primary Key
+        public int CrewmemberID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
+        //Navigation
+        public List<CrewQualification> Qualifications { get; set; }
 
         public Crewmember(string firstName, string lastName)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
 
-            qualifications = new List<CrewQualification>();
+            Qualifications = new List<CrewQualification>();
+        }
+
+        public Crewmember()
+        {
+
+        }
+
+        /// <summary>
+        /// Return the assignments made for this crewmember
+        /// </summary>
+        public IEnumerable<FlightCrewAssignment> Assignments()
+        {
+            List<FlightCrewAssignment> assignments = new List<FlightCrewAssignment>();
+
+            foreach (CrewQualification qual in Qualifications)
+                assignments.AddRange(qual.Assignments);
+
+            return assignments;
         }
 
         public void AddQualification(CrewQualification qualification)
         {
-            this.qualifications.Add(qualification);
+            this.Qualifications.Add(qualification);
         }
 
-        /// <summary>
-        /// Returns which (if any) crew stations this Crewmember can be assigned on the given aircraft type
-        /// </summary>
-        /// <returns></returns>
-        public List<CrewStation> PossibleAssignments(AircraftType acType)
+        internal bool Qualified(AircraftType type, StationType position)
         {
-            List<CrewStation> stations = new List<CrewStation>();
+            foreach (CrewQualification qual in Qualifications)
+                if (qual.Station == position && qual.AircraftType == type)
+                    return true;
 
-            foreach (CrewQualification qual in qualifications)
-                if (qual.AcType == acType)
-                    foreach (CrewStation station in acType.GetCrewStations())
-                        if (station.Qualified(qual.Station))
-                            stations.Add(station);
-
-            return stations;
+            return false;
         }
 
         /// <summary>
@@ -85,7 +99,7 @@ namespace GbrSchedulero
         {
             string str = $"{LastName}, {FirstName}\n";
 
-            foreach (CrewQualification qual in qualifications)
+            foreach (CrewQualification qual in Qualifications)
             {
                 str += "    " + qual + "\n";
             }

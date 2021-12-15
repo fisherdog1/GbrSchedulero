@@ -16,31 +16,33 @@ namespace GbrSchedulero
     /// Provisionally abstract for outlining purposes. Will most likely become concrete later
     /// Return types and parameters with type Object indicate undecided types.
     /// </summary>
-    public class AircraftType
+    public class AircraftType : IEquatable<AircraftType>
     {
+        //Primary Key
+        public int AircraftTypeID { get; set; }
         public string TypeName { get; private set; }
         public int MaxPassengers { get; private set; }
-        private List<CrewStation> stations;
+        public ICollection<StationType> Stations;
 
         public AircraftType(string typeName, int maxPassengers)
         {
             this.TypeName = typeName;
             this.MaxPassengers = maxPassengers;
-            this.stations = new List<CrewStation>();
+            this.Stations = new List<StationType>();
         }
 
-        public void AddStation(CrewStation station)
+        public void AddStation(StationType station)
         {
-            this.stations.Add(station);
+            this.Stations.Add(station);
         }
 
         public static AircraftType GBR10()
         {
             AircraftType gbr10 = new AircraftType("GBR-10", 45);
 
-            gbr10.AddStation(new CrewStation(StationType.Captain));
-            gbr10.AddStation(new CrewStation(StationType.Officer));
-            gbr10.AddStation(new CrewStation(StationType.Attendant));
+            gbr10.AddStation(StationType.Captain);
+            gbr10.AddStation(StationType.Officer);
+            gbr10.AddStation(StationType.Attendant);
 
             return gbr10;
         }
@@ -49,30 +51,45 @@ namespace GbrSchedulero
         {
             AircraftType nu150 = new AircraftType("NU-150", 75);
 
-            nu150.AddStation(new CrewStation(StationType.Captain));
-            nu150.AddStation(new CrewStation(StationType.Officer));
-            nu150.AddStation(new CrewStation(StationType.Attendant));
-            nu150.AddStation(new CrewStation(StationType.Attendant));
+            nu150.AddStation(StationType.Captain);
+            nu150.AddStation(StationType.Officer);
+            nu150.AddStation(StationType.Attendant);
+            nu150.AddStation(StationType.Attendant);
 
             return nu150;
         }
 
+        private static AircraftType[] singletonAircraftTypes;
+        public static AircraftType[] AllTypes()
+        {
+            if (singletonAircraftTypes == null)
+                singletonAircraftTypes = new AircraftType[] { NU150(), GBR10() };
+
+            return singletonAircraftTypes;
+        }
+
         //public abstract int GetPassengerSeats();
         //public abstract string GetTypeName();
-        
+
         /// <summary>
         /// Get the possible crew stations. In our case this will always be a captain and first officer station, plus one or more attendant stations.
         /// Crew qualifications are based on both the AircraftType and the station (implementation tbd).
         /// </summary>
         /// <returns></returns>
-        public List<CrewStation> GetCrewStations()
+        public ICollection<StationType> GetCrewStations()
         {
-            return stations;
+            return Stations;
         }
 
         public override string ToString()
         {
             return TypeName;
+        }
+
+        //This might be neccessary to stop EF creating duplicate types?
+        public bool Equals(AircraftType other)
+        {
+            return this.TypeName == other.TypeName;
         }
     }
 }

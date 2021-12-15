@@ -14,12 +14,14 @@ namespace GbrUnitTests
     /// <summary>
     /// Builds arbitrary Crewmembers
     /// </summary>
-    class TestCrewBuilder
+    class TestCrewBuilder : ITestDataGenerator<Crewmember>
     {
         List<string> firstNames;
         List<string> lastNames;
 
-        public TestCrewBuilder()
+        private AircraftType[] types;
+
+        public TestCrewBuilder(AircraftType[] types)
         {
             firstNames = new List<string>();
             lastNames = new List<string>();
@@ -45,6 +47,7 @@ namespace GbrUnitTests
                 } while (current.Next != null);
             }
 
+            this.types = types;
             //Get names
         }
 
@@ -52,16 +55,13 @@ namespace GbrUnitTests
         /// Generate a random list of crewmembers
         /// </summary>
         /// <returns></returns>
-        public List<Crewmember> GenerateCrews()
+        public List<Crewmember> Generate(int count)
         {
             List<Crewmember> crewmembers = new List<Crewmember>();
 
-            AircraftType typeGR10 = AircraftType.GBR10();
-            AircraftType typeN150 = AircraftType.NU150();
+            Random r = new Random(1337*count);
 
-            Random r = new Random(1337);
-
-            for (int i = 0; i < 42; i++)
+            for (int i = 0; i < count; i++)
             {
                 Crewmember crewmember = new Crewmember(
                     firstNames[r.Next(firstNames.Count)], 
@@ -71,25 +71,28 @@ namespace GbrUnitTests
                 AircraftType ac;
 
                 if (acType == 2)
-                    ac = typeN150;
+                    ac = types[0];
                 else
-                    ac = typeGR10;
+                    ac = types[1];
 
-                int crewType = r.Next(7);
-                CrewStation cs;
+                StationType stationType;
 
-                if (crewType >= 5)
-                    cs = new CrewStation(StationType.Captain);
-                else if (crewType >= 3)
-                    cs = new CrewStation(StationType.Officer);
+                int a = r.Next(3);
+
+                if (a == 2)
+                    stationType = StationType.Captain;
+                else if (a == 1)
+                    stationType = StationType.Officer;
                 else
-                    cs = new CrewStation(StationType.Attendant);
+                    stationType = StationType.Attendant;
 
-                crewmember.AddQualification(new CrewQualification(cs, ac));
+                crewmember.AddQualification(new CrewQualification(stationType, ac));
                 crewmembers.Add(crewmember);
             }
 
             return crewmembers;
         }
+
+        
     }
 }
